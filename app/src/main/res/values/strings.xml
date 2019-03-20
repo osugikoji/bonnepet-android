@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Lar Do Pet</string>
+
+    <string name="title_activity_register">Cadastrar</string>
+
+    <!-- Bottom Menu -->
+    <string name="title_search">Buscar</string>
+    <string name="title_reservations">Reservas</string>
+    <string name="title_pet">Pet</string>
+    <string name="title_menu">Menu</string>
+
+    <!-- Login -->
+    <string name="facebook_login">ENTRAR COM FACEBOOK</string>
+    <string name="login">ENTRAR</string>
+    <string name="create_account">Não tem conta? Crie agora!</string>
+    <string name="or">OU</string>
+
+    <!-- Titulo de cada fragment da MainActivity -->
+    <string name="search_accommodation">Encontre Hospedagem</string>
+    <string name="my_revervations">Minhas Reservas</string>
+    <string name="my_pets">Meus Pets</string>
+    <string name="menu">Menu</string>
+    <string name="get_in">Entrar</string>
+
+    <!-- Form -->
+    <string name="personal_info">Dados Pessoais</string>
+    <string name="address">Endereço</string>
+    <string name="name">Nome</string>
+    <string name="email">Email</string>
+    <string name="birth_date">Data de nascimento</string>
+    <string name="gender">Gênero:</string>
+    <string name="gender_man">Masculino</string>
+    <string name="gender_woman">Feminino</string>
+    <string name="cell_phone">Telefone Celular</string>
+    <string name="telephone">Telefone Residencial</string>
+    <string name="password">Senha</string>
+    <string name="optional">Opcional</string>
+    <string name="cep">CEP</string>
+    <string name="street">Rua</string>
+    <string name="district">Bairro</string>
+    <string name="city">Cidade</string>
+    <string name="state">Estado</string>
+    <string name="number">Número</string>
+    <string name="forgot_cep"><u>Esqueceu seu cep?</u></string>
+
+</resources>
