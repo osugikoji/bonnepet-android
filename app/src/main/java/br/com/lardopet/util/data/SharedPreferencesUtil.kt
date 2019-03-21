@@ -3,7 +3,7 @@ import android.content.SharedPreferences
 
 object SharedPreferencesUtil {
 
-    private const val FILE_NAME = "br.com.vamos.prefs"
+    private const val FILE_NAME = "br.com.lardopet.prefs"
 
     private const val MODE = Context.MODE_PRIVATE
 

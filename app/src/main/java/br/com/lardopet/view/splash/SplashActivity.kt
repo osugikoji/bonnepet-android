@@ -1,10 +1,11 @@
-package br.com.lardopet.view
+package br.com.lardopet.view.splash
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import br.com.lardopet.R
 import br.com.lardopet.view.base.BaseActivity
+import br.com.lardopet.view.main.MainActivity
 
 private const val SPLASH_TIME_OUT = 3000
 

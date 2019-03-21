@@ -1,6 +1,6 @@
-package br.com.lardopet.data.config
+package br.com.lardopet.config
 
-import br.com.lardopet.session.SessionManager
+import br.com.lardopet.data.session.SessionManager
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

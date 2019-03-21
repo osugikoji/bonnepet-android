@@ -1,4 +1,4 @@
-package br.com.lardopet.util
+package br.com.lardopet.util.extension
 
 import android.text.Editable
 import android.text.TextWatcher

@@ -1,10 +1,10 @@
-package br.com.lardopet.view
+package br.com.lardopet.view.main
 
 import android.os.Bundle
 import android.widget.TextView
 import br.com.lardopet.R
-import br.com.lardopet.session.SessionManager
-import br.com.lardopet.util.replaceFragment
+import br.com.lardopet.data.session.SessionManager
+import br.com.lardopet.util.extension.replaceFragment
 import br.com.lardopet.view.base.BaseActivity
 import br.com.lardopet.view.login.LoginFragment
 import br.com.lardopet.view.search.SearchFragment

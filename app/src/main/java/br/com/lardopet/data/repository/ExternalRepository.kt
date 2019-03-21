@@ -1,7 +1,7 @@
 package br.com.lardopet.data.repository
 
 import br.com.lardopet.data.api.ExternalApi
-import br.com.lardopet.data.config.RetrofitConfig
+import br.com.lardopet.config.RetrofitConfig
 import br.com.lardopet.data.model.AddressDTO
 import br.com.lardopet.util.SchedulerProvider
 import io.reactivex.Single

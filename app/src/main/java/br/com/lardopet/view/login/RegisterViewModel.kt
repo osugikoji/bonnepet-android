@@ -25,7 +25,7 @@ class RegisterViewModel : ViewModel() {
     fun address(): LiveData<AddressDTO> = address
 
     /**
-     *  Obtém o endereço
+     *  Obtém o endereço através do [cep]
      */
     fun getAddress(cep: String) {
         if (cep.length == 8) {

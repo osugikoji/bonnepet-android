@@ -1,4 +1,4 @@
-package br.com.lardopet.util
+package br.com.lardopet.util.extension
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
