@@ -23,6 +23,8 @@
     <string name="get_in">Entrar</string>
 
     <!-- Form -->
+    <string name="profile_picture_title">Foto do seu perfil</string>
+    <string name="profile_picture_description">Use uma foto em alta resolução e bem iluminada do seu rosto. Evite fotos com óculos escuros</string>
     <string name="personal_info">Dados Pessoais</string>
     <string name="address">Endereço</string>
     <string name="name">Nome</string>

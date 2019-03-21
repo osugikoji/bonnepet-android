@@ -6,12 +6,16 @@
     <color name="color_accent">#00b2b6</color>
     <color name="facebook_color">#4267b2</color>
 
+    <!-- TextView -->
+    <color name="text_view">#757575</color>
+    <color name="text_view_info">#aaaaaa</color>
+
+    <!-- EditText -->
     <color name="text_hint">#aaaaaa</color>
     <color name="color_control_normal">#757575</color>
-    <color name="text_view">#000000</color>
+    <color name="text_color">#000</color>
 
     <color name="white">#FFF</color>
-    <color name="black">#000</color>
     <color name="dark_gray">#757575</color>
     <color name="red">#ffff0000</color>
     <color name="light_gray">#dcdcdc</color>

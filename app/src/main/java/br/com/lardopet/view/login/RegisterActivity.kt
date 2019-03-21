@@ -1,5 +1,6 @@
 package br.com.lardopet.view.login
 
+import Link
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,7 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.lardopet.R
 import br.com.lardopet.data.model.AddressDTO
-import br.com.lardopet.util.onTextChanged
+import br.com.lardopet.util.extension.image
+import br.com.lardopet.util.extension.onTextChanged
 import br.com.lardopet.view.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -21,18 +23,21 @@ class RegisterActivity : BaseActivity() {
 
     private val cepLink by lazy { forgot_cep_link }
 
+    private val profileImage by lazy { profile_image }
     private val inputDistrict by lazy { input_district }
     private val inputStreet by lazy { input_street }
     private val inputState by lazy { input_state }
     private val inputCity by lazy { input_city }
 
+    private val pictureLayout by lazy { picture_layout }
     private val inputLayoutDistrict by lazy { input_layout_district }
     private val inputLayoutStreet by lazy { input_layout_street }
     private val inputLayoutState by lazy { input_layout_state }
     private val inputLayoutCity by lazy { input_layout_city }
 
     override fun onPrepareActivity(state: Bundle?) {
-        cepLink.setOnClickListener { redirectToBuscaCep() }
+        pictureLayout.setOnClickListener { openGallery() }
+        cepLink.setOnClickListener { redirectToSearchCep() }
         inputCep.onTextChanged { registerViewModel.getAddress(it) }
 
         registerViewModel.onAddressRequest().observe(this, Observer {
@@ -42,6 +47,28 @@ class RegisterActivity : BaseActivity() {
         registerViewModel.address().observe(this, Observer { address ->
             setEditTextAddress(address)
         })
+    }
+
+    /**
+     *  Abre o menu de opcoes da galeria
+     */
+    private fun openGallery() {
+        val mimeTypes = arrayOf("image/jpeg", "image/png")
+        val intent = Intent(Intent.ACTION_PICK).apply {
+            type = "image/*"
+            putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+        }
+        startActivityForResult(intent, RequestCode.GALLERY)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK) {
+            when(requestCode) {
+                RequestCode.GALLERY -> profileImage.setImageBitmap(data?.image(this))
+            }
+        }
     }
 
     /**
@@ -104,7 +131,7 @@ class RegisterActivity : BaseActivity() {
     /**
      *  Redireciona para o site do correios
      */
-    private fun redirectToBuscaCep() {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Link.CORREIOS_CEP)))
+    private fun redirectToSearchCep() {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Link.SEARCH_CEP)))
     }
 }

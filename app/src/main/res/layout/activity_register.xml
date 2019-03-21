@@ -25,7 +25,7 @@
                           android:id="@+id/linear"
                           android:layout_marginTop="24dp"
                           android:layout_width="match_parent"
-                          android:layout_height="match_parent"
+                          android:layout_height="wrap_content"
                           android:orientation="vertical">
 
                 <TextView
@@ -34,9 +34,56 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="16dp"
                     android:text="@string/personal_info"
-                    app:fontFamily="@font/montserrat_regular"
-                    android:textSize="24sp"
+                    android:textSize="26sp"
                     android:textColor="@color/text_view"/>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/picture_layout"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:selectableItemBackground">
+
+                    <RelativeLayout
+                        android:layout_width="365sp"
+                        android:layout_height="wrap_content">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/profile_image"
+                            android:layout_width="96dp"
+                            android:layout_height="96dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginBottom="20dp"
+                            android:src="@drawable/ic_user"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/profile_image_title"
+                            android:layout_marginTop="20dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="16dp"
+                            android:layout_toRightOf="@+id/profile_image"
+                            android:text="@string/profile_picture_title"
+                            android:textSize="15sp"
+                            android:textColor="@color/text_view"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_below="@+id/profile_image_title"
+                            android:layout_toRightOf="@+id/profile_image"
+                            android:text="@string/profile_picture_description"
+                            android:textSize="13sp"
+                            android:textColor="@color/text_view_info"/>
+
+                    </RelativeLayout>
+                </FrameLayout>
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -51,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/name"
                         android:inputType="text"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -66,7 +113,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/email"
                         android:inputType="textEmailAddress"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -81,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/birth_date"
                         android:inputType="number"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <RadioGroup
@@ -95,8 +142,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/gender"
-                        android:textSize="20sp"
-                        android:textColor="@color/text_hint"/>
+                        android:textSize="18sp"
+                        android:textColor="@color/text_view"/>
 
                     <androidx.appcompat.widget.AppCompatRadioButton
                         android:layout_width="wrap_content"
@@ -127,7 +174,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/cell_phone"
                         android:inputType="phone"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -141,7 +188,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/telephone"
                         android:inputType="phone"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -160,8 +207,7 @@
                     android:layout_marginBottom="16dp"
                     android:layout_gravity="center"
                     android:text="@string/address"
-                    app:fontFamily="@font/montserrat_regular"
-                    android:textSize="24sp"
+                    android:textSize="26sp"
                     android:textColor="@color/text_view"/>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -175,7 +221,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/cep"
                         android:inputType="number"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_color"
                         android:maxLength="8"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -202,7 +248,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/district"
                         android:inputType="text"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -218,8 +264,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/street"
                         android:inputType="text"
-                        android:textColor="@color/black"
-                        android:enabled="false"/>
+                        android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -233,8 +278,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/number"
-                        android:inputType="text"
-                        android:textColor="@color/black"/>
+                        android:inputType="number"
+                        android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -250,7 +295,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/state"
                         android:inputType="text"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -266,7 +311,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/city"
                         android:inputType="text"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
