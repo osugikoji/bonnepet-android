@@ -8,14 +8,10 @@
     android:layout_height="match_parent"
     tools:context=".view.main.MainActivity">
 
-    <include
-        layout="@layout/tool_bar_transparent"/>
-
     <FrameLayout
         android:id="@+id/fragment_content"
-        android:layout_width="0dp"
-        android:layout_height="620dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="672dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

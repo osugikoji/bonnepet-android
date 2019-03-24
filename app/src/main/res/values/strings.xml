@@ -16,7 +16,7 @@
     <string name="or">OU</string>
 
     <!-- Titulo de cada fragment da MainActivity -->
-    <string name="search_accommodation">Encontre Hospedagem</string>
+    <string name="search_accommodation">Buscar Por Lar</string>
     <string name="my_revervations">Minhas Reservas</string>
     <string name="my_pets">Meus Pets</string>
     <string name="menu">Menu</string>
@@ -44,5 +44,8 @@
     <string name="state">Estado</string>
     <string name="number">Número</string>
     <string name="forgot_cep"><u>Esqueceu seu cep?</u></string>
+
+    <!-- Generic Messages -->
+    <string name="generic_request_error">Não foi possível executar a requisição</string>
 
 </resources>

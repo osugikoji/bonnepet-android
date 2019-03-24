@@ -16,11 +16,7 @@ class MainActivity : BaseActivity() {
 
     private val fragmentContent by lazy { fragment_content.id }
 
-    private val toolbar by lazy { this.findViewById(R.id.toolbar_title) as TextView }
-
     override fun onPrepareActivity(state: Bundle?) {
-        hideActionBarDisplayHome()
-        toolbar.text = getString(R.string.search_accommodation)
         replaceFragment(SearchFragment(), fragmentContent)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
@@ -32,42 +28,34 @@ class MainActivity : BaseActivity() {
         if (SessionManager.isLoggedIn()) {
             when (item.itemId) {
                 R.id.navigation_search -> {
-                    toolbar.text = getString(R.string.search_accommodation)
                     replaceFragment(SearchFragment(), fragmentContent)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_reservations -> {
-                    toolbar.text = getString(R.string.my_revervations)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_pet -> {
-                    toolbar.text = getString(R.string.my_pets)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_menu -> {
-                    toolbar.text = getString(R.string.menu)
                     return@OnNavigationItemSelectedListener true
                 }
             }
         } else {
             when (item.itemId) {
                 R.id.navigation_search -> {
-                    toolbar.text = getString(R.string.search_accommodation)
                     replaceFragment(SearchFragment(), fragmentContent)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_reservations -> {
-                    toolbar.text = getString(R.string.get_in)
                     replaceFragment(LoginFragment(), fragmentContent)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_pet -> {
-                    toolbar.text = getString(R.string.get_in)
                     replaceFragment(LoginFragment(), fragmentContent)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_menu -> {
-                    toolbar.text = getString(R.string.get_in)
                     replaceFragment(LoginFragment(), fragmentContent)
                     return@OnNavigationItemSelectedListener true
                 }
