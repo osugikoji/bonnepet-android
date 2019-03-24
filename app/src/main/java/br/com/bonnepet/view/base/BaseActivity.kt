@@ -1,6 +1,7 @@
 package br.com.bonnepet.view.base
 
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
@@ -8,6 +9,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import br.com.bonnepet.R
+import br.com.bonnepet.util.extension.isVisible
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -58,6 +60,26 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    /**
+     * Mostra o progress bar da view, caso ele exista
+     */
+    protected open fun showLoading() {
+        val view = findViewById<View>(R.id.progress_bar)
+        if (view != null) {
+            view.isVisible = true
+        }
+    }
+
+    /**
+     * Esconde o progress bar da view, caso ele exista
+     */
+    protected open fun hideLoading() {
+        val view = findViewById<View>(R.id.progress_bar)
+        if (view != null) {
+            view.isVisible = false
+        }
     }
 }
 

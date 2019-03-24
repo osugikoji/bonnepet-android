@@ -9,3 +9,12 @@ fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
     }
     setOnClickListener(safeClickListener)
 }
+
+/**
+ * Muda a visibilidade da View para Visible ou Gone
+ */
+inline var View.isVisible: Boolean
+    get() = visibility == View.VISIBLE
+    set(value) {
+        visibility = if (value) View.VISIBLE else View.GONE
+    }

@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.AddressDTO
+import br.com.bonnepet.data.model.UserDTO
 import br.com.bonnepet.util.extension.image
 import br.com.bonnepet.util.extension.afterTextChanged
 import br.com.bonnepet.util.extension.setSafeOnClickListener
@@ -27,6 +28,7 @@ class RegisterActivity : BaseActivity() {
     private val inputName by lazy { input_name }
     private val inputBirthDate by lazy { input_birth_date }
     private val inputCellphone by lazy { input_cell_phone }
+    private val inputTelephone by lazy { input_telephone }
 
     private val inputCep by lazy { input_cep }
     private val inputDistrict by lazy { input_district }
@@ -66,6 +68,15 @@ class RegisterActivity : BaseActivity() {
         registerViewModel.address().observe(this, Observer { address ->
             setEditTextAddress(address)
         })
+
+        registerViewModel.userRegisterRequestResult().observe(this, Observer { result ->
+            hideLoading()
+            if (result) showToast("Cadastro efetuado com sucesso")
+        })
+
+        registerViewModel.errorMessage().observe(this, Observer { errorMessage ->
+            showToast(errorMessage)
+        })
     }
 
     /**
@@ -73,7 +84,22 @@ class RegisterActivity : BaseActivity() {
      */
     private fun doRegister() {
         if (validateInputs()) {
-
+            val userDTO = UserDTO(
+                inputEmail.text.toString(),
+                inputName.text.toString(),
+                inputPassword.text.toString(),
+                inputBirthDate.text.toString(),
+                inputCellphone.text.toString(),
+                inputTelephone.text.toString(),
+                inputCep.text.toString(),
+                inputStreet.text.toString(),
+                inputNumber.text.toString(),
+                inputDistrict.text.toString(),
+                inputCity.text.toString(),
+                inputState.text.toString()
+            )
+            showLoading()
+            registerViewModel.doRegister(userDTO)
         }
     }
 

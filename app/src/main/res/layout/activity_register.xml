@@ -237,36 +237,44 @@
                         android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/input_layout_street"
-                    style="@style/TextInputLayoutAppearance.OutlineBox"
-                    android:layout_marginBottom="16dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_street"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/input_layout_street"
+                        style="@style/TextInputLayoutAppearance.OutlineBox"
+                        android:layout_marginBottom="16dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_street"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/street"
+                            android:inputType="text"
+                            android:textColor="@color/text_color"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/street"
-                        android:inputType="text"
-                        android:textColor="@color/text_color"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                        style="@style/TextInputLayoutAppearance.OutlineBox"
+                        android:layout_toRightOf="@+id/input_layout_street"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="16dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/TextInputLayoutAppearance.OutlineBox"
-                    android:layout_marginBottom="16dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/number"
+                            android:inputType="number"
+                            android:textColor="@color/text_color"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_number"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/number"
-                        android:inputType="number"
-                        android:textColor="@color/text_color"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                </RelativeLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"

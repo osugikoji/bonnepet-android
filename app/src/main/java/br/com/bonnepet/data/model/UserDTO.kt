@@ -1,19 +1,20 @@
 package br.com.bonnepet.data.model
 
-import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-data class AddressDTO(
+data class UserDTO(
+    var email: String,
+    var name: String,
+    var password: String,
+    var birthDate: String,
+    var cellphone: String,
+    var telephone: String,
     var cep: String,
-    @SerializedName("logradouro")
     var street: String,
-    @SerializedName("complemento")
-    var complement: String,
-    @SerializedName("bairro")
+    var number: String,
     var district: String,
-    @SerializedName("localidade")
     var city: String,
-    @SerializedName("uf")
-    var state: String,
-    @SerializedName("erro")
-    var error: String
-)
+    var state: String
+) : Serializable
+
+
