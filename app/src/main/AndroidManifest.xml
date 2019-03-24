@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="br.com.lardopet">
+          package="br.com.bonnepet">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
@@ -15,11 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.login.RegisterActivity"
+            android:name="br.com.bonnepet.view.login.RegisterActivity"
             android:label="@string/title_activity_register"
             android:windowSoftInputMode="adjustResize">
         </activity>
-        <activity android:name=".view.splash.SplashActivity">
+        <activity android:name="br.com.bonnepet.view.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.main.MainActivity">
+            android:name="br.com.bonnepet.view.main.MainActivity">
         </activity>
     </application>
 

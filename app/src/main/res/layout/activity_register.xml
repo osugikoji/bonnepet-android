@@ -97,7 +97,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/name"
-                        android:inputType="text"
+                        android:inputType="textPersonName"
                         android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -123,6 +123,21 @@
                     style="@style/TextInputLayoutAppearance.OutlineBox">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:textColor="@color/text_color"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    style="@style/TextInputLayoutAppearance.OutlineBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/input_birth_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -130,37 +145,6 @@
                         android:inputType="number"
                         android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <RadioGroup
-                    android:id="@+id/input_gender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/gender"
-                        android:textSize="18sp"
-                        android:textColor="@color/text_view"/>
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="24dp"
-                        android:text="@string/gender_man"
-                        android:textSize="16sp"
-                        android:textColor="@color/text_hint"/>
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:text="@string/gender_woman"
-                        android:textSize="16sp"
-                        android:textColor="@color/text_hint"/>
-                </RadioGroup>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -174,6 +158,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/cell_phone"
                         android:inputType="phone"
+                        android:maxLength="11"
                         android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -188,6 +173,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/telephone"
                         android:inputType="phone"
+                        android:maxLength="11"
                         android:textColor="@color/text_color"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -315,7 +301,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_login"
+                    android:id="@+id/btn_register"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="34dp"
