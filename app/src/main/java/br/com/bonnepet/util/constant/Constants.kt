@@ -13,6 +13,7 @@ object Link {
 object RequestCode {
     const val TAKE_PHOTO = 0
     const val GALLERY = 1
+    const val PERMISSION = 2
 }
 
 

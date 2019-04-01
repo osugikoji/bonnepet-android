@@ -1,6 +1,7 @@
 package br.com.bonnepet.view.login
 
 import Link
+import RequestCode
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,13 +11,12 @@ import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.AddressDTO
 import br.com.bonnepet.data.model.UserDTO
-import br.com.bonnepet.util.extension.image
-import br.com.bonnepet.util.extension.afterTextChanged
-import br.com.bonnepet.util.extension.setSafeOnClickListener
-import br.com.bonnepet.util.extension.validate
+import br.com.bonnepet.util.extension.*
 import br.com.bonnepet.util.view.DateInputMask
 import br.com.bonnepet.view.base.BaseActivity
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_register.*
+
 
 class RegisterActivity : BaseActivity() {
     override val layoutResource = R.layout.activity_register
@@ -46,6 +46,8 @@ class RegisterActivity : BaseActivity() {
     private val cepLink by lazy { forgot_cep_link }
     private val btnRegister by lazy { btn_register }
 
+    private var selectedUriImage: String? = null
+
     override fun onPrepareActivity(state: Bundle?) {
         pictureLayout.setSafeOnClickListener { openGallery() }
 
@@ -61,20 +63,20 @@ class RegisterActivity : BaseActivity() {
             doRegister()
         }
 
-        registerViewModel.onAddressRequest().observe(this, Observer {
+        registerViewModel.onAddressRequest.observe(this, Observer {
             if (it) disableAddressEditText() else enableAddressEditText()
         })
 
-        registerViewModel.address().observe(this, Observer { address ->
+        registerViewModel.address.observe(this, Observer { address ->
             setEditTextAddress(address)
         })
 
-        registerViewModel.userRegisterRequestResult().observe(this, Observer { result ->
+        registerViewModel.userRegisterRequestResult.observe(this, Observer { result ->
             hideLoading()
-            if (result) showToast("Cadastro efetuado com sucesso")
+            if (result) showToast(getString(R.string.register_successfully))
         })
 
-        registerViewModel.errorMessage().observe(this, Observer { errorMessage ->
+        registerViewModel.errorMessage.observe(this, Observer { errorMessage ->
             showToast(errorMessage)
         })
     }
@@ -85,6 +87,7 @@ class RegisterActivity : BaseActivity() {
     private fun doRegister() {
         if (validateInputs()) {
             val userDTO = UserDTO(
+                "",
                 inputEmail.text.toString(),
                 inputName.text.toString(),
                 inputPassword.text.toString(),
@@ -99,7 +102,7 @@ class RegisterActivity : BaseActivity() {
                 inputState.text.toString()
             )
             showLoading()
-            registerViewModel.doRegister(userDTO)
+            registerViewModel.doRegister(userDTO, selectedUriImage)
         }
     }
 
@@ -130,6 +133,8 @@ class RegisterActivity : BaseActivity() {
      *  Abre o menu de opcoes da galeria
      */
     private fun openGallery() {
+        if (!checkWriteExternalPermission()) return
+
         val mimeTypes = arrayOf("image/jpeg", "image/png")
         val intent = Intent(Intent.ACTION_PICK).apply {
             type = "image/*"
@@ -140,10 +145,16 @@ class RegisterActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (resultCode == RESULT_OK) {
             when (requestCode) {
-                RequestCode.GALLERY -> profileImage.setImageBitmap(data?.image(this))
+                RequestCode.GALLERY -> {
+                    selectedUriImage = data?.data?.imageUrl(this)
+
+                    Glide.with(this)
+                        .load(selectedUriImage)
+                        .into(profileImage)
+
+                }
             }
         }
     }

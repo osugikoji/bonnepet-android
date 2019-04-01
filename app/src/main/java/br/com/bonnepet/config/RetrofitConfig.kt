@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitConfig {
 
-    private const val BASE_URL = "http://192.168.100.2:8080/"
+    private const val BASE_URL = "http://192.168.100.3:8080/"
 
 
     private val okHttpClient = OkHttpClient.Builder()

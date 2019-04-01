@@ -1,5 +1,8 @@
 package br.com.bonnepet.view.base
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -8,6 +11,8 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import br.com.bonnepet.R
 import br.com.bonnepet.util.extension.isVisible
 
@@ -80,6 +85,20 @@ abstract class BaseActivity : AppCompatActivity() {
         if (view != null) {
             view.isVisible = false
         }
+    }
+
+    protected fun checkWriteExternalPermission(): Boolean {
+        if (Build.VERSION.SDK_INT >= 23) {
+            val permissionCheck =
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), RequestCode.PERMISSION)
+                return false
+            }
+            return true
+        }
+        return true
     }
 }
 
