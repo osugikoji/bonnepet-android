@@ -72,11 +72,11 @@ class RegisterViewModel(app: Application) : AndroidViewModel(app) {
         val bodyImage = buildMultipartBodyImage(selectedUriImage)
 
         CompositeDisposable().add(userRepository.registerUser(userDTO)
-            .subscribeBy(onSuccess = { userDTO ->
+            .subscribeBy(onSuccess = {
                 if (bodyImage != null) {
                     // Faz o upload da imagem
                     CompositeDisposable().add(
-                        userRepository.uploadProfilePicture(userDTO.id,bodyImage).subscribeBy()
+                        userRepository.uploadProfilePicture(it.id, bodyImage).subscribeBy()
                     )
                 }
                 _userRegisterRequestResult.value = true

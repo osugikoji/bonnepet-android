@@ -18,6 +18,8 @@ object RetrofitConfig {
         .readTimeout(30, TimeUnit.SECONDS)
         .addInterceptor {
             val request = it.request()
+            val response = it.proceed(request)
+            createUserSessionIfTokenExist(response.header("Authorization"))
             val requestBuilder = request.newBuilder()
                 .method(request.method(), request.body())
             it.proceed(requestBuilder.build())

@@ -11,7 +11,11 @@ import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.AddressDTO
 import br.com.bonnepet.data.model.UserDTO
-import br.com.bonnepet.util.extension.*
+import br.com.bonnepet.util.extension.afterTextChanged
+import br.com.bonnepet.util.extension.imageUrl
+import br.com.bonnepet.util.extension.setSafeOnClickListener
+import br.com.bonnepet.util.extension.validate
+import br.com.bonnepet.util.view.CustomSpinner
 import br.com.bonnepet.util.view.DateInputMask
 import br.com.bonnepet.view.base.BaseActivity
 import com.bumptech.glide.Glide
@@ -48,7 +52,13 @@ class RegisterActivity : BaseActivity() {
 
     private var selectedUriImage: String? = null
 
+
     override fun onPrepareActivity(state: Bundle?) {
+        val items = ArrayList(arrayOf("teste1", "teste2", "teste3", "teste4").toList())
+        val customAdapter = CustomSpinner(this, items)
+        inputState.setAdapter(customAdapter)
+        inputState.adapter.getItem(3)
+
         pictureLayout.setSafeOnClickListener { openGallery() }
 
         DateInputMask(inputBirthDate).listen()
@@ -210,6 +220,7 @@ class RegisterActivity : BaseActivity() {
         when (item?.itemId) {
             android.R.id.home -> {
                 onBackPressed()
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                 return true
             }
         }
