@@ -26,6 +26,7 @@ class MainActivity : BaseActivity() {
     }
 
      fun userAuthenticated() {
+         bottomMenu.selectedItemId = R.id.navigation_search
          bottomMenu.setOnNavigationItemSelectedListener(bottomNavigationListenerUserAuthenticated)
         replaceFragment(fragmentContent, SearchFragment())
     }
