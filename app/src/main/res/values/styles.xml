@@ -25,4 +25,12 @@
         <item name="boxBackgroundColor">@color/light_gray</item>
     </style>
 
+    <style name="FrameLayout.Clickable" parent="">
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?android:selectableItemBackground</item>
+    </style>
+
 </resources>

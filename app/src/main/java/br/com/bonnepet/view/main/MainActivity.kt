@@ -27,7 +27,7 @@ class MainActivity : BaseActivity() {
 
      fun userAuthenticated() {
          bottomMenu.setOnNavigationItemSelectedListener(bottomNavigationListenerUserAuthenticated)
-        replaceFragment(fragmentContent, MenuFragment())
+        replaceFragment(fragmentContent, SearchFragment())
     }
 
     private fun userNotAuthenticated() {
