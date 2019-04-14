@@ -14,29 +14,21 @@ object RetrofitConfig {
 
     private val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(60, TimeUnit.SECONDS)
+        .readTimeout(60, TimeUnit.SECONDS)
+        .retryOnConnectionFailure(false)
         .addInterceptor {
             val request = it.request()
-            val response = it.proceed(request)
-            createUserSessionIfTokenExist(response.header("Authorization"))
             val requestBuilder = request.newBuilder()
                 .method(request.method(), request.body())
             it.proceed(requestBuilder.build())
+
         }.build()
 
-    private fun createUserSessionIfTokenExist(tokenHeader: String?) {
-        if (tokenHeader != null) {
-            val token = tokenHeader.substringAfterLast(" ")
-            SessionManager.createUserSession(token)
-        }
-    }
-
-    fun getInstance() = Retrofit.Builder()
+    fun getInstance(): Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-
 }

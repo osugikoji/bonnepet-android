@@ -47,6 +47,8 @@
     <string name="register_successfully">Cadastro efetuado com sucesso</string>
 
     <!-- Generic Messages -->
+    <string name="next">Próximo</string>
+    <string name="returning">Voltar</string>
     <string name="generic_request_error">Não foi possível executar a requisição</string>
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -26,14 +26,15 @@ class MainActivity : BaseActivity() {
     }
 
      fun userAuthenticated() {
-         bottomMenu.selectedItemId = R.id.navigation_search
+         bottomMenu.selectedItemId = R.id.navigation_menu
          bottomMenu.setOnNavigationItemSelectedListener(bottomNavigationListenerUserAuthenticated)
-        replaceFragment(fragmentContent, SearchFragment())
+        replaceFragment(fragmentContent, MenuFragment())
     }
 
     private fun userNotAuthenticated() {
-        replaceFragment(fragmentContent, SearchFragment())
+        bottomMenu.selectedItemId = R.id.navigation_menu
         bottomMenu.setOnNavigationItemSelectedListener(bottomNavigationListenerUserNotAuthenticated)
+        replaceFragment(fragmentContent, LoginFragment())
     }
 
     /**

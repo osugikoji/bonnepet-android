@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import br.com.bonnepet.data.model.AddressDTO
+import br.com.bonnepet.data.model.CepDTO
 import br.com.bonnepet.data.model.UserDTO
 import br.com.bonnepet.data.repository.ExternalRepository
 import br.com.bonnepet.data.repository.UserRepository
@@ -23,7 +23,7 @@ class RegisterViewModel(app: Application) : AndroidViewModel(app) {
     private val userRepository = UserRepository()
 
     /**
-     *  Flag pra informar que a requisicao de endereco foi iniciada ou encerrada
+     *  Flag pra informar que a requisicao de busca de endereco foi iniciada ou encerrada
      */
     private val _onAddressRequest = MutableLiveData<Boolean>()
     val onAddressRequest: LiveData<Boolean> = _onAddressRequest
@@ -43,8 +43,8 @@ class RegisterViewModel(app: Application) : AndroidViewModel(app) {
     /**
      * O endereço
      */
-    private val _address = MutableLiveData<AddressDTO>()
-    val address: LiveData<AddressDTO> = _address
+    private val _address = MutableLiveData<CepDTO>()
+    val address: LiveData<CepDTO> = _address
 
     /**
      *  Obtém o endereço através do [cep]

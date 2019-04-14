@@ -16,6 +16,11 @@ object RequestCode {
     const val PERMISSION = 2
 }
 
+object Mask {
+    const val DATE_MASK = "##/##/####"
+    const val PHONE_MASK = "(##)#########"
+}
+
 
 
 

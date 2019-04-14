@@ -2,7 +2,7 @@ package br.com.bonnepet.data.repository
 
 import br.com.bonnepet.data.api.ExternalApi
 import br.com.bonnepet.config.RetrofitConfig
-import br.com.bonnepet.data.model.AddressDTO
+import br.com.bonnepet.data.model.CepDTO
 import br.com.bonnepet.util.SchedulerProvider
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,7 +20,7 @@ class ExternalRepository {
         AndroidSchedulers.mainThread()
     )
 
-    fun getAddress(cep: String): Single<AddressDTO> {
+    fun getAddress(cep: String): Single<CepDTO> {
         return externalApi.getAddress(cep).compose(schedulerProvider.getSchedulersForSingle())
     }
 

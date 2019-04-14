@@ -10,12 +10,7 @@ data class UserDTO(
     var birthDate: String,
     var cellphone: String,
     var telephone: String? = null,
-    var cep: String,
-    var street: String,
-    var number: String,
-    var district: String,
-    var city: String,
-    var state: String
+    var addressDTO: AddressDTO? = null
 ) : Serializable
 
 

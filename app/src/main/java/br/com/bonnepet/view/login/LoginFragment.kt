@@ -60,7 +60,6 @@ class LoginFragment : BaseFragment() {
 
     private fun goToRegister() {
         startActivity(Intent(context, RegisterActivity::class.java))
-        activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
     private fun showProgressBar() {

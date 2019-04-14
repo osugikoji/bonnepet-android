@@ -21,12 +21,17 @@ abstract class BaseFragment : Fragment() {
     @get:LayoutRes
     protected abstract val layoutResource: Int
 
-    protected abstract val fragmentTitle: Int
+    protected abstract val fragmentTitle: Int?
 
     private var toolbar: Toolbar? = null
 
+    private var v: View? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(layoutResource, container, false)
+         if (v == null) {
+            v = inflater.inflate(layoutResource, container, false)
+        }
+        return v
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,8 +46,8 @@ abstract class BaseFragment : Fragment() {
         toolbar = activity?.findViewById(R.id.tool_bar)
         val toolbarTitle: TextView? = toolbar?.findViewById(R.id.toolbar_title)
         if (toolbar != null) {
+            toolbarTitle?.text = getText(fragmentTitle?:return)
             (activity as AppCompatActivity).setSupportActionBar(toolbar)
-            toolbarTitle?.text = getText(fragmentTitle)
             (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
             (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }

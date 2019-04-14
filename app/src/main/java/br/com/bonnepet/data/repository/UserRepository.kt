@@ -6,10 +6,12 @@ import br.com.bonnepet.data.model.Credential
 import br.com.bonnepet.data.model.UserDTO
 import br.com.bonnepet.util.SchedulerProvider
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.MultipartBody
+import retrofit2.Response
 import retrofit2.create
 
 /**
@@ -23,8 +25,8 @@ class UserRepository {
         AndroidSchedulers.mainThread()
     )
 
-    fun authenticateUser(credential: Credential): Completable{
-        return userApi.authenticateUser(credential).compose(schedulerProvider.getSchedulersForCompletable())
+    fun authenticateUser(credential: Credential): Observable<Response<Void>> {
+        return userApi.authenticateUser(credential).compose(schedulerProvider.getSchedulersForObservable())
     }
 
     fun registerUser(userDTO: UserDTO): Single<UserDTO>{
