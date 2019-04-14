@@ -1,7 +1,8 @@
 // Shared Preferences Keys
 object Prefs {
-    const val IS_LOGGED_IN = "br.com.lardopet.IS_LOGGED_IN"
-    const val TOKEN = "br.com.lardopet.TOKEN"
+    const val IS_LOGGED_IN = "br.com.bonnepet.IS_LOGGED_IN"
+    const val TOKEN = "br.com.bonnepet.TOKEN"
+    const val SELECTED_LANGUAGE = "br.com.bonnepet.SELECTED_LANGUAGE"
 }
 
 // Links da web
@@ -16,9 +17,15 @@ object RequestCode {
     const val PERMISSION = 2
 }
 
+// Mascaras
 object Mask {
     const val DATE_MASK = "##/##/####"
     const val PHONE_MASK = "(##)#########"
+}
+
+object Language {
+    const val ENGLISH = "en"
+    const val PORTUGUESE = ""
 }
 
 

@@ -1,4 +1,4 @@
-package br.com.bonnepet.view.login
+package br.com.bonnepet.view.login.userRegister
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : BaseActivity() {
     override val layoutResource = R.layout.activity_register
+    override val activityTitle = R.string.title_activity_register
 
     private val fragmentContent by lazy { R.id.fragment_content }
 
@@ -24,7 +25,7 @@ class RegisterActivity : BaseActivity() {
     override fun onPrepareActivity(state: Bundle?) {
         replaceFragment(fragmentContent, UserInfoRegisterFragment())
 
-        val items = ArrayList(arrayOf("teste1", "teste2", "teste3", "teste4").toList())
+//        val items = ArrayList(arrayOf("teste1", "teste2", "teste3", "teste4").toList())
 //        val customAdapter = CustomSpinner(this, items)
 //        inputState.setAdapter(customAdapter)
 //        inputState.adapter.getItem(3)

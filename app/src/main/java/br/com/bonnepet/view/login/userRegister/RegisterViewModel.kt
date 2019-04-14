@@ -1,4 +1,4 @@
-package br.com.bonnepet.view.login
+package br.com.bonnepet.view.login.userRegister
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

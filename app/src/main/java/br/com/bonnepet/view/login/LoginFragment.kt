@@ -10,6 +10,7 @@ import br.com.bonnepet.R
 import br.com.bonnepet.data.model.Credential
 import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseFragment
+import br.com.bonnepet.view.login.userRegister.RegisterActivity
 import br.com.bonnepet.view.main.MainActivity
 import kotlinx.android.synthetic.main.login_fragment.*
 

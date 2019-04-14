@@ -111,7 +111,7 @@
             style="@style/TextInputLayoutAppearance.OutlineBox"
             android:layout_marginBottom="16dp">
 
-            <br.com.bonnepet.util.view.AutoCompleteDropDown
+            <br.com.bonnepet.util.component.AutoCompleteDropDown
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"

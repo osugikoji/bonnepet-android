@@ -48,6 +48,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:text="@string/or"
+                android:textAllCaps="true"
                 android:textColor="@android:color/black"/>
 
             <View

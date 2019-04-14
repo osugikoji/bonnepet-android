@@ -73,7 +73,7 @@
                      android:id="@+id/edit_data"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     style="@style/FrameLayout.Clickable">
+                     style="@style/Item.Clickable">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
                      android:id="@+id/turn_host"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     style="@style/FrameLayout.Clickable">
+                     style="@style/Item.Clickable">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
                      android:id="@+id/edit_address"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     style="@style/FrameLayout.Clickable">
+                     style="@style/Item.Clickable">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -160,7 +160,7 @@
                      android:id="@+id/change_language"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     style="@style/FrameLayout.Clickable">
+                     style="@style/Item.Clickable">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -189,7 +189,7 @@
                      android:id="@+id/exit"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
-                     style="@style/FrameLayout.Clickable">
+                     style="@style/Item.Clickable">
 
             <TextView
                 android:layout_width="wrap_content"

@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
     override val layoutResource = R.layout.activity_main
+    override val activityTitle: Nothing? = null
 
     private val fragmentContent by lazy { fragment_content.id }
 
@@ -25,9 +26,9 @@ class MainActivity : BaseActivity() {
         if (viewModel.isUserAuthenticated()) userAuthenticated() else userNotAuthenticated()
     }
 
-     fun userAuthenticated() {
-         bottomMenu.selectedItemId = R.id.navigation_menu
-         bottomMenu.setOnNavigationItemSelectedListener(bottomNavigationListenerUserAuthenticated)
+    fun userAuthenticated() {
+        bottomMenu.selectedItemId = R.id.navigation_menu
+        bottomMenu.setOnNavigationItemSelectedListener(bottomNavigationListenerUserAuthenticated)
         replaceFragment(fragmentContent, MenuFragment())
     }
 
@@ -67,23 +68,23 @@ class MainActivity : BaseActivity() {
      *  Listener do BottomMenu. Caso o usuario nao esteja autenticado, Eh liberado o acesso parcial da navegacao.
      */
     private val bottomNavigationListenerUserAuthenticated =
-            BottomNavigationView.OnNavigationItemSelectedListener { item ->
-                when (item.itemId) {
-                    R.id.navigation_search -> {
-                        replaceFragment(fragmentContent, SearchFragment())
-                        return@OnNavigationItemSelectedListener true
-                    }
-                    R.id.navigation_reservations -> {
-                        return@OnNavigationItemSelectedListener true
-                    }
-                    R.id.navigation_pet -> {
-                        return@OnNavigationItemSelectedListener true
-                    }
-                    R.id.navigation_menu -> {
-                        replaceFragment(fragmentContent, MenuFragment())
-                        return@OnNavigationItemSelectedListener true
-                    }
-                    else -> false
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_search -> {
+                    replaceFragment(fragmentContent, SearchFragment())
+                    return@OnNavigationItemSelectedListener true
                 }
+                R.id.navigation_reservations -> {
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_pet -> {
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_menu -> {
+                    replaceFragment(fragmentContent, MenuFragment())
+                    return@OnNavigationItemSelectedListener true
+                }
+                else -> false
             }
+        }
 }

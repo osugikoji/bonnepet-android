@@ -1,4 +1,4 @@
-package br.com.bonnepet.view.login
+package br.com.bonnepet.view.login.userRegister
 
 import Link
 import android.content.Intent

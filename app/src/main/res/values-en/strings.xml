@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">Bonne Pet</string>
+
+    <string name="title_activity_register">Sign Up</string>
+    <string name="title_activity_language">Language</string>
+
+    <!-- Bottom Menu -->
+    <string name="title_search">Search</string>
+    <string name="title_reservations">Booking</string>
+    <string name="title_pet">Pet</string>
+    <string name="title_menu">Menu</string>
+
+    <!-- Login -->
+    <string name="facebook_login">Sign In With Facebook</string>
+    <string name="login">Sign In</string>
+    <string name="create_account">Don\'t have an account? Sign up now!</string>
+    <string name="or">or</string>
+
+    <!-- Titulo de cada fragment da MainActivity -->
+    <string name="search_accommodation">Search For Home</string>
+    <string name="my_revervations">My Bookings</string>
+    <string name="my_pets">My Pets</string>
+    <string name="menu">Menu</string>
+    <string name="get_in">Sign In</string>
+
+    <!-- Form -->
+    <string name="profile_picture_title">Your profile picture</string>
+    <string name="profile_picture_description">Use a high-resolution, well-lit photo of your face. Avoid photos with sunglasses</string>
+    <string name="personal_info">Personal Info</string>
+    <string name="address">Address</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="gender">Gender:</string>
+    <string name="gender_man">Male</string>
+    <string name="gender_woman">Female</string>
+    <string name="cell_phone">Cellphone</string>
+    <string name="telephone">Telephone</string>
+    <string name="password">Password</string>
+    <string name="optional">Optional</string>
+    <string name="cep">CEP</string>
+    <string name="street">Street</string>
+    <string name="district">District</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="number">Number</string>
+    <string name="forgot_cep"><u>Forgot your cep?</u></string>
+    <string name="register_successfully">Registration successfully complete</string>
+
+    <!-- Generic Messages -->
+    <string name="next">Next</string>
+    <string name="returning">Return</string>
+    <string name="generic_request_error">Could not execute request</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Menu -->
+    <string name="edit_personal_info">Edit Personal Info</string>
+    <string name="edit_address">Edit Address</string>
+    <string name="be_host">Be a Host</string>
+    <string name="change_language">Change Language</string>
+    <string name="exit">Exit</string>
+
+    <!-- Language -->
+    <string name="select_language">Select a language</string>
+    <string name="portuguese_language">Portuguese (Brazil)</string>
+    <string name="english_language">English (EUA)</string>
+    <string name="confirm">Confirm</string>
+
+</resources>

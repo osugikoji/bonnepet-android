@@ -28,7 +28,7 @@ abstract class BaseFragment : Fragment() {
     private var v: View? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-         if (v == null) {
+        if (v == null) {
             v = inflater.inflate(layoutResource, container, false)
         }
         return v
@@ -46,7 +46,7 @@ abstract class BaseFragment : Fragment() {
         toolbar = activity?.findViewById(R.id.tool_bar)
         val toolbarTitle: TextView? = toolbar?.findViewById(R.id.toolbar_title)
         if (toolbar != null) {
-            toolbarTitle?.text = getText(fragmentTitle?:return)
+            toolbarTitle?.text = getText(fragmentTitle ?: return)
             (activity as AppCompatActivity).setSupportActionBar(toolbar)
             (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
             (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)

@@ -25,7 +25,7 @@
         <item name="boxBackgroundColor">@color/light_gray</item>
     </style>
 
-    <style name="FrameLayout.Clickable" parent="">
+    <style name="Item.Clickable" parent="">
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="android:clickable">true</item>

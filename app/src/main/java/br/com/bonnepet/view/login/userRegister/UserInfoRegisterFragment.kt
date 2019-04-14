@@ -1,4 +1,4 @@
-package br.com.bonnepet.view.login
+package br.com.bonnepet.view.login.userRegister
 
 
 import android.app.Activity.RESULT_OK
@@ -8,7 +8,7 @@ import android.text.TextWatcher
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.UserDTO
 import br.com.bonnepet.util.extension.*
-import br.com.bonnepet.util.view.MaskEditText
+import br.com.bonnepet.util.component.MaskEditText
 import br.com.bonnepet.view.base.BaseFragment
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_user_info_register.*

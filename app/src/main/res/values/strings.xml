@@ -2,6 +2,7 @@
     <string name="app_name">Bonne Pet</string>
 
     <string name="title_activity_register">Cadastrar</string>
+    <string name="title_activity_language">Idioma</string>
 
     <!-- Bottom Menu -->
     <string name="title_search">Buscar</string>
@@ -60,5 +61,11 @@
     <string name="be_host">Ser um Host</string>
     <string name="change_language">Alterar Idioma</string>
     <string name="exit">Sair</string>
+
+    <!-- Language -->
+    <string name="select_language">Selecione um idioma</string>
+    <string name="portuguese_language">Português (Brasil)</string>
+    <string name="english_language">Inglês (EUA)</string>
+    <string name="confirm">Confirmar</string>
 
 </resources>

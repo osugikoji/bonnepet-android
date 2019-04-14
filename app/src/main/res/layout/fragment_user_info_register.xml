@@ -74,7 +74,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            app:errorEnabled=""
             style="@style/TextInputLayoutAppearance.OutlineBox">
 
             <com.google.android.material.textfield.TextInputEditText

@@ -1,4 +1,4 @@
-package br.com.bonnepet.util.view
+package br.com.bonnepet.util.component
 
 import android.text.Editable
 import android.text.TextWatcher
