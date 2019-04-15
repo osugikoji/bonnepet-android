@@ -40,9 +40,9 @@ class LoginFragment : BaseFragment() {
         btnLogin.setSafeOnClickListener { doLogin() }
         registerLink.setSafeOnClickListener { goToRegister() }
 
-        viewModel.onLoginSuccess.observe(this, Observer {
+        viewModel.onLoginSuccess.observe(this, Observer { autenticationResult ->
             hideProgressBar()
-            if (it) {
+            if (autenticationResult) {
                 mainActivity.userAuthenticated()
             }
         })

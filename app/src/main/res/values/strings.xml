@@ -15,6 +15,7 @@
     <string name="login">ENTRAR</string>
     <string name="create_account">Não tem conta? Crie agora!</string>
     <string name="or">OU</string>
+    <string name="login_invalid">Email ou Senha inválidos</string>
 
     <!-- Titulo de cada fragment da MainActivity -->
     <string name="search_accommodation">Buscar Por Lar</string>
