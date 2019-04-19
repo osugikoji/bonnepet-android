@@ -16,6 +16,12 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
+
+        debug {
+            resValue "string", "server_name", "http://" + InetAddress.getLocalHost().getHostAddress() + ":8080/"
+            debuggable true
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

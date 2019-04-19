@@ -1,6 +1,7 @@
 package br.com.bonnepet.config
 
-import br.com.bonnepet.data.session.SessionManager
+import br.com.bonnepet.App
+import br.com.bonnepet.R
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -8,9 +9,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitConfig {
+    private lateinit var app: App
 
-    private const val BASE_URL = "http://192.168.100.3:8080/"
+    fun init(app: App) {
+        this.app = app
 
+    }
 
     private val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)
@@ -26,7 +30,7 @@ object RetrofitConfig {
         }.build()
 
     fun getInstance(): Retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
+        .baseUrl(app.getString(R.string.server_name))
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
