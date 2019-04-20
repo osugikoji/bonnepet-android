@@ -16,13 +16,14 @@ import br.com.bonnepet.util.extension.validate
 import br.com.bonnepet.view.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_address_register.*
 
-class AddressRegisterFragment : BaseFragment() {
+/** Formulário de registro de endereço */
+class UserRegisterTwoFragment : BaseFragment() {
     override val layoutResource = R.layout.fragment_address_register
     override val fragmentTitle: Nothing? = null
 
     private val registerViewModel by lazy { ViewModelProviders.of(this).get(RegisterViewModel::class.java) }
 
-    private val registerActivity by lazy { activity as RegisterActivity }
+    private val registerActivity by lazy { activity as UserRegisterActivity }
 
     private val inputCep by lazy { input_cep }
     private val inputDistrict by lazy { input_district }
@@ -60,7 +61,7 @@ class AddressRegisterFragment : BaseFragment() {
 
         registerViewModel.userRegisterRequestResult.observe(this, Observer { result ->
             registerActivity.hideLoading()
-            if (result) showToast(getString(R.string.register_successfully))
+            if (result) registerActivity.authenticateUser()
         })
 
         registerViewModel.errorMessage.observe(this, Observer { errorMessage ->
@@ -81,7 +82,7 @@ class AddressRegisterFragment : BaseFragment() {
             )
             registerActivity.userDTO.addressDTO = addressDTO
             registerActivity.showLoading()
-            registerViewModel.doRegister(registerActivity.userDTO, registerActivity.selectedUriImage)
+            registerViewModel.doRegister(registerActivity.userDTO, registerActivity.selectedImage)
         }
     }
 

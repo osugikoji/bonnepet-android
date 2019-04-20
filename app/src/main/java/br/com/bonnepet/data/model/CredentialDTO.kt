@@ -1,3 +1,5 @@
 package br.com.bonnepet.data.model
 
-data class Credential(var email: String, var password: String)
+import java.io.Serializable
+
+data class Credential(var email: String, var password: String): Serializable

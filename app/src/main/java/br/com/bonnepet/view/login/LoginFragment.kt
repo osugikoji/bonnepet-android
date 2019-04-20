@@ -1,5 +1,6 @@
 package br.com.bonnepet.view.login
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +11,7 @@ import br.com.bonnepet.R
 import br.com.bonnepet.data.model.Credential
 import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseFragment
-import br.com.bonnepet.view.login.userRegister.RegisterActivity
+import br.com.bonnepet.view.login.userRegister.UserRegisterActivity
 import br.com.bonnepet.view.main.MainActivity
 import kotlinx.android.synthetic.main.login_fragment.*
 
@@ -40,16 +41,16 @@ class LoginFragment : BaseFragment() {
         btnLogin.setSafeOnClickListener { doLogin() }
         registerLink.setSafeOnClickListener { goToRegister() }
 
-        viewModel.onLoginSuccess.observe(this, Observer { autenticationResult ->
-            hideProgressBar()
-            if (autenticationResult) {
-                mainActivity.userAuthenticated()
-            }
-        })
-
         viewModel.message.observe(this, Observer { message ->
             hideProgressBar()
             showToast(message)
+        })
+
+        viewModel.onLoginSuccess.observe(this, Observer { authenticationResult ->
+            hideProgressBar()
+            if (authenticationResult) {
+                mainActivity.userAuthenticated()
+            }
         })
     }
 
@@ -60,7 +61,17 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun goToRegister() {
-        startActivity(Intent(context, RegisterActivity::class.java))
+        startActivityForResult(Intent(context, UserRegisterActivity::class.java), RequestCode.SIGN_UP)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                RequestCode.SIGN_UP -> mainActivity.userAuthenticated()
+            }
+        }
     }
 
     private fun showProgressBar() {

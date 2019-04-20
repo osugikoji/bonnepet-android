@@ -1,13 +1,18 @@
 package br.com.bonnepet.view.login.userRegister
 
+import Header
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import br.com.bonnepet.R
 import br.com.bonnepet.data.model.CepDTO
+import br.com.bonnepet.data.model.Credential
 import br.com.bonnepet.data.model.UserDTO
 import br.com.bonnepet.data.repository.ExternalRepository
 import br.com.bonnepet.data.repository.UserRepository
+import br.com.bonnepet.util.data.SessionManager
+import br.com.bonnepet.util.data.StatusCode
 import br.com.bonnepet.util.extension.error
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
@@ -16,7 +21,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
-class RegisterViewModel(app: Application) : AndroidViewModel(app) {
+class RegisterViewModel(val app: Application) : AndroidViewModel(app) {
 
     private val externalRepository = ExternalRepository()
 
@@ -52,7 +57,8 @@ class RegisterViewModel(app: Application) : AndroidViewModel(app) {
     fun getAddress(cep: String) {
         if (cep.length == 8) {
             _onAddressRequest.value = true
-            CompositeDisposable().add(externalRepository.getAddress(cep)
+            CompositeDisposable().add(
+                externalRepository.getAddress(cep)
                     .subscribeBy(onSuccess = {
                         _onAddressRequest.value = false
                         if (!it.error.toBoolean()) _address.value = it
@@ -66,34 +72,57 @@ class RegisterViewModel(app: Application) : AndroidViewModel(app) {
     /**
      *  Efetua o cadastro de usuario. Caso [selectedUriImage] nao seja nulo, eh feito o upload da imagem
      *  no callback da requisicao
-     *
      */
-    fun doRegister(userDTO: UserDTO, selectedUriImage: String?) {
+    fun doRegister(userDTO: UserDTO, selectedUriImage: File?) {
         val bodyImage = buildMultipartBodyImage(selectedUriImage)
 
-        CompositeDisposable().add(userRepository.registerUser(userDTO)
-            .subscribeBy(onSuccess = {
-                if (bodyImage != null) {
-                    // Faz o upload da imagem
-                    CompositeDisposable().add(
-                        userRepository.uploadProfilePicture(it.id, bodyImage).subscribeBy()
-                    )
-                }
-                _userRegisterRequestResult.value = true
-            }, onError = {
-                _errorMessage.value = it.error(getApplication())
-                _userRegisterRequestResult.value = false
-            })
+        CompositeDisposable().add(
+            userRepository.registerUser(userDTO)
+                .subscribeBy(onSuccess = {
+                    if (bodyImage != null) {
+                        val credential = Credential(userDTO.email, userDTO.password)
+                        // Faz o upload da imagem
+                        CompositeDisposable().add(
+                            userRepository.uploadProfilePicture(it.id, bodyImage)
+                                .subscribeBy(onComplete = {
+                                    authenticateUser(credential)
+                                }, onError = {
+                                    authenticateUser(credential)
+                                })
+                        )
+                    }
+                }, onError = {
+                    _errorMessage.value = it.error(getApplication())
+                    _userRegisterRequestResult.value = false
+                })
+        )
+    }
+
+    private fun authenticateUser(credential: Credential) {
+        CompositeDisposable().add(
+            userRepository.authenticateUser(credential)
+                .subscribeBy(onNext = { response ->
+                    when (response.code()) {
+                        StatusCode.OK.code -> {
+                            SessionManager.createUserSession(response.headers().get(Header.AUTHORIZATION))
+                            _userRegisterRequestResult.value = true
+                        }
+                        else -> {
+                            _errorMessage.value = app.getString(R.string.login_invalid)
+                        }
+                    }
+                }, onError = {
+                    _errorMessage.value = it.error(getApplication())
+                })
         )
     }
 
     /**
-     *  Constroi [uriImage] no formato MuitipartBody.Part
+     *  Constroi [file] no formato MuitipartBody.Part
      */
-    private fun buildMultipartBodyImage(uriImage: String?): MultipartBody.Part? {
+    private fun buildMultipartBodyImage(file: File?): MultipartBody.Part? {
         return try {
-            val file = File(uriImage)
-            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file ?: return null)
             MultipartBody.Part.createFormData("file", file.name, requestFile)
         } catch (e: Exception) {
             return null

@@ -1,5 +1,6 @@
 package br.com.bonnepet.view.login.userRegister
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.MenuItem
 import br.com.bonnepet.R
@@ -8,9 +9,10 @@ import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.util.extension.replaceFragment
 import br.com.bonnepet.view.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_register.*
+import java.io.File
 
 
-class RegisterActivity : BaseActivity() {
+class UserRegisterActivity : BaseActivity() {
     override val layoutResource = R.layout.activity_register
     override val activityTitle = R.string.title_activity_register
 
@@ -18,17 +20,23 @@ class RegisterActivity : BaseActivity() {
 
     private val progressBar by lazy { progress_bar }
 
-    var selectedUriImage: String? = null
+    var selectedImage: File? = null
 
     lateinit var userDTO: UserDTO
 
     override fun onPrepareActivity(state: Bundle?) {
-        replaceFragment(fragmentContent, UserInfoRegisterFragment())
+        replaceFragment(fragmentContent, UserRegisterOneFragment())
 
 //        val items = ArrayList(arrayOf("teste1", "teste2", "teste3", "teste4").toList())
 //        val customAdapter = CustomSpinner(this, items)
 //        inputState.setAdapter(customAdapter)
 //        inputState.adapter.getItem(3)
+    }
+
+    /** Caso o cadastro do usuário for um sucesso, autentica o usuário. */
+    fun authenticateUser() {
+        setResult(Activity.RESULT_OK)
+        finish()
     }
 
     /**

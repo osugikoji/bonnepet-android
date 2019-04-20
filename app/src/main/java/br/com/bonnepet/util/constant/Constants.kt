@@ -15,6 +15,7 @@ object RequestCode {
     const val TAKE_PHOTO = 0
     const val GALLERY = 1
     const val PERMISSION = 2
+    const val SIGN_UP = 3
 }
 
 // Mascaras
@@ -26,6 +27,9 @@ object Mask {
 object Language {
     const val ENGLISH = "en"
     const val PORTUGUESE = ""
+}
+object Header {
+    const val AUTHORIZATION = "Authorization"
 }
 
 

@@ -3,6 +3,7 @@ package br.com.bonnepet.data.repository
 import br.com.bonnepet.config.RetrofitConfig
 import br.com.bonnepet.data.api.UserApi
 import br.com.bonnepet.data.model.Credential
+import br.com.bonnepet.data.model.ProfileDTO
 import br.com.bonnepet.data.model.UserDTO
 import br.com.bonnepet.util.SchedulerProvider
 import io.reactivex.Completable
@@ -29,7 +30,7 @@ class UserRepository {
         return userApi.authenticateUser(credential).compose(schedulerProvider.getSchedulersForObservable())
     }
 
-    fun registerUser(userDTO: UserDTO): Single<UserDTO>{
+    fun registerUser(userDTO: UserDTO): Single<UserDTO> {
         return userApi.registerUser(userDTO).compose(schedulerProvider.getSchedulersForSingle())
     }
 
@@ -37,4 +38,7 @@ class UserRepository {
         return userApi.uploadProfilePicture(id, file).compose(schedulerProvider.getSchedulersForCompletable())
     }
 
+    fun getUserProfile(): Single<ProfileDTO> {
+        return userApi.getUserProfile().compose(schedulerProvider.getSchedulersForSingle())
+    }
 }

@@ -7,7 +7,7 @@ import br.com.bonnepet.R
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.main.MainActivity
 
-private const val SPLASH_TIME_OUT = 3000
+private const val SPLASH_TIME_OUT = 2000
 
 class SplashActivity : BaseActivity() {
     override val layoutResource = R.layout.activity_splash

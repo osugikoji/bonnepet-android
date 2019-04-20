@@ -1,6 +1,7 @@
 package br.com.bonnepet.data.api
 
 import br.com.bonnepet.data.model.Credential
+import br.com.bonnepet.data.model.ProfileDTO
 import br.com.bonnepet.data.model.UserDTO
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -29,4 +30,7 @@ interface UserApi {
     @Multipart
     @POST("users/{id}/picture")
     fun uploadProfilePicture(@Path("id") id: String?, @Part filePart: MultipartBody.Part): Completable
+
+    @GET("users/getUserProfile")
+    fun getUserProfile(): Single<ProfileDTO>
 }

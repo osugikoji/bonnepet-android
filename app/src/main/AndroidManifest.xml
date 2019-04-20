@@ -22,7 +22,7 @@
             android:name=".view.menu.language.LanguageActivity">
         </activity>
         <activity
-            android:name=".view.login.userRegister.RegisterActivity"
+            android:name=".view.login.userRegister.UserRegisterActivity"
             android:windowSoftInputMode="adjustResize">
         </activity>
         <activity android:name=".view.splash.SplashActivity">

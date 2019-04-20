@@ -7,7 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.Credential
 import br.com.bonnepet.data.repository.UserRepository
-import br.com.bonnepet.data.session.SessionManager
+import br.com.bonnepet.util.data.SessionManager
+import br.com.bonnepet.util.data.StatusCode
 import br.com.bonnepet.util.extension.error
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
@@ -24,10 +25,10 @@ class LoginViewModel(val app: Application) : AndroidViewModel(app) {
 
     fun authenticateUser(credential: Credential) {
         CompositeDisposable().add(userRepository.authenticateUser(credential)
-            .subscribeBy(onNext = {
-                when(it.code()) {
-                    200 -> {
-                        createUserSessionIfTokenExist(it.headers().get("Authorization"))
+            .subscribeBy(onNext = { response ->
+                when(response.code()) {
+                    StatusCode.OK.code -> {
+                        SessionManager.createUserSession(response.headers().get(Header.AUTHORIZATION))
                         _onLoginSuccess.value = true
                     }
                     else -> {
@@ -39,12 +40,5 @@ class LoginViewModel(val app: Application) : AndroidViewModel(app) {
                 _message.value = it.error(getApplication())
             })
         )
-    }
-
-    private fun createUserSessionIfTokenExist(tokenHeader: String?) {
-        if (tokenHeader != null) {
-            val token = tokenHeader.substringAfterLast(" ")
-            SessionManager.createUserSession(token)
-        }
     }
 }

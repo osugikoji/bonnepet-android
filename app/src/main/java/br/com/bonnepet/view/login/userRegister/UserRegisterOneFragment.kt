@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.TextWatcher
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.UserDTO
+import br.com.bonnepet.util.component.ImageRotationHelper
 import br.com.bonnepet.util.extension.*
 import br.com.bonnepet.util.component.MaskEditText
 import br.com.bonnepet.view.base.BaseFragment
@@ -14,11 +15,11 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_user_info_register.*
 
 
-class UserInfoRegisterFragment : BaseFragment() {
+class UserRegisterOneFragment : BaseFragment() {
     override val layoutResource = R.layout.fragment_user_info_register
     override val fragmentTitle: Nothing? = null
 
-    private val registerActivity by lazy { activity as RegisterActivity }
+    private val registerActivity by lazy { activity as UserRegisterActivity }
 
     private val pictureLayout by lazy { picture_layout }
     private val profileImage by lazy { profile_image }
@@ -61,17 +62,17 @@ class UserInfoRegisterFragment : BaseFragment() {
         startActivityForResult(intent, RequestCode.GALLERY)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intent)
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 RequestCode.GALLERY -> {
-                    registerActivity.selectedUriImage = data?.data?.imageUrl(context)
+                    registerActivity.selectedImage =
+                        ImageRotationHelper.getCorrectImageRotation(intent?.data?.imageUrl(context))
 
                     Glide.with(this)
-                        .load(registerActivity.selectedUriImage)
+                        .load(registerActivity.selectedImage)
                         .into(profileImage)
-
                 }
             }
         }
@@ -90,7 +91,7 @@ class UserInfoRegisterFragment : BaseFragment() {
                 inputTelephone.text.toString()
             )
             registerActivity.userDTO = userDTO
-            replaceFragment(R.id.fragment_content, AddressRegisterFragment())
+            replaceFragment(R.id.fragment_content, UserRegisterTwoFragment())
         }
     }
 
@@ -112,5 +113,13 @@ class UserInfoRegisterFragment : BaseFragment() {
         super.onPause()
         inputBirthDate.removeTextChangedListener(inputDateMask)
         inputCellphone.removeTextChangedListener(inputPhoneMask)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        inputBirthDate.removeTextChangedListener(inputDateMask)
+        inputCellphone.removeTextChangedListener(inputPhoneMask)
+        inputBirthDate.addTextChangedListener(inputDateMask)
+        inputCellphone.addTextChangedListener(inputPhoneMask)
     }
 }
