@@ -84,7 +84,7 @@ class RegisterViewModel(val app: Application) : AndroidViewModel(app) {
                         // Faz o upload da imagem
                         CompositeDisposable().add(
                             userRepository.uploadProfilePicture(it.id, bodyImage)
-                                .subscribeBy(onComplete = {
+                                .subscribeBy(onSuccess = {
                                     authenticateUser(credential)
                                 }, onError = {
                                     authenticateUser(credential)

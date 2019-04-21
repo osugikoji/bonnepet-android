@@ -12,11 +12,11 @@ import br.com.bonnepet.util.extension.*
 import br.com.bonnepet.util.component.MaskEditText
 import br.com.bonnepet.view.base.BaseFragment
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.fragment_user_info_register.*
+import kotlinx.android.synthetic.main.fragment_user_register_one.*
 
 
 class UserRegisterOneFragment : BaseFragment() {
-    override val layoutResource = R.layout.fragment_user_info_register
+    override val layoutResource = R.layout.fragment_user_register_one
     override val fragmentTitle: Nothing? = null
 
     private val registerActivity by lazy { activity as UserRegisterActivity }
@@ -33,15 +33,19 @@ class UserRegisterOneFragment : BaseFragment() {
     private val btnNext by lazy { btn_next }
 
     private lateinit var inputDateMask: TextWatcher
-    private lateinit var inputPhoneMask: TextWatcher
+    private lateinit var inputCellphoneMask: TextWatcher
+    private lateinit var inputTelephoneMask: TextWatcher
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         inputDateMask = MaskEditText(inputBirthDate, Mask.DATE_MASK)
-        inputPhoneMask = MaskEditText(inputCellphone, Mask.PHONE_MASK)
+        inputCellphoneMask = MaskEditText(inputCellphone, Mask.CELLPHONE_MASK)
+        inputTelephoneMask = MaskEditText(inputTelephone, Mask.TELEPHONE_MASK)
 
         inputBirthDate.addTextChangedListener(inputDateMask)
-        inputCellphone.addTextChangedListener(inputPhoneMask)
+        inputCellphone.addTextChangedListener(inputCellphoneMask)
+        inputTelephone.addTextChangedListener(inputTelephoneMask)
+
         pictureLayout.setSafeOnClickListener { openGallery() }
 
         btnNext.setOnClickListener { replaceFragment() }
@@ -72,6 +76,7 @@ class UserRegisterOneFragment : BaseFragment() {
 
                     Glide.with(this)
                         .load(registerActivity.selectedImage)
+                        .circleCrop()
                         .into(profileImage)
                 }
             }
@@ -112,14 +117,18 @@ class UserRegisterOneFragment : BaseFragment() {
     override fun onPause() {
         super.onPause()
         inputBirthDate.removeTextChangedListener(inputDateMask)
-        inputCellphone.removeTextChangedListener(inputPhoneMask)
+        inputCellphone.removeTextChangedListener(inputCellphoneMask)
+        inputTelephone.removeTextChangedListener(inputTelephoneMask)
     }
 
     override fun onResume() {
         super.onResume()
         inputBirthDate.removeTextChangedListener(inputDateMask)
-        inputCellphone.removeTextChangedListener(inputPhoneMask)
+        inputCellphone.removeTextChangedListener(inputCellphoneMask)
+        inputTelephone.removeTextChangedListener(inputTelephoneMask)
+
         inputBirthDate.addTextChangedListener(inputDateMask)
-        inputCellphone.addTextChangedListener(inputPhoneMask)
+        inputCellphone.addTextChangedListener(inputCellphoneMask)
+        inputTelephone.addTextChangedListener(inputTelephoneMask)
     }
 }

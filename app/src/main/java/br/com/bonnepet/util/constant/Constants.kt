@@ -16,20 +16,27 @@ object RequestCode {
     const val GALLERY = 1
     const val PERMISSION = 2
     const val SIGN_UP = 3
+    const val EDIT_PROFILE = 4
 }
 
 // Mascaras
 object Mask {
     const val DATE_MASK = "##/##/####"
-    const val PHONE_MASK = "(##)#########"
+    const val CELLPHONE_MASK = "(##)#####-####"
+    const val TELEPHONE_MASK = "(##)####-####"
 }
 
 object Language {
     const val ENGLISH = "en"
     const val PORTUGUESE = ""
 }
+
 object Header {
     const val AUTHORIZATION = "Authorization"
+}
+
+object Data {
+    const val PROFILE_DTO = "PROFILE_DTO"
 }
 
 

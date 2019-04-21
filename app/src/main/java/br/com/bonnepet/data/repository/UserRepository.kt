@@ -2,9 +2,7 @@ package br.com.bonnepet.data.repository
 
 import br.com.bonnepet.config.RetrofitConfig
 import br.com.bonnepet.data.api.UserApi
-import br.com.bonnepet.data.model.Credential
-import br.com.bonnepet.data.model.ProfileDTO
-import br.com.bonnepet.data.model.UserDTO
+import br.com.bonnepet.data.model.*
 import br.com.bonnepet.util.SchedulerProvider
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -34,11 +32,15 @@ class UserRepository {
         return userApi.registerUser(userDTO).compose(schedulerProvider.getSchedulersForSingle())
     }
 
-    fun uploadProfilePicture(id: String?, file: MultipartBody.Part): Completable {
-        return userApi.uploadProfilePicture(id, file).compose(schedulerProvider.getSchedulersForCompletable())
+    fun uploadProfilePicture(id: String?, file: MultipartBody.Part): Single<PictureDTO> {
+        return userApi.uploadProfilePicture(id, file).compose(schedulerProvider.getSchedulersForSingle())
     }
 
     fun getUserProfile(): Single<ProfileDTO> {
         return userApi.getUserProfile().compose(schedulerProvider.getSchedulersForSingle())
+    }
+
+    fun updateUserProfile(editProfileDTO: EditProfileDTO): Single<ProfileDTO> {
+        return userApi.updateUser(editProfileDTO).compose(schedulerProvider.getSchedulersForSingle())
     }
 }

@@ -19,12 +19,12 @@
 
     <!-- Titulo de cada fragment da MainActivity -->
     <string name="search_accommodation">Search For Home</string>
-    <string name="my_revervations">My Bookings</string>
+    <string name="my_bookings">My Bookings</string>
     <string name="my_pets">My Pets</string>
     <string name="menu">Menu</string>
     <string name="get_in">Sign In</string>
 
-    <!-- Form -->
+    <!-- User Form -->
     <string name="profile_picture_title">Your profile picture</string>
     <string name="profile_picture_description">Use a high-resolution, well-lit photo of your face. Avoid photos with sunglasses</string>
     <string name="personal_info">Personal Info</string>
@@ -50,6 +50,7 @@
 
     <!-- Generic Messages -->
     <string name="next">Next</string>
+    <string name="save">Save</string>
     <string name="returning">Return</string>
     <string name="generic_request_error">Could not execute request</string>
 
@@ -57,8 +58,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Menu -->
-    <string name="edit_personal_info">Edit Personal Info</string>
-    <string name="edit_address">Edit Address</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_password">Change Password</string>
     <string name="be_host">Be a Host</string>
     <string name="change_language">Change Language</string>
     <string name="exit">Exit</string>
@@ -68,5 +69,8 @@
     <string name="portuguese_language">Portuguese (Brazil)</string>
     <string name="english_language">English (EUA)</string>
     <string name="confirm">Confirm</string>
+
+    <!-- Edit Profile -->
+    <string name="edit_profile_successfully">Your profile modifications have been saved</string>
 
 </resources>

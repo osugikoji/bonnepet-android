@@ -65,9 +65,6 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
 
-    // Circle Image
-    implementation 'de.hdodenhof:circleimageview:3.0.0'
-
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
 }

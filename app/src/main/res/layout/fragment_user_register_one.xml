@@ -35,13 +35,13 @@
                 android:layout_width="365sp"
                 android:layout_height="wrap_content">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/profile_image"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_centerVertical="true"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/ic_account_circle"/>
+                    app:srcCompat="@drawable/ic_account_circle"/>
 
                 <TextView
                     android:layout_width="wrap_content"

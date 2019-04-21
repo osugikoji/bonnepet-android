@@ -14,11 +14,11 @@ import br.com.bonnepet.util.extension.afterTextChanged
 import br.com.bonnepet.util.extension.popBackStack
 import br.com.bonnepet.util.extension.validate
 import br.com.bonnepet.view.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_address_register.*
+import kotlinx.android.synthetic.main.fragment_user_register_two.*
 
 /** Formulário de registro de endereço */
 class UserRegisterTwoFragment : BaseFragment() {
-    override val layoutResource = R.layout.fragment_address_register
+    override val layoutResource = R.layout.fragment_user_register_two
     override val fragmentTitle: Nothing? = null
 
     private val registerViewModel by lazy { ViewModelProviders.of(this).get(RegisterViewModel::class.java) }

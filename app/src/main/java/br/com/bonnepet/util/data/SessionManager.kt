@@ -2,7 +2,6 @@ package br.com.bonnepet.util.data
 
 import Prefs
 import SharedPreferencesUtil
-import br.com.bonnepet.data.model.UserDetails
 import br.com.bonnepet.util.extension.getTokenData
 
 object SessionManager {
@@ -23,16 +22,12 @@ object SessionManager {
         SharedPreferencesUtil.resetSharedPreference(Prefs.IS_LOGGED_IN)
     }
 
-    fun getUserDetails(): UserDetails? {
+    fun getUserId(): Int? {
         val token = SharedPreferencesUtil.getString(Prefs.TOKEN) ?: return null
 
         val tokenData = token.getTokenData()
 
-        val id = tokenData.getInt("id")
-        val email = tokenData.getString("email")
-        val profile = tokenData.getString("profile")
-
-        return UserDetails(id, email, profile)
+        return tokenData.getInt("id")
     }
 
     fun getAuthorizationHeader(): String? {

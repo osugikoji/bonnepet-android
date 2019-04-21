@@ -19,12 +19,12 @@
 
     <!-- Titulo de cada fragment da MainActivity -->
     <string name="search_accommodation">Buscar Por Lar</string>
-    <string name="my_revervations">Minhas Reservas</string>
+    <string name="my_bookings">Minhas Reservas</string>
     <string name="my_pets">Meus Pets</string>
     <string name="menu">Menu</string>
     <string name="get_in">Entrar</string>
 
-    <!-- Form -->
+    <!-- User Form -->
     <string name="profile_picture_title">Foto do seu perfil</string>
     <string name="profile_picture_description">Use uma foto em alta resolução e bem iluminada do seu rosto. Evite fotos com óculos escuros</string>
     <string name="personal_info">Dados Pessoais</string>
@@ -50,6 +50,7 @@
 
     <!-- Generic Messages -->
     <string name="next">Próximo</string>
+    <string name="save">Salvar</string>
     <string name="returning">Voltar</string>
     <string name="generic_request_error">Não foi possível executar a requisição</string>
 
@@ -57,8 +58,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Menu -->
-    <string name="edit_personal_info">Editar Dados Pessoais</string>
-    <string name="edit_address">Editar Endereço</string>
+    <string name="edit_profile">Editar Perfil</string>
+    <string name="change_password">Alterar Senha</string>
     <string name="be_host">Ser um Host</string>
     <string name="change_language">Alterar Idioma</string>
     <string name="exit">Sair</string>
@@ -68,5 +69,8 @@
     <string name="portuguese_language">Português (Brasil)</string>
     <string name="english_language">Inglês (EUA)</string>
     <string name="confirm">Confirmar</string>
+
+    <!-- Edit Profile -->
+    <string name="edit_profile_successfully">As modificações do seu perfil foram salvas</string>
 
 </resources>
