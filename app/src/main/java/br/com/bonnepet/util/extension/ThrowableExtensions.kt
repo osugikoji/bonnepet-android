@@ -10,7 +10,7 @@ fun Throwable.error(app: Application): String {
 
     if (this is HttpException) {
         val errorJsonString = this.response().errorBody()?.string()
-        message = JsonParser().parse(errorJsonString).asJsonObject["message"].asString
+        message = JsonParser().parse(errorJsonString).asJsonObject["errorMessage"].asString
     }
     return message
 }

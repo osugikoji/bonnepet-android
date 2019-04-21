@@ -64,7 +64,7 @@ class UserRegisterTwoFragment : BaseFragment() {
             if (result) registerActivity.authenticateUser()
         })
 
-        registerViewModel.errorMessage.observe(this, Observer { errorMessage ->
+        registerViewModel.errorMessage().observe(this, Observer { errorMessage ->
             showToast(errorMessage)
         })
         super.onViewCreated(view, savedInstanceState)

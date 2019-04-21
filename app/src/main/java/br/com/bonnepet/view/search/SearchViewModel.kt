@@ -1,7 +1,8 @@
 package br.com.bonnepet.view.search
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import br.com.bonnepet.view.base.BaseViewModel
 
-class SearchViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class SearchViewModel(override val app: Application) : BaseViewModel(app) {
+
 }

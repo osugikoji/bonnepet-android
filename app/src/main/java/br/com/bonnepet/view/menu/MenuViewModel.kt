@@ -1,30 +1,30 @@
 package br.com.bonnepet.view.menu
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.bonnepet.data.model.PictureDTO
 import br.com.bonnepet.data.model.ProfileDTO
 import br.com.bonnepet.data.repository.UserRepository
 import br.com.bonnepet.util.data.SessionManager
+import br.com.bonnepet.util.data.StatusCode
 import br.com.bonnepet.util.extension.error
+import br.com.bonnepet.view.base.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.HttpException
 import java.io.File
 
-class MenuViewModel(val app: Application) : AndroidViewModel(app) {
+class MenuViewModel(override val app: Application) : BaseViewModel(app) {
 
     private val userRepository = UserRepository()
 
     private val _onUserProfile = MutableLiveData<ProfileDTO>()
     val onUserProfile: LiveData<ProfileDTO> = _onUserProfile
 
-    private val _message = MutableLiveData<String>()
-    val message: LiveData<String> = _message
 
     private val _onProfilePictureUpload = MutableLiveData<PictureDTO>()
     val onProfilePictureUpload: LiveData<PictureDTO> = _onProfilePictureUpload
@@ -42,7 +42,7 @@ class MenuViewModel(val app: Application) : AndroidViewModel(app) {
                 .subscribeBy(onSuccess = {
                     _onProfilePictureUpload.value = it
                 }, onError = {
-                    _message.value = it.error(app)
+                    errorMessage.value = it.error(app)
                 })
         )
     }
@@ -65,12 +65,17 @@ class MenuViewModel(val app: Application) : AndroidViewModel(app) {
                 .subscribeBy(onSuccess = {
                     _onUserProfile.value = it
                 }, onError = {
-                    _message.value = it.error(app)
+                    if (StatusCode.Forbidden.code == (it as HttpException).code()) sessionExpired.value = true
+                    else errorMessage.value = it.error(app)
                 })
         )
     }
 
     fun getProfileDTO(): ProfileDTO? {
         return onUserProfile.value
+    }
+
+    fun isProfileDTOEmpty(): Boolean {
+        return onUserProfile.value == null
     }
 }

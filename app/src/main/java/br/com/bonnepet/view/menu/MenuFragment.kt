@@ -48,8 +48,12 @@ class MenuFragment : BaseFragment() {
             setProfileImage(profileDTO.profileImageURL)
         })
 
-        viewModel.message.observe(this, Observer { message ->
+        viewModel.errorMessage().observe(this, Observer { message ->
             showToast(message)
+        })
+
+        viewModel.sessionExpired().observe(this, Observer { isExpired ->
+            if (isExpired) logout()
         })
     }
 
@@ -100,6 +104,11 @@ class MenuFragment : BaseFragment() {
     }
 
     private fun startEditProfileActivity() {
+        if (viewModel.isProfileDTOEmpty()) {
+            showToast(getString(R.string.generic_request_error))
+            return
+        }
+
         val intent = Intent(context, EditProfileActivity::class.java).apply {
             putExtra(Data.PROFILE_DTO, viewModel.getProfileDTO())
         }

@@ -2,7 +2,6 @@ package br.com.bonnepet.view.login.userRegister
 
 import Header
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.bonnepet.R
@@ -14,6 +13,7 @@ import br.com.bonnepet.data.repository.UserRepository
 import br.com.bonnepet.util.data.SessionManager
 import br.com.bonnepet.util.data.StatusCode
 import br.com.bonnepet.util.extension.error
+import br.com.bonnepet.view.base.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import okhttp3.MediaType
@@ -21,7 +21,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
-class RegisterViewModel(val app: Application) : AndroidViewModel(app) {
+class RegisterViewModel(override val app: Application) : BaseViewModel(app) {
 
     private val externalRepository = ExternalRepository()
 
@@ -38,12 +38,6 @@ class RegisterViewModel(val app: Application) : AndroidViewModel(app) {
      */
     private val _userRegisterRequestResult = MutableLiveData<Boolean>()
     val userRegisterRequestResult: LiveData<Boolean> = _userRegisterRequestResult
-
-    /**
-     *  Mensagem de erro
-     */
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> = _errorMessage
 
     /**
      * O endereço
@@ -92,7 +86,7 @@ class RegisterViewModel(val app: Application) : AndroidViewModel(app) {
                         )
                     }
                 }, onError = {
-                    _errorMessage.value = it.error(getApplication())
+                    errorMessage.value = it.error(getApplication())
                     _userRegisterRequestResult.value = false
                 })
         )
@@ -108,11 +102,11 @@ class RegisterViewModel(val app: Application) : AndroidViewModel(app) {
                             _userRegisterRequestResult.value = true
                         }
                         else -> {
-                            _errorMessage.value = app.getString(R.string.login_invalid)
+                            errorMessage.value = app.getString(R.string.login_invalid)
                         }
                     }
                 }, onError = {
-                    _errorMessage.value = it.error(getApplication())
+                    errorMessage.value = it.error(getApplication())
                 })
         )
     }

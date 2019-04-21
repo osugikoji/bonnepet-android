@@ -41,7 +41,7 @@ class LoginFragment : BaseFragment() {
         btnLogin.setSafeOnClickListener { doLogin() }
         registerLink.setSafeOnClickListener { goToRegister() }
 
-        viewModel.message.observe(this, Observer { message ->
+        viewModel.errorMessage().observe(this, Observer { message ->
             hideProgressBar()
             showToast(message)
         })

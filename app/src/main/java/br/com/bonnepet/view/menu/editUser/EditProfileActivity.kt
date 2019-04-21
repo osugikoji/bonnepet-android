@@ -76,7 +76,7 @@ class EditProfileActivity : BaseActivity() {
         )
         progressBar.isVisible = true
         viewModel.updateUserProfile(editProfileDTO)
-        viewModel.message.observe(this, Observer { message ->
+        viewModel.errorMessage().observe(this, Observer { message ->
             progressBar.isVisible = false
             showToast(message)
         })
