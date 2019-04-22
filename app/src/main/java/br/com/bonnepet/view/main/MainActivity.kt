@@ -7,6 +7,7 @@ import br.com.bonnepet.util.extension.replaceFragment
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.login.LoginFragment
 import br.com.bonnepet.view.menu.MenuFragment
+import br.com.bonnepet.view.pet.PetFragment
 import br.com.bonnepet.view.search.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -39,7 +40,7 @@ class MainActivity : BaseActivity() {
     }
 
     /**
-     *  Listener do BottomMenu. Caso o usuario esteja autenticado, libera o acesso de toda navegacao do app.
+     * Listener do BottomMenu. Caso o usuario nao esteja autenticado, Eh liberado o acesso parcial da navegacao.
      */
     private val bottomNavigationListenerUserNotAuthenticated =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -65,7 +66,7 @@ class MainActivity : BaseActivity() {
         }
 
     /**
-     *  Listener do BottomMenu. Caso o usuario nao esteja autenticado, Eh liberado o acesso parcial da navegacao.
+     * Listener do BottomMenu. Caso o usuario esteja autenticado, libera o acesso de toda navegacao do app.
      */
     private val bottomNavigationListenerUserAuthenticated =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -78,6 +79,7 @@ class MainActivity : BaseActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_pet -> {
+                    replaceFragment(fragmentContent, PetFragment())
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_menu -> {

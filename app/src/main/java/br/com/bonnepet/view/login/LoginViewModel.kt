@@ -8,7 +8,7 @@ import br.com.bonnepet.R
 import br.com.bonnepet.data.model.Credential
 import br.com.bonnepet.data.repository.UserRepository
 import br.com.bonnepet.util.data.SessionManager
-import br.com.bonnepet.util.data.StatusCode
+import br.com.bonnepet.util.data.StatusCodeEnum
 import br.com.bonnepet.util.extension.error
 import br.com.bonnepet.view.base.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -25,7 +25,7 @@ class LoginViewModel(override val app: Application) : BaseViewModel(app) {
         CompositeDisposable().add(userRepository.authenticateUser(credential)
             .subscribeBy(onNext = { response ->
                 when(response.code()) {
-                    StatusCode.OK.code -> {
+                    StatusCodeEnum.OK.code -> {
                         SessionManager.createUserSession(response.headers().get(Header.AUTHORIZATION))
                         _onLoginSuccess.value = true
                     }

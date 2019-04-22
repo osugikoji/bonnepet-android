@@ -39,6 +39,10 @@ object Data {
     const val PROFILE_DTO = "PROFILE_DTO"
 }
 
+object Time {
+    const val IMAGE_FADE = 200
+}
+
 
 
 

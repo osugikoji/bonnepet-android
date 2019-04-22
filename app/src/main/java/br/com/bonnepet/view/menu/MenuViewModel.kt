@@ -7,7 +7,7 @@ import br.com.bonnepet.data.model.PictureDTO
 import br.com.bonnepet.data.model.ProfileDTO
 import br.com.bonnepet.data.repository.UserRepository
 import br.com.bonnepet.util.data.SessionManager
-import br.com.bonnepet.util.data.StatusCode
+import br.com.bonnepet.util.data.StatusCodeEnum
 import br.com.bonnepet.util.extension.error
 import br.com.bonnepet.view.base.BaseViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -65,8 +65,12 @@ class MenuViewModel(override val app: Application) : BaseViewModel(app) {
                 .subscribeBy(onSuccess = {
                     _onUserProfile.value = it
                 }, onError = {
-                    if (StatusCode.Forbidden.code == (it as HttpException).code()) sessionExpired.value = true
-                    else errorMessage.value = it.error(app)
+                    try {
+                        if (StatusCodeEnum.Forbidden.code == (it as HttpException).code()) sessionExpired.value = true
+                        else errorMessage.value = it.error(app)
+                    } catch (e: Exception) {
+                        sessionExpired.value = true
+                    }
                 })
         )
     }

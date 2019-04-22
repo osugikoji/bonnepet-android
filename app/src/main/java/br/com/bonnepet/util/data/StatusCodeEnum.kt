@@ -1,6 +1,6 @@
 package br.com.bonnepet.util.data
 
-enum class StatusCode(val code: Int) {
+enum class StatusCodeEnum(val code: Int) {
     Continue(100),
     SwitchingProtocols(101),
     Processing(102),
@@ -12,7 +12,7 @@ enum class StatusCode(val code: Int) {
     NoContent(204),
     ResetContent(205),
     PartialContent(206),
-    MultiStatus(207),
+    MultiStatusEnum(207),
     AlreadyReported(208),
     IMUsed(226),
 

@@ -7,11 +7,13 @@ import br.com.bonnepet.R
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.main.MainActivity
 
-private const val SPLASH_TIME_OUT = 2000
-
 class SplashActivity : BaseActivity() {
     override val layoutResource = R.layout.activity_splash
     override val activityTitle: Nothing? = null
+
+    companion object {
+        private const val SPLASH_TIME_OUT = 2000
+    }
 
     override fun onPrepareActivity(state: Bundle?) {
         showSplashScreen()

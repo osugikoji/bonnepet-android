@@ -94,7 +94,7 @@ class MenuFragment : BaseFragment() {
         viewModel.onProfilePictureUpload.observe(this, Observer { pictureDTO ->
             Glide.with(this)
                 .load(pictureDTO.imageURL)
-                .transition(DrawableTransitionOptions.withCrossFade(1000))
+                .transition(DrawableTransitionOptions.withCrossFade(Time.IMAGE_FADE))
                 .placeholder(circularProgressDrawable)
                 .circleCrop()
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -120,7 +120,7 @@ class MenuFragment : BaseFragment() {
             .load(profileURL)
             .error(R.drawable.ic_account_circle)
             .placeholder(R.drawable.ic_account_circle)
-            .transition(DrawableTransitionOptions.withCrossFade(1000))
+            .transition(DrawableTransitionOptions.withCrossFade(Time.IMAGE_FADE))
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
             .circleCrop()
