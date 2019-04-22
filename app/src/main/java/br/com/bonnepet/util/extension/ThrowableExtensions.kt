@@ -8,9 +8,13 @@ import retrofit2.HttpException
 fun Throwable.error(app: Application): String {
     var message = app.getString(R.string.generic_request_error)
 
-    if (this is HttpException) {
-        val errorJsonString = this.response().errorBody()?.string()
-        message = JsonParser().parse(errorJsonString).asJsonObject["errorMessage"].asString
+    return try {
+        if (this is HttpException) {
+            val errorJsonString = this.response().errorBody()?.string()
+            message = JsonParser().parse(errorJsonString).asJsonObject["message"].asString
+        }
+        message
+    } catch (e: Exception) {
+        message
     }
-    return message
 }

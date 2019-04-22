@@ -73,8 +73,8 @@ class RegisterViewModel(override val app: Application) : BaseViewModel(app) {
         CompositeDisposable().add(
             userRepository.registerUser(userDTO)
                 .subscribeBy(onSuccess = {
+                    val credential = Credential(userDTO.email, userDTO.password)
                     if (bodyImage != null) {
-                        val credential = Credential(userDTO.email, userDTO.password)
                         // Faz o upload da imagem
                         CompositeDisposable().add(
                             userRepository.uploadProfilePicture(it.id, bodyImage)
@@ -84,6 +84,8 @@ class RegisterViewModel(override val app: Application) : BaseViewModel(app) {
                                     authenticateUser(credential)
                                 })
                         )
+                    } else {
+                        authenticateUser(credential)
                     }
                 }, onError = {
                     errorMessage.value = it.error(getApplication())
