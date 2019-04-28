@@ -1,4 +1,4 @@
-package br.com.bonnepet.view.pet
+package br.com.bonnepet.view.pet.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

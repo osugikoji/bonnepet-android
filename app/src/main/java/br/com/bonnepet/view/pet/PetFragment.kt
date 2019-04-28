@@ -1,6 +1,7 @@
 package br.com.bonnepet.view.pet
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.bonnepet.R
 import br.com.bonnepet.view.base.BaseFragment
+import br.com.bonnepet.view.pet.adapter.PetAdapter
 import kotlinx.android.synthetic.main.fragment_pet.*
 
 class PetFragment : BaseFragment() {
@@ -16,6 +18,8 @@ class PetFragment : BaseFragment() {
     private lateinit var viewModel: PetViewModel
 
     private val recyclerView by lazy { recycler_view }
+
+    private val btnPetRegister by lazy { register_pet_btn }
 
     lateinit var petAdapter: PetAdapter
 
@@ -27,8 +31,13 @@ class PetFragment : BaseFragment() {
         petAdapter = PetAdapter(activity!!, ArrayList())
         recyclerView.adapter = petAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
-
+        btnPetRegister.setOnClickListener { startRegisterPetActivity() }
         loadData(true)
+    }
+
+
+    private fun startRegisterPetActivity() {
+        startActivity(Intent(activity, PetRegisterActivity::class.java))
     }
 
     private fun loadData(resetData: Boolean) {

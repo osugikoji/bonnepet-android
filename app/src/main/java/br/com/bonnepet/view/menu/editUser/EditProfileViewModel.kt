@@ -8,7 +8,6 @@ import br.com.bonnepet.data.model.ProfileDTO
 import br.com.bonnepet.data.repository.UserRepository
 import br.com.bonnepet.util.extension.error
 import br.com.bonnepet.view.base.BaseViewModel
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 
 class EditProfileViewModel(override val app: Application) : BaseViewModel(app) {
@@ -19,7 +18,7 @@ class EditProfileViewModel(override val app: Application) : BaseViewModel(app) {
     val onUpdateUserProfile: LiveData<ProfileDTO> = _onUpdateUserProfile
 
     fun updateUserProfile(editProfileDTO: EditProfileDTO) {
-        CompositeDisposable().add(
+        compositeDisposable.add(
             userRepository.updateUserProfile(editProfileDTO)
                 .subscribeBy(onSuccess = {
                     _onUpdateUserProfile.value = it

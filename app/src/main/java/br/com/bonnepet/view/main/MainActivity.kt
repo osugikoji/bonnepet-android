@@ -54,7 +54,7 @@ class MainActivity : BaseActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_pet -> {
-                    replaceFragment(fragmentContent, LoginFragment())
+                    replaceFragment(fragmentContent, PetFragment())
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_menu -> {

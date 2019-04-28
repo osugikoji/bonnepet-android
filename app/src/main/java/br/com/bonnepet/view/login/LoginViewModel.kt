@@ -11,7 +11,6 @@ import br.com.bonnepet.util.data.SessionManager
 import br.com.bonnepet.util.data.StatusCodeEnum
 import br.com.bonnepet.util.extension.error
 import br.com.bonnepet.view.base.BaseViewModel
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 
 class LoginViewModel(override val app: Application) : BaseViewModel(app) {
@@ -22,7 +21,7 @@ class LoginViewModel(override val app: Application) : BaseViewModel(app) {
     val onLoginSuccess: LiveData<Boolean> = _onLoginSuccess
 
     fun authenticateUser(credential: Credential) {
-        CompositeDisposable().add(userRepository.authenticateUser(credential)
+        compositeDisposable.add(userRepository.authenticateUser(credential)
             .subscribeBy(onNext = { response ->
                 when(response.code()) {
                     StatusCodeEnum.OK.code -> {

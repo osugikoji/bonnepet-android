@@ -6,6 +6,23 @@
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
         <item name="colorControlNormal">@color/dark_gray</item>
+        <item name="materialButtonStyle">@style/MaterialButton</item>
+    </style>
+
+    <style name="MaterialButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
+        <item name="cornerRadius">20dp</item>
+        <item name="android:insetTop">2dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:insetBottom">2dp</item>
+    </style>
+
+    <style name="MaterialOutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
+        <item name="cornerRadius">20dp</item>
+        <item name="android:insetTop">2dp</item>
+        <item name="android:insetBottom">2dp</item>
+        <item name="strokeColor">@color/color_primary</item>
     </style>
 
     <!-- TextInputLayout. -->
@@ -31,6 +48,13 @@
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:foreground">?android:selectableItemBackground</item>
+    </style>
+
+    <style name="TextView.SubTitle" parent="">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/color_primary_dark</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
 </resources>

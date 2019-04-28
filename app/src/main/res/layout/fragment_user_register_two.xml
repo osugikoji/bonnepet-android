@@ -5,7 +5,6 @@
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -14,15 +13,12 @@
 
         <TextView
             android:id="@+id/address_title"
+            style="@style/TextView.SubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/address"
-            android:textAllCaps="true"
-            android:fontFamily="@font/montserrat_regular"
-            android:textSize="26sp"
-            android:textColor="@color/color_primary"/>
+            android:text="@string/address"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -143,20 +139,15 @@
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:backgroundTint="@color/color_primary"
-            android:padding="12dp"
             android:text="@string/title_activity_register"
-            android:textColor="@color/white"/>
+            android:layout_marginBottom="5dp"/>
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:strokeColor="@color/color_primary"
+            style="@style/MaterialOutlinedButton"
             android:id="@+id/btn_return"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="34dp"
-            android:padding="12dp"
-            android:text="@string/returning"
-            android:textColor="@color/color_primary"/>
+            android:text="@string/returning"/>
     </LinearLayout>
 </ScrollView>

@@ -13,15 +13,12 @@
         android:paddingLeft="20dp">
 
         <TextView
+            style="@style/TextView.SubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/personal_info"
-            android:textAllCaps="true"
-            android:textSize="26sp"
-            android:fontFamily="@font/montserrat_regular"
-            android:textColor="@color/color_primary"/>
+            android:text="@string/personal_info"/>
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -176,9 +173,7 @@
             android:id="@+id/btn_next"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            app:backgroundTint="@color/color_primary"
             android:padding="12dp"
-            android:text="@string/next"
-            android:textColor="@color/white"/>
+            android:text="@string/next"/>
     </LinearLayout>
 </ScrollView>

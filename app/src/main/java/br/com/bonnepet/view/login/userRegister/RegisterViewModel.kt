@@ -14,7 +14,6 @@ import br.com.bonnepet.util.data.SessionManager
 import br.com.bonnepet.util.data.StatusCodeEnum
 import br.com.bonnepet.util.extension.error
 import br.com.bonnepet.view.base.BaseViewModel
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -51,7 +50,7 @@ class RegisterViewModel(override val app: Application) : BaseViewModel(app) {
     fun getAddress(cep: String) {
         if (cep.length == 8) {
             _onAddressRequest.value = true
-            CompositeDisposable().add(
+            compositeDisposable.add(
                 externalRepository.getAddress(cep)
                     .subscribeBy(onSuccess = {
                         _onAddressRequest.value = false
@@ -70,13 +69,13 @@ class RegisterViewModel(override val app: Application) : BaseViewModel(app) {
     fun doRegister(userDTO: UserDTO, selectedUriImage: File?) {
         val bodyImage = buildMultipartBodyImage(selectedUriImage)
 
-        CompositeDisposable().add(
+        compositeDisposable.add(
             userRepository.registerUser(userDTO)
                 .subscribeBy(onSuccess = {
                     val credential = Credential(userDTO.email, userDTO.password)
                     if (bodyImage != null) {
                         // Faz o upload da imagem
-                        CompositeDisposable().add(
+                        compositeDisposable.add(
                             userRepository.uploadProfilePicture(it.id, bodyImage)
                                 .subscribeBy(onSuccess = {
                                     authenticateUser(credential)
@@ -95,7 +94,7 @@ class RegisterViewModel(override val app: Application) : BaseViewModel(app) {
     }
 
     private fun authenticateUser(credential: Credential) {
-        CompositeDisposable().add(
+        compositeDisposable.add(
             userRepository.authenticateUser(credential)
                 .subscribeBy(onNext = { response ->
                     when (response.code()) {

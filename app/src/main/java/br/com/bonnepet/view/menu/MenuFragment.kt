@@ -53,7 +53,7 @@ class MenuFragment : BaseFragment() {
         })
 
         viewModel.sessionExpired().observe(this, Observer { isExpired ->
-            if (isExpired) logout()
+           // if (isExpired) logout()
         })
     }
 

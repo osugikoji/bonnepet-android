@@ -16,14 +16,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/TextView.SubTitle"
             android:layout_marginTop="80dp"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="20dp"
-            android:text="@string/select_language"
-            android:textAllCaps="true"
-            android:fontFamily="@font/montserrat_regular"
-            android:textSize="26sp"
-            android:textColor="@color/color_primary"/>
+            android:text="@string/select_language"/>
 
         <View
             android:layout_width="wrap_content"
@@ -115,7 +112,5 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="12dp"
-        app:backgroundTint="@color/color_primary"
-        android:text="@string/confirm"
-        android:textColor="@color/white"/>
+        android:text="@string/confirm"/>
 </RelativeLayout>

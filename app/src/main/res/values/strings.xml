@@ -73,4 +73,7 @@
     <!-- Edit Profile -->
     <string name="edit_profile_successfully">As modificações do seu perfil foram salvas</string>
 
+    <!-- Pet Register -->
+    <string name="register_pet_title">Add New Pet</string>
+
 </resources>

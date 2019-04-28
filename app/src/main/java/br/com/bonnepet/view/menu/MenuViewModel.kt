@@ -10,7 +10,6 @@ import br.com.bonnepet.util.data.SessionManager
 import br.com.bonnepet.util.data.StatusCodeEnum
 import br.com.bonnepet.util.extension.error
 import br.com.bonnepet.view.base.BaseViewModel
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -37,7 +36,7 @@ class MenuViewModel(override val app: Application) : BaseViewModel(app) {
         val bodyImage = buildMultipartBodyImage(selectedUriImage)
         val id: String = SessionManager.getUserId()!!.toString()
 
-        CompositeDisposable().add(
+        compositeDisposable.add(
             userRepository.uploadProfilePicture(id, bodyImage!!)
                 .subscribeBy(onSuccess = {
                     _onProfilePictureUpload.value = it
@@ -60,7 +59,7 @@ class MenuViewModel(override val app: Application) : BaseViewModel(app) {
     }
 
     fun userProfile() {
-        CompositeDisposable().add(
+        compositeDisposable.add(
             userRepository.getUserProfile()
                 .subscribeBy(onSuccess = {
                     _onUserProfile.value = it
