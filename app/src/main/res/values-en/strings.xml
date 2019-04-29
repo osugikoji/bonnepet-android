@@ -50,6 +50,7 @@
 
     <!-- Generic Messages -->
     <string name="next">Next</string>
+    <string name="register">Sign Up</string>
     <string name="save">Save</string>
     <string name="returning">Return</string>
     <string name="generic_request_error">Could not execute request</string>
@@ -75,5 +76,14 @@
 
     <!-- Pet Register -->
     <string name="register_pet_title">Add New Pet</string>
+    <string name="pet_name">Name of pet</string>
+    <string name="pet_breed">Breed</string>
+    <string name="pet_gender">Gender</string>
+    <string name="pet_size">Size</string>
+
+    <!-- Pet Details -->
+    <string name="pet_details_title">Pet Details</string>
+    <string name="your_home">Your home</string>
+    <string name="your_request">Your request</string>
 
 </resources>

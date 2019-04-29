@@ -1,5 +1,6 @@
 package br.com.bonnepet.view.pet.adapter
 
+import Time
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +14,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.android.synthetic.main.pet_item.view.*
 
-class PetAdapter(private val context: Context, private var petList: MutableList<PetDTO>) :
-    RecyclerView.Adapter<PetAdapter.PetViewHolder>() {
+class PetAdapter(
+    private val context: Context,
+    private var petList: MutableList<PetDTO>,
+    private val itemClickListener: ItemClickListener
+) : RecyclerView.Adapter<PetAdapter.PetViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetViewHolder {
@@ -42,14 +46,18 @@ class PetAdapter(private val context: Context, private var petList: MutableList<
     }
 
 
-    class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class PetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
+        private val petLayout = itemView.layout_pet
         private val petImage = itemView.pet_image
         private val petName = itemView.pet_name
         private val petBreed = itemView.pet_breed
         private val petGender = itemView.pet_gender
         private val petAge = itemView.pet_age
 
+        init {
+            petLayout.setOnClickListener(this)
+        }
 
         fun bindView(pet: PetDTO) {
             setPetImage(pet.pictureURL)
@@ -57,6 +65,10 @@ class PetAdapter(private val context: Context, private var petList: MutableList<
             petBreed.text = pet.breed
             setPetGender(pet.gender)
             petAge.text = pet.birthDate
+        }
+
+        override fun onClick(v: View?) {
+            itemClickListener.onItemClick(petList[adapterPosition])
         }
 
         private fun setPetGender(gender: String) {
@@ -77,5 +89,12 @@ class PetAdapter(private val context: Context, private var petList: MutableList<
                 .circleCrop()
                 .into(petImage)
         }
+    }
+
+    /**
+     * Permite que classes externas definam o listener de click
+     */
+    interface ItemClickListener {
+        fun onItemClick(pet: PetDTO)
     }
 }

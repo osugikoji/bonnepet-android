@@ -7,6 +7,11 @@
         <item name="colorAccent">@color/color_accent</item>
         <item name="colorControlNormal">@color/dark_gray</item>
         <item name="materialButtonStyle">@style/MaterialButton</item>
+        <item name="android:textViewStyle">@style/Material.TextView</item>
+    </style>
+
+    <style name="Material.TextView" parent="">
+        <item name="android:fontFamily">@font/montserrat_regular</item>
     </style>
 
     <style name="MaterialButton" parent="Widget.MaterialComponents.Button">

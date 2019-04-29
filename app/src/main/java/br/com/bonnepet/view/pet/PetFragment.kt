@@ -8,11 +8,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.bonnepet.R
+import br.com.bonnepet.data.model.PetDTO
 import br.com.bonnepet.view.base.BaseFragment
 import br.com.bonnepet.view.pet.adapter.PetAdapter
 import kotlinx.android.synthetic.main.fragment_pet.*
 
-class PetFragment : BaseFragment() {
+class PetFragment : BaseFragment(), PetAdapter.ItemClickListener {
     override val layoutResource = R.layout.fragment_pet
     override val fragmentTitle = R.string.my_pets
     private lateinit var viewModel: PetViewModel
@@ -28,7 +29,7 @@ class PetFragment : BaseFragment() {
         hideActionBarDisplayHome()
         viewModel = ViewModelProviders.of(this).get(PetViewModel::class.java)
 
-        petAdapter = PetAdapter(activity!!, ArrayList())
+        petAdapter = PetAdapter(activity!!, ArrayList(), this)
         recyclerView.adapter = petAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
         btnPetRegister.setOnClickListener { startRegisterPetActivity() }
@@ -45,5 +46,12 @@ class PetFragment : BaseFragment() {
         viewModel.petList.observe(this, Observer { petList ->
             petAdapter.update(petList, resetData)
         })
+    }
+
+    override fun onItemClick(pet: PetDTO) {
+        val intent = Intent(activity, PetDetailsActivity::class.java).apply {
+            putExtra(Data.PET_DTO, pet)
+        }
+        startActivity(intent)
     }
 }

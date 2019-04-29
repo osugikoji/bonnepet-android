@@ -4,19 +4,16 @@ import android.os.Bundle
 import android.view.MenuItem
 import br.com.bonnepet.R
 import br.com.bonnepet.view.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_pet_register.*
 
-class PetRegisterActivity : BaseActivity() {
-    override val layoutResource = R.layout.activity_pet_register
+class PetDetailsActivity : BaseActivity() {
+    override val layoutResource = R.layout.activity_pet_details
 
-    override val activityTitle = R.string.register_pet_title
+    override val activityTitle = R.string.pet_details_title
 
-    private val petPicture by lazy { view_pet_picture }
 
     override fun onPrepareActivity(state: Bundle?) {
 
     }
-
 
     /**
      *  Ação do botão de voltar da actionBar

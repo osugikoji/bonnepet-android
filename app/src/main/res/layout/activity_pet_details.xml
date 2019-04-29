@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/alternative_splash"
-    tools:context=".view.splash.SplashActivity">
+    tools:context="br.com.bonnepet.view.pet.PetDetailsActivity">
+
+    <include
+        layout="@layout/tool_bar_transparent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

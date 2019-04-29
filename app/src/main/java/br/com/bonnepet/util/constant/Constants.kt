@@ -37,6 +37,7 @@ object Header {
 
 object Data {
     const val PROFILE_DTO = "PROFILE_DTO"
+    const val PET_DTO= "PET_DTO"
 }
 
 object Time {

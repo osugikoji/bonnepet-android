@@ -50,6 +50,7 @@
 
     <!-- Generic Messages -->
     <string name="next">Próximo</string>
+    <string name="register">Cadastrar</string>
     <string name="save">Salvar</string>
     <string name="returning">Voltar</string>
     <string name="generic_request_error">Não foi possível executar a requisição</string>
@@ -74,6 +75,15 @@
     <string name="edit_profile_successfully">As modificações do seu perfil foram salvas</string>
 
     <!-- Pet Register -->
-    <string name="register_pet_title">Add New Pet</string>
+    <string name="register_pet_title">Adicionar Novo Pet</string>
+    <string name="pet_name">Nome do pet</string>
+    <string name="pet_breed">Raça</string>
+    <string name="pet_gender">Gênero</string>
+    <string name="pet_size">Porte</string>
+
+    <!-- Pet Details -->
+    <string name="pet_details_title">Detalhes Do Pet</string>
+    <string name="your_home">Seu lar</string>
+    <string name="your_request">Seus pedidos</string>
 
 </resources>

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
 import br.com.bonnepet.util.extension.replaceFragment
 import br.com.bonnepet.view.base.BaseActivity
+import br.com.bonnepet.view.booking.BookingFragment
 import br.com.bonnepet.view.login.LoginFragment
 import br.com.bonnepet.view.menu.MenuFragment
 import br.com.bonnepet.view.pet.PetFragment
@@ -50,7 +51,7 @@ class MainActivity : BaseActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_reservations -> {
-                    replaceFragment(fragmentContent, LoginFragment())
+                    replaceFragment(fragmentContent, BookingFragment())
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_pet -> {
@@ -76,6 +77,7 @@ class MainActivity : BaseActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_reservations -> {
+                    replaceFragment(fragmentContent, BookingFragment())
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_pet -> {

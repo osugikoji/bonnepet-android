@@ -18,6 +18,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".view.pet.PetDetailsActivity">
+        </activity>
         <activity android:name=".view.pet.PetRegisterActivity">
         </activity>
         <activity android:name=".view.menu.editUser.EditProfileActivity">
