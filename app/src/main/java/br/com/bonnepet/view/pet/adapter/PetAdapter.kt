@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.PetDTO
+import br.com.bonnepet.util.component.CircularProgressBar
 import br.com.bonnepet.util.data.GenderEnum
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -79,10 +80,13 @@ class PetAdapter(
         }
 
         private fun setPetImage(imageURL: String) {
+            val progressBar = CircularProgressBar(context)
+            progressBar.start()
+
             Glide.with(itemView.context)
                 .load(imageURL)
                 .error(R.drawable.ic_dog)
-                .placeholder(R.drawable.ic_dog)
+                .placeholder(progressBar)
                 .transition(DrawableTransitionOptions.withCrossFade(Time.IMAGE_FADE))
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)

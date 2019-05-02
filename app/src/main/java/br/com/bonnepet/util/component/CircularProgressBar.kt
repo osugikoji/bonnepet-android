@@ -1,11 +1,11 @@
 package br.com.bonnepet.util.component
 
-import android.app.Activity
+import android.content.Context
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import br.com.bonnepet.R
 
-class CircularProgressBar(val activity: Activity) : CircularProgressDrawable(activity) {
+class CircularProgressBar(val context: Context) : CircularProgressDrawable(context) {
 
     companion object {
         const val STROKE_WIDTH = 10f
@@ -15,6 +15,6 @@ class CircularProgressBar(val activity: Activity) : CircularProgressDrawable(act
     init {
         strokeWidth = STROKE_WIDTH
         centerRadius = CENTER_RADIUS
-        setColorSchemeColors((ContextCompat.getColor(activity, R.color.color_primary)))
+        setColorSchemeColors((ContextCompat.getColor(context, R.color.color_primary)))
     }
 }
