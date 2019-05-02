@@ -33,8 +33,6 @@
     <string name="email">Email</string>
     <string name="birth_date">Birth Date</string>
     <string name="gender">Gender:</string>
-    <string name="gender_man">Male</string>
-    <string name="gender_woman">Female</string>
     <string name="cell_phone">Cellphone</string>
     <string name="telephone">Telephone</string>
     <string name="password">Password</string>
@@ -54,6 +52,9 @@
     <string name="save">Save</string>
     <string name="returning">Return</string>
     <string name="generic_request_error">Could not execute request</string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -74,16 +75,19 @@
     <!-- Edit Profile -->
     <string name="edit_profile_successfully">Your profile modifications have been saved</string>
 
-    <!-- Pet Register -->
+    <!-- Pet -->
     <string name="register_pet_title">Add New Pet</string>
     <string name="pet_name">Name of pet</string>
     <string name="pet_breed">Breed</string>
     <string name="pet_gender">Gender</string>
     <string name="pet_size">Size</string>
-
-    <!-- Pet Details -->
+    <string name="pet_age">Age</string>
+    <string name="pet_behaviour">Behaviour</string>
+    <string name="pet_allergies">Allergies</string>
     <string name="pet_details_title">Pet Details</string>
     <string name="your_home">Your home</string>
     <string name="your_request">Your request</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 
 </resources>

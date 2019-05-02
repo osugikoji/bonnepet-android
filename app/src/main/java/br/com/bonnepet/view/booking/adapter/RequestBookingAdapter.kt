@@ -97,6 +97,6 @@ class RequestBookingAdapter(
      * Permite que classes externas definam o listener de click
      */
     interface ItemClickListener {
-        fun onItemClick(requestBookingList: RequestBookingDTO)
+        fun onItemClick(requestBooking: RequestBookingDTO)
     }
 }

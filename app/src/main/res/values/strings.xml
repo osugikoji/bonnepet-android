@@ -33,8 +33,6 @@
     <string name="email">Email</string>
     <string name="birth_date">Data de nascimento</string>
     <string name="gender">Gênero:</string>
-    <string name="gender_man">Masculino</string>
-    <string name="gender_woman">Feminino</string>
     <string name="cell_phone">Telefone Celular</string>
     <string name="telephone">Telefone Residencial</string>
     <string name="password">Senha</string>
@@ -54,6 +52,9 @@
     <string name="save">Salvar</string>
     <string name="returning">Voltar</string>
     <string name="generic_request_error">Não foi possível executar a requisição</string>
+    <string name="small">Pequeno</string>
+    <string name="medium">Médio</string>
+    <string name="large">Grande</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -74,16 +75,19 @@
     <!-- Edit Profile -->
     <string name="edit_profile_successfully">As modificações do seu perfil foram salvas</string>
 
-    <!-- Pet Register -->
+    <!-- Pet -->
     <string name="register_pet_title">Adicionar Novo Pet</string>
     <string name="pet_name">Nome do pet</string>
     <string name="pet_breed">Raça</string>
     <string name="pet_gender">Gênero</string>
     <string name="pet_size">Porte</string>
-
-    <!-- Pet Details -->
+    <string name="pet_age">Idade</string>
+    <string name="pet_behaviour">Comportamento</string>
+    <string name="pet_allergies">Alergias</string>
     <string name="pet_details_title">Detalhes Do Pet</string>
     <string name="your_home">Seu lar</string>
     <string name="your_request">Seus pedidos</string>
+    <string name="male">Macho</string>
+    <string name="female">Fêmea</string>
 
 </resources>

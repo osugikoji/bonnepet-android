@@ -7,5 +7,8 @@ data class PetDTO(
     var name: String,
     var breed: String,
     var gender: String,
-    var birthDate: String
+    var birthDate: String,
+    var size: String,
+    var allergies: ArrayList<String>,
+    var behaviours: ArrayList<String>
 ) : Serializable
