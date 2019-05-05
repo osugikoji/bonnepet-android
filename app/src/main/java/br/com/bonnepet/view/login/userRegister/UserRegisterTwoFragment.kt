@@ -135,16 +135,16 @@ class UserRegisterTwoFragment : BaseFragment() {
      *  Desabilita todos os campos de endereco
      */
     private fun disableAddressEditText() {
-        inputLayoutDistrict.setBoxBackgroundColorResource(R.color.light_gray)
+        inputLayoutDistrict.setBoxBackgroundColorResource(R.color.gray_300)
         inputDistrict.isEnabled = false
 
-        inputLayoutStreet.setBoxBackgroundColorResource(R.color.light_gray)
+        inputLayoutStreet.setBoxBackgroundColorResource(R.color.gray_300)
         inputStreet.isEnabled = false
 
-        inputLayoutState.setBoxBackgroundColorResource(R.color.light_gray)
+        inputLayoutState.setBoxBackgroundColorResource(R.color.gray_300)
         inputState.isEnabled = false
 
-        inputLayoutCity.setBoxBackgroundColorResource(R.color.light_gray)
+        inputLayoutCity.setBoxBackgroundColorResource(R.color.gray_300)
         inputCity.isEnabled = false
 
         btnRegister.isEnabled = false

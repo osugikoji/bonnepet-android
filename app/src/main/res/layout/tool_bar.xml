@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
         app:fontFamily="@font/montserrat_medium"
-        android:textColor="@color/dark_gray"
+        android:textColor="@color/gray_600"
         android:textSize="19sp"
         android:layout_gravity="center"/>
 </androidx.appcompat.widget.Toolbar>

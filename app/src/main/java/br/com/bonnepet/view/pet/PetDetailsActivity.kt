@@ -30,8 +30,8 @@ class PetDetailsActivity : BaseActivity() {
     private val petImageView by lazy { image_view_pet }
 
     override fun onPrepareActivity(state: Bundle?) {
-        collapsingToolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.text_view))
-        collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(this, R.color.accent_white))
+        collapsingToolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.gray_600))
+        collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(this, R.color.gray_100))
 
         val petDTO = intent.getSerializableExtra(Data.PET_DTO) as PetDTO
         setPetImage(petDTO.pictureURL)
@@ -52,7 +52,7 @@ class PetDetailsActivity : BaseActivity() {
                 } else if (isShow) {
                     if (petDTO.pictureURL.isEmpty()) {
                         collapsingToolbarLayout.setExpandedTitleColor(ContextCompat
-                            .getColor(this@PetDetailsActivity, R.color.text_view))
+                            .getColor(this@PetDetailsActivity, R.color.gray_600))
                         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_gray_24dp)
                     } else {
                         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)

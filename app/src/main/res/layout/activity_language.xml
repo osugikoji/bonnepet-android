@@ -27,7 +27,7 @@
             android:layout_height="1dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:background="@color/light_gray"/>
+            android:background="@color/gray_300"/>
 
 
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -64,7 +64,7 @@
             android:layout_height="1dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:background="@color/light_gray"/>
+            android:background="@color/gray_300"/>
 
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                      style="@style/Item.Clickable"
@@ -100,7 +100,7 @@
             android:layout_height="1dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:background="@color/light_gray"/>
+            android:background="@color/gray_300"/>
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton

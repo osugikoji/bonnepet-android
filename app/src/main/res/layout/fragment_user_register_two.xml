@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/cep"
                 android:inputType="number"
-                android:textColor="@color/text_color"
+                android:textColor="@color/black"
                 android:maxLength="8"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/district"
                 android:inputType="text"
-                android:textColor="@color/text_color"/>
+                android:textColor="@color/black"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <RelativeLayout
@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/street"
                     android:inputType="text"
-                    android:textColor="@color/text_color"/>
+                    android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -94,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/number"
                     android:inputType="number"
-                    android:textColor="@color/text_color"/>
+                    android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </RelativeLayout>
@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/city"
                 android:inputType="text"
-                android:textColor="@color/text_color"/>
+                android:textColor="@color/black"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
