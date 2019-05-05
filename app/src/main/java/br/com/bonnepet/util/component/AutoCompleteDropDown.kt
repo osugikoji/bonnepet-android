@@ -33,7 +33,7 @@ class AutoCompleteDropDown : AppCompatAutoCompleteTextView {
     ) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect)
         if (focused) {
-            if (this.text.length > 0) {
+            if (this.text.isNotEmpty()) {
                 performFiltering("", 0)
             }
             val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

@@ -1,7 +1,9 @@
 package br.com.bonnepet.util.data
 
-enum class PetSizeEnum(val code: Int) {
-    SMALL(0),
-    MEDIUM(1),
-    LARGE(2)
+import br.com.bonnepet.R
+
+enum class PetSizeEnum(val description: Int) {
+    SMALL(R.string.small),
+    MEDIUM(R.string.medium),
+    LARGE(R.string.large)
 }

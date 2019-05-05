@@ -89,5 +89,11 @@
     <string name="your_request">Seus pedidos</string>
     <string name="male">Macho</string>
     <string name="female">Fêmea</string>
+    <string name="mutt">Vira-lata</string>
+    <string name="confident">Confiante</string>
+    <string name="shy">Tímido</string>
+    <string name="aggressive">Agressivo</string>
+    <string name="sociable">Sociável</string>
+    <string name="independent">Independente</string>
 
 </resources>

@@ -1,6 +1,7 @@
 package br.com.bonnepet.view.pet
 
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -38,7 +39,7 @@ class PetFragment : BaseFragment(), PetAdapter.ItemClickListener {
 
 
     private fun startRegisterPetActivity() {
-        startActivity(Intent(activity, PetRegisterActivity::class.java))
+        startActivityForResult(Intent(context, PetRegisterActivity::class.java), RequestCode.PET_REGISTER)
     }
 
     private fun loadData(resetData: Boolean) {
@@ -46,6 +47,16 @@ class PetFragment : BaseFragment(), PetAdapter.ItemClickListener {
         viewModel.petList.observe(this, Observer { petList ->
             petAdapter.update(petList, resetData)
         })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                RequestCode.PET_REGISTER -> loadData(true)
+            }
+        }
     }
 
     override fun onItemClick(pet: PetDTO) {

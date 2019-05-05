@@ -89,5 +89,11 @@
     <string name="your_request">Your request</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="mutt">Mutt</string>
+    <string name="confident">Confident</string>
+    <string name="shy">Shy</string>
+    <string name="aggressive">Aggressive</string>
+    <string name="sociable">Sociable</string>
+    <string name="independent">Independent</string>
 
 </resources>

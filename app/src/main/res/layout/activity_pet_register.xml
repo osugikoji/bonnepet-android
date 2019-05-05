@@ -100,8 +100,9 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="16dp">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                     android:id="@+id/input_pet_breed"
+                    style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/pet_breed"
@@ -113,32 +114,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/TextInputLayoutAppearance.OutlineBox"
-                android:layout_gravity="center"
                 android:layout_marginBottom="16dp">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <br.com.bonnepet.util.component.AutoCompleteDropDown
                     android:id="@+id/input_pet_gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/pet_gender"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/black"/>
+                    style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                    android:longClickable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="textNoSuggestions"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/TextInputLayoutAppearance.OutlineBox"
-                android:layout_gravity="center"
                 android:layout_marginBottom="16dp">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <br.com.bonnepet.util.component.AutoCompleteDropDown
                     android:id="@+id/input_allergies"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/pet_allergies"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/black"/>
+                    style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                    android:longClickable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="textNoSuggestions"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextInputLayoutAppearance.OutlineBox"
+                android:layout_marginBottom="16dp">
+
+                <br.com.bonnepet.util.component.AutoCompleteDropDown
+                    android:id="@+id/input_behaviour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/pet_behaviour"
+                    style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                    android:longClickable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="textNoSuggestions"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -161,16 +181,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/TextInputLayoutAppearance.OutlineBox"
-                android:layout_gravity="center"
                 android:layout_marginBottom="16dp">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <br.com.bonnepet.util.component.AutoCompleteDropDown
                     android:id="@+id/input_pet_size"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/pet_size"
-                    android:inputType="date"
-                    android:textColor="@color/black"/>
+                    style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                    android:longClickable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="textNoSuggestions"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -185,4 +206,10 @@
         </LinearLayout>
     </ScrollView>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 </RelativeLayout>

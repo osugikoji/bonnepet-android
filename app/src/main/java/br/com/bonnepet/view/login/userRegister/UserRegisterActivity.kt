@@ -26,11 +26,6 @@ class UserRegisterActivity : BaseActivity() {
 
     override fun onPrepareActivity(state: Bundle?) {
         replaceFragment(fragmentContent, UserRegisterOneFragment())
-
-//        val items = ArrayList(arrayOf("teste1", "teste2", "teste3", "teste4").toList())
-//        val customAdapter = CustomSpinner(this, items)
-//        inputState.setAdapter(customAdapter)
-//        inputState.adapter.getItem(3)
     }
 
     /** Caso o cadastro do usuário for um sucesso, autentica o usuário. */

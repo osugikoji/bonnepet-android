@@ -1,6 +1,8 @@
 package br.com.bonnepet.util.data
 
-enum class GenderEnum(val code: Int) {
-    MALE(0),
-    FEMALE(1)
+import br.com.bonnepet.R
+
+enum class GenderEnum(val description: Int) {
+    MALE(R.string.male),
+    FEMALE(R.string.female)
 }

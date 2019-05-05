@@ -17,6 +17,7 @@ object RequestCode {
     const val PERMISSION = 2
     const val SIGN_UP = 3
     const val EDIT_PROFILE = 4
+    const val PET_REGISTER = 4
 }
 
 // Mascaras

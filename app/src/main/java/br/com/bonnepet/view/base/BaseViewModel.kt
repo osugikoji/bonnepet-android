@@ -18,6 +18,9 @@ open class BaseViewModel(open val app: Application) : AndroidViewModel(app) {
     protected val errorMessage = MutableLiveData<String>()
     fun errorMessage(): LiveData<String> = errorMessage
 
+    protected val isLoading= MutableLiveData<Boolean>()
+    fun isLoading(): LiveData<Boolean> = isLoading
+
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.dispose()

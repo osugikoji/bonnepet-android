@@ -160,8 +160,17 @@ class PetRepository {
         )
     )
 
+    private val petAllergies = arrayOf("Teste1", "teste2", "teste3", "teste4")
+
     fun getAllPets(): MutableList<PetDTO> {
         return petList
     }
 
+    fun getPetAllergies(): Array<String> {
+        return petAllergies
+    }
+
+    fun petRegister(petDTO: PetDTO) {
+        petList.add(petDTO)
+    }
 }
