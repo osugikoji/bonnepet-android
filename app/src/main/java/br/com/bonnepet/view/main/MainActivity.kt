@@ -9,7 +9,7 @@ import br.com.bonnepet.view.booking.BookingFragment
 import br.com.bonnepet.view.login.LoginFragment
 import br.com.bonnepet.view.menu.MenuFragment
 import br.com.bonnepet.view.pet.PetFragment
-import br.com.bonnepet.view.search.SearchFragment
+import br.com.bonnepet.view.search.SearchHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -47,7 +47,7 @@ class MainActivity : BaseActivity() {
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_search -> {
-                    replaceFragment(fragmentContent, SearchFragment())
+                    replaceFragment(fragmentContent, SearchHostFragment())
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_reservations -> {
@@ -73,7 +73,7 @@ class MainActivity : BaseActivity() {
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_search -> {
-                    replaceFragment(fragmentContent, SearchFragment())
+                    replaceFragment(fragmentContent, SearchHostFragment())
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_reservations -> {

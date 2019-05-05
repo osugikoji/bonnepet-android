@@ -55,6 +55,9 @@
     <string name="small">Pequeno</string>
     <string name="medium">Médio</string>
     <string name="large">Grande</string>
+    <string name="filter_menu">Filter</string>
+    <string name="br_currency">R$</string>
+    <string name="per_night">p/ noite</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

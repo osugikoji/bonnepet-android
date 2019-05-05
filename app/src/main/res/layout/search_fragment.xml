@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.search.SearchFragment">
+    tools:context=".view.search.SearchHostFragment">
 
     <include
+        android:id="@+id/tool_bar"
         layout="@layout/tool_bar_transparent"/>
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_below="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello"
-        android:gravity="center"/>
+        tools:listitem="@layout/host_item"
+        android:scrollbars="vertical"/>
 
-</FrameLayout>
+</RelativeLayout>
