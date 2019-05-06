@@ -23,7 +23,7 @@ class PetFragment : BaseFragment(), PetAdapter.ItemClickListener {
 
     private val btnPetRegister by lazy { register_pet_btn }
 
-    lateinit var petAdapter: PetAdapter
+    private lateinit var petAdapter: PetAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

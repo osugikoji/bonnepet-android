@@ -1,4 +1,4 @@
-package br.com.bonnepet.view.search.adapter
+package br.com.bonnepet.view.host.adapter
 
 import Time
 import android.content.Context

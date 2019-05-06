@@ -1,4 +1,4 @@
-package br.com.bonnepet.view.search
+package br.com.bonnepet.view.host
 
 import android.app.Application
 import androidx.lifecycle.LiveData

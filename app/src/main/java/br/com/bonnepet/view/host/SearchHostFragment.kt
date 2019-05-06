@@ -1,5 +1,7 @@
-package br.com.bonnepet.view.search
+package br.com.bonnepet.view.host
 
+import Data
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -9,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.view.base.BaseFragment
-import br.com.bonnepet.view.search.adapter.SearchHostAdapter
+import br.com.bonnepet.view.host.adapter.SearchHostAdapter
 import kotlinx.android.synthetic.main.fragment_pet.*
 
 class SearchHostFragment : BaseFragment(), SearchHostAdapter.ItemClickListener {
@@ -46,6 +48,9 @@ class SearchHostFragment : BaseFragment(), SearchHostAdapter.ItemClickListener {
     }
 
     override fun onItemClick(host: HostDTO) {
-
+        val intent = Intent(activity, HostDetailsActivity::class.java).apply {
+            putExtra(Data.HOST_DTO, host)
+        }
+        startActivity(intent)
     }
 }

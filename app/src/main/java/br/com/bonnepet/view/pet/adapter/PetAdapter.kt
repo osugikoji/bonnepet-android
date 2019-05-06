@@ -10,6 +10,7 @@ import br.com.bonnepet.R
 import br.com.bonnepet.data.model.PetDTO
 import br.com.bonnepet.util.component.CircularProgressBar
 import br.com.bonnepet.util.data.GenderEnum
+import br.com.bonnepet.util.extension.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -55,6 +56,7 @@ class PetAdapter(
         private val petBreed = itemView.pet_breed
         private val petGender = itemView.pet_gender
         private val petAge = itemView.pet_age
+        private val divider = itemView.view_divider
 
         init {
             petLayout.setOnClickListener(this)
@@ -66,6 +68,8 @@ class PetAdapter(
             petBreed.text = pet.breed
             setPetGender(pet.gender)
             petAge.text = pet.birthDate
+
+            if (petList.size - 1 == adapterPosition) divider.isVisible = false
         }
 
         override fun onClick(v: View?) {

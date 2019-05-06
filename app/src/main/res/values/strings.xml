@@ -58,6 +58,9 @@
     <string name="filter_menu">Filter</string>
     <string name="br_currency">R$</string>
     <string name="per_night">p/ noite</string>
+    <string name="phone">Telefone</string>
+    <string name="about">Sobre</string>
+    <string name="book">Reservar</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -98,5 +101,8 @@
     <string name="aggressive">Agressivo</string>
     <string name="sociable">Sociável</string>
     <string name="independent">Independente</string>
+
+    <!-- Host -->
+    <string name="host_details_title">Detalhes Do Host</string>
 
 </resources>

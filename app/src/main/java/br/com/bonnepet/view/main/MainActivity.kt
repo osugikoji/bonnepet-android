@@ -9,7 +9,7 @@ import br.com.bonnepet.view.booking.BookingFragment
 import br.com.bonnepet.view.login.LoginFragment
 import br.com.bonnepet.view.menu.MenuFragment
 import br.com.bonnepet.view.pet.PetFragment
-import br.com.bonnepet.view.search.SearchHostFragment
+import br.com.bonnepet.view.host.SearchHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
