@@ -27,7 +27,7 @@ class PetRepository {
             GenderEnum.MALE.name,
             "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
-            arrayListOf("Sneezing"),
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
             arrayListOf("Timido","Destemido","Covarde")
         ),
         PetDTO(
@@ -37,7 +37,7 @@ class PetRepository {
             GenderEnum.MALE.name,
             "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
-            arrayListOf("Sneezing"),
+            "Possui alergia a ração",
             arrayListOf("Shy")
         ),
         PetDTO(
@@ -47,7 +47,7 @@ class PetRepository {
             GenderEnum.FEMALE.name,
             "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
-            arrayListOf("Sneezing"),
+            "Possui alergia a ração",
             arrayListOf("Shy")
         ),
         PetDTO(
@@ -57,13 +57,13 @@ class PetRepository {
             GenderEnum.MALE.name,
             "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
-            arrayListOf("Sneezing"),
+            "Possui alergia a ração",
             arrayListOf("Shy")
         ),
         PetDTO(
             "", "Drag", "Vira-Lata", GenderEnum.MALE.name, "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
-            arrayListOf("Sneezing"),
+            "Possui alergia a ração",
             arrayListOf("Shy")
         ),
         PetDTO(
@@ -73,7 +73,7 @@ class PetRepository {
             GenderEnum.FEMALE.name,
             "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
-            arrayListOf("Sneezing"),
+            "Possui alergia a ração",
             arrayListOf("Shy")
         ),
         PetDTO(
@@ -83,7 +83,7 @@ class PetRepository {
             GenderEnum.FEMALE.name,
             "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
-            arrayListOf("Sneezing"),
+            "Possui alergia a ração",
             arrayListOf("Shy")
         ),
         PetDTO(
@@ -93,7 +93,7 @@ class PetRepository {
             GenderEnum.FEMALE.name,
             "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
-            arrayListOf("Sneezing"),
+            "Possui alergia a ração",
             arrayListOf("Shy")
         ),
         PetDTO(
@@ -103,7 +103,7 @@ class PetRepository {
             GenderEnum.MALE.name,
             "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
-            arrayListOf("Sneezing"),
+            "Possui alergia a ração",
             arrayListOf("Shy")
         ),
         PetDTO(
@@ -113,7 +113,7 @@ class PetRepository {
             GenderEnum.FEMALE.name,
             "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
-            arrayListOf("Sneezing"),
+            "Possui alergia a ração",
             arrayListOf("Shy")
         ),
         PetDTO(
@@ -123,13 +123,13 @@ class PetRepository {
             GenderEnum.FEMALE.name,
             "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
-            arrayListOf("Sneezing"),
+            "Possui alergia a ração",
             arrayListOf("Shy")
         ),
         PetDTO(
             "", "Vish", "Husky", GenderEnum.MALE.name, "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
-            arrayListOf("Sneezing"),
+            "Possui alergia a ração",
             arrayListOf("Shy")
         ),
         PetDTO(
@@ -139,7 +139,7 @@ class PetRepository {
             GenderEnum.MALE.name,
             "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
-            arrayListOf("Sneezing"),
+            "Possui alergia a ração",
             arrayListOf("Shy")
         ),
         PetDTO(
@@ -149,13 +149,13 @@ class PetRepository {
             GenderEnum.MALE.name,
             "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
-            arrayListOf("Sneezing"),
+            "Possui alergia a ração",
             arrayListOf("Shy")
         ),
         PetDTO(
             "", "Olas", "Akita", GenderEnum.MALE.name, "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
-            arrayListOf("Sneezing"),
+            "Possui alergia a ração",
             arrayListOf("Shy")
         )
     )

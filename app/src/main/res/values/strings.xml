@@ -61,6 +61,7 @@
     <string name="phone">Telefone</string>
     <string name="about">Sobre</string>
     <string name="book">Reservar</string>
+    <string name="observations">Observações</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -101,6 +102,7 @@
     <string name="aggressive">Agressivo</string>
     <string name="sociable">Sociável</string>
     <string name="independent">Independente</string>
+    <string name="preferences">Preferências</string>
 
     <!-- Host -->
     <string name="host_details_title">Detalhes Do Host</string>

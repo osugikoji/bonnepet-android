@@ -1,6 +1,8 @@
 package br.com.bonnepet.view.pet
 
 
+import Data
+import RequestCode
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.PetDTO
+import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseFragment
 import br.com.bonnepet.view.pet.adapter.PetAdapter
 import kotlinx.android.synthetic.main.fragment_pet.*
@@ -33,7 +36,7 @@ class PetFragment : BaseFragment(), PetAdapter.ItemClickListener {
         petAdapter = PetAdapter(activity!!, ArrayList(), this)
         recyclerView.adapter = petAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        btnPetRegister.setOnClickListener { startRegisterPetActivity() }
+        btnPetRegister.setSafeOnClickListener { startRegisterPetActivity() }
         loadData(true)
     }
 

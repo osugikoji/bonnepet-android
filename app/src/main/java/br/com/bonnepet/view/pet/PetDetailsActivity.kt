@@ -93,11 +93,8 @@ class PetDetailsActivity : BaseActivity() {
         }
         text_behaviour.text = behaviours
 
-        var allergies = ""
-        pet.allergies.forEach { allergy ->
-            allergies = if (allergies.isBlank()) allergy else "$allergies\n$allergy"
-        }
-        text_allergies.text = allergies
+
+        text_observations.text = pet.observations
 
         when (pet.size) {
             PetSizeEnum.SMALL.name -> text_size.text = getString(R.string.small)

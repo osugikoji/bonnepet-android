@@ -11,6 +11,7 @@ import br.com.bonnepet.R
 import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.data.model.PetDTO
 import br.com.bonnepet.util.component.CircularProgressBar
+import br.com.bonnepet.util.data.PetSizeEnum
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.pet.PetDetailsActivity
 import br.com.bonnepet.view.pet.adapter.PetAdapter
@@ -35,6 +36,8 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
     private val textAddress by lazy { text_address }
 
     private val textPhone by lazy { text_phone }
+
+    private val textPreferencePetSize by lazy { text_size }
 
     private val price by lazy { text_money_value }
 
@@ -97,6 +100,22 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
             phone += "$it\n"
         }
         textPhone.text = phone
+
+        var petSize = ""
+        host.preferencePetSize.forEach { size ->
+            when (size.toInt()) {
+                PetSizeEnum.SMALL.ordinal -> {
+                    petSize += "${getString(PetSizeEnum.SMALL.description)}, "
+                }
+                PetSizeEnum.MEDIUM.ordinal -> {
+                    petSize += "${getString(PetSizeEnum.MEDIUM.description)}, "
+                }
+                PetSizeEnum.LARGE.ordinal -> {
+                    petSize += "${getString(PetSizeEnum.LARGE.description)}, "
+                }
+            }
+        }
+        textPreferencePetSize.text = petSize.removeSuffix(", ")
 
         price.text = host.price
     }

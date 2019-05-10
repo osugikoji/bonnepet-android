@@ -39,10 +39,10 @@ class PetRegisterActivity : BaseActivity() {
     private val textPetName by lazy { input_pet_name }
     private val textPetBreed by lazy { input_pet_breed }
     private val textPetGender by lazy { input_pet_gender }
-    private val textPetAllergies by lazy { input_allergies }
     private val textPetBehaviour by lazy { input_behaviour }
     private val textPetBirthDate by lazy { input_pet_birth_date }
     private val textPetSize by lazy { input_pet_size }
+    private val textPetObservations by lazy { input_observations }
 
     private val progressBsr by lazy { progress_bar }
 
@@ -65,7 +65,6 @@ class PetRegisterActivity : BaseActivity() {
 
         val items = (resources.getStringArray(R.array.behaviour_list))
         textPetBehaviour.setOnClickListener { CheckBoxDialog(this, items, it as EditText) }
-        textPetAllergies.setOnClickListener { CheckBoxDialog(this, viewModel.getAllergies(), it as EditText) }
 
         inputDateMask = MaskEditText(textPetBirthDate, Mask.DATE_MASK)
         textPetBirthDate.addTextChangedListener(inputDateMask)
@@ -114,7 +113,7 @@ class PetRegisterActivity : BaseActivity() {
                 textPetGender.text.toString(),
                 textPetBirthDate.text.toString(),
                 textPetSize.text.toString(),
-                textPetAllergies.text.split(",") as ArrayList<String>,
+                textPetObservations.toString(),
                 textPetBehaviour.text.split(",") as ArrayList<String>
             )
             viewModel.registerPet(petDTO, selectedImage)

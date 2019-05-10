@@ -9,5 +9,6 @@ data class HostDTO(
     var pet: List<PetDTO>,
     var phone: List<String>,
     var price: String,
+    var preferencePetSize: List<String>,
     var addressDTO: AddressDTO
 ) : Serializable

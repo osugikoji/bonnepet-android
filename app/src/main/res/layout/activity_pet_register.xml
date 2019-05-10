@@ -134,23 +134,6 @@
                 android:layout_marginBottom="16dp">
 
                 <br.com.bonnepet.util.component.AutoCompleteDropDown
-                    android:id="@+id/input_allergies"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/pet_allergies"
-                    style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
-                    android:longClickable="false"
-                    android:focusableInTouchMode="false"
-                    android:inputType="textNoSuggestions"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextInputLayoutAppearance.OutlineBox"
-                android:layout_marginBottom="16dp">
-
-                <br.com.bonnepet.util.component.AutoCompleteDropDown
                     android:id="@+id/input_behaviour"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -194,6 +177,22 @@
                     android:inputType="textNoSuggestions"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextInputLayoutAppearance.OutlineBox"
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/input_observations"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                    android:hint="@string/observations"
+                    android:gravity="top"
+                    android:lines="5"
+                    android:inputType="textMultiLine"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_save"

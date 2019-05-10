@@ -20,7 +20,7 @@ class CheckBoxDialog(
     }
 
     private fun buildDialog() {
-        val currentText = editText.text.split(",").toTypedArray()
+        val currentText = editText.text.split(", ").toTypedArray()
 
         items.forEachIndexed { index, value ->
             if (currentText.any { it == value }) checkboxState[index] = true
@@ -35,10 +35,10 @@ class CheckBoxDialog(
                 for (i in 0 until items.size) {
                     val checked = checkboxState[i]
                     if (checked) {
-                        allergiesText += items[i] + ","
+                        allergiesText += items[i] + ", "
                     }
                 }
-                allergiesText = allergiesText.removeSuffix(",")
+                allergiesText = allergiesText.removeSuffix(", ")
                 editText.setText(allergiesText)
             }
         }.show()

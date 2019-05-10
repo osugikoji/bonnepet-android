@@ -13,7 +13,13 @@ import br.com.bonnepet.util.data.BookingStatusEnum
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import kotlinx.android.synthetic.main.booking_item.view.*
+import kotlinx.android.synthetic.main.booking_item.view.layout_booking
+import kotlinx.android.synthetic.main.booking_item.view.statusColor
+import kotlinx.android.synthetic.main.booking_item.view.text_city
+import kotlinx.android.synthetic.main.booking_item.view.text_district
+import kotlinx.android.synthetic.main.booking_item.view.text_user_name
+import kotlinx.android.synthetic.main.booking_item.view.user_image
+import kotlinx.android.synthetic.main.request_booking_item.view.*
 
 class RequestBookingAdapter(
     private val context: Context,
@@ -23,7 +29,7 @@ class RequestBookingAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RequestBookingViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.booking_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.request_booking_item, parent, false)
         return RequestBookingViewHolder(view)
     }
 
@@ -54,18 +60,20 @@ class RequestBookingAdapter(
         private val userName = itemView.text_user_name
         private val city = itemView.text_city
         private val district = itemView.text_district
+        private val price = itemView.text_money_value
         private val bookingStatus = itemView.statusColor
 
         init {
             petLayout.setOnClickListener(this)
         }
 
-        fun bindView(requestBookingList: RequestBookingDTO) {
-            setUserImage(requestBookingList.pictureURL)
-            userName.text = requestBookingList.user.name
-            city.text = requestBookingList.user.addressDTO?.city
-            district.text = requestBookingList.user.addressDTO?.district
-            setBookingStatus(requestBookingList.status)
+        fun bindView(requestBooking: RequestBookingDTO) {
+            setUserImage(requestBooking.host.pictureURL)
+            userName.text = requestBooking.host.name
+            city.text = requestBooking.host.addressDTO.city
+            district.text = requestBooking.host.addressDTO.district
+            price.text = requestBooking.host.price
+            setBookingStatus(requestBooking.status)
         }
 
         override fun onClick(v: View?) {

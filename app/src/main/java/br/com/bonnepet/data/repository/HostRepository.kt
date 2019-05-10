@@ -34,7 +34,7 @@ class HostRepository {
                     GenderEnum.MALE.name,
                     "2 anos e 5 meses",
                     PetSizeEnum.SMALL.name,
-                    arrayListOf("Sneezing"),
+                    "Possui alergia a ração",
                     arrayListOf("Timido", "Destemido", "Covarde")
                 ),
                 PetDTO(
@@ -44,12 +44,13 @@ class HostRepository {
                     GenderEnum.MALE.name,
                     "2 anos e 5 meses",
                     PetSizeEnum.SMALL.name,
-                    arrayListOf("Sneezing"),
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
                     arrayListOf("Shy")
                 )
             ).toList(),
             arrayOf("(19)98225-2031","(19)3225-2031").toList(),
             "80",
+            arrayOf("0","1").toList(),
             AddressDTO("", "Jose Bernardinetti", "20", "Barão Geraldo", "Campinas", "São Paulo")
         ),
         HostDTO(
@@ -64,12 +65,13 @@ class HostRepository {
                     GenderEnum.MALE.name,
                     "2 anos e 5 meses",
                     PetSizeEnum.SMALL.name,
-                    arrayListOf("Sneezing"),
+                    "Possui alergia a ração",
                     arrayListOf("Timido", "Destemido", "Covarde")
                 )
             ).toList(),
             arrayOf("(19)98225-2031","(19)3225-2031").toList(),
             "60",
+            arrayOf("0").toList(),
             AddressDTO("", "Jose Bernardinetti", "40", "Barão Geraldo", "Campinas", "São Paulo")
         ),
         HostDTO(
@@ -84,12 +86,13 @@ class HostRepository {
                     GenderEnum.MALE.name,
                     "2 anos e 5 meses",
                     PetSizeEnum.SMALL.name,
-                    arrayListOf("Sneezing"),
+                    "Possui alergia a ração",
                     arrayListOf("Timido", "Destemido", "Covarde")
                 )
             ).toList(),
             arrayOf("(19)98225-2031","(19)3225-2031").toList(),
             "50",
+            arrayOf("0","1").toList(),
             AddressDTO("", "Jose Bernardinetti", "33", "Barão Geraldo", "Campinas", "São Paulo")
         ),
         HostDTO(
@@ -104,12 +107,13 @@ class HostRepository {
                     GenderEnum.MALE.name,
                     "2 anos e 5 meses",
                     PetSizeEnum.SMALL.name,
-                    arrayListOf("Sneezing"),
+                    "Possui alergia a ração",
                     arrayListOf("Timido", "Destemido", "Covarde")
                 )
             ).toList(),
             arrayOf("(19)98225-2031","(19)3225-2031").toList(),
             "999",
+            arrayOf("0","1", "2").toList(),
             AddressDTO("", "Jose Bernardinetti", "20", "Barão Geraldo", "Santos", "São Paulo")
         ),
         HostDTO(
@@ -124,12 +128,13 @@ class HostRepository {
                     GenderEnum.MALE.name,
                     "2 anos e 5 meses",
                     PetSizeEnum.SMALL.name,
-                    arrayListOf("Sneezing"),
+                    "Possui alergia a ração",
                     arrayListOf("Timido", "Destemido", "Covarde")
                 )
             ).toList(),
             arrayOf("(19)98225-2031").toList(),
             "99",
+            arrayOf("0","1").toList(),
             AddressDTO("", "Jose Bernardinetti", "50", "Barão Geraldo", "Campinas", "São Paulo")
         )
     )
