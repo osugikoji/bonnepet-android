@@ -208,6 +208,7 @@
                 android:background="@color/gray_300"/>
 
             <RelativeLayout
+                android:id="@+id/layout_observations"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -219,37 +220,39 @@
                     android:contentDescription="@string/pet_details_title"
                     app:srcCompat="@drawable/ic_assignment_primary_color"/>
 
-                    <LinearLayout
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginStart="100dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp">
+                        android:textSize="12sp"
+                        android:textColor="@color/gray_600"
+                        android:text="@string/observations"
+                        android:layout_marginTop="0dp"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:textColor="@color/gray_600"
-                            android:text="@string/observations"
-                            android:layout_marginTop="0dp"/>
+                    <TextView
+                        android:id="@+id/text_observations"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="20dp"/>
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/text_observations"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="20dp"/>
-                    </LinearLayout>
-                </RelativeLayout>
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/gray_300"/>
+            </RelativeLayout>
 
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@color/gray_300"/>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

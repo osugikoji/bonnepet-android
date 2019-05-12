@@ -70,4 +70,7 @@ dependencies {
 
     // Circle ImageView
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    // Joda Time
+    implementation 'joda-time:joda-time:2.9.4'
 }

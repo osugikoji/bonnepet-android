@@ -3,7 +3,7 @@ package br.com.bonnepet.data.repository
 import br.com.bonnepet.data.api.ExternalApi
 import br.com.bonnepet.config.RetrofitConfig
 import br.com.bonnepet.data.model.CepDTO
-import br.com.bonnepet.util.SchedulerProvider
+import br.com.bonnepet.data.util.SchedulerProvider
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

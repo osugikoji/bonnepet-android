@@ -1,4 +1,4 @@
-package br.com.bonnepet.util.component
+package br.com.bonnepet.view.component
 
 import android.os.SystemClock
 import android.view.View

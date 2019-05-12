@@ -1,4 +1,4 @@
-package br.com.bonnepet.util.data
+package br.com.bonnepet.data.enums
 
 import br.com.bonnepet.R
 

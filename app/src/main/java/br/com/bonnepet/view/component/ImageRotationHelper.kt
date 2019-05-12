@@ -1,4 +1,4 @@
-package br.com.bonnepet.util.component
+package br.com.bonnepet.view.component
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

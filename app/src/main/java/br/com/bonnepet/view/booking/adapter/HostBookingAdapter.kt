@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.HostBookingDTO
-import br.com.bonnepet.util.data.BookingStatusEnum
+import br.com.bonnepet.data.enums.BookingStatusEnum
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions

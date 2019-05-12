@@ -1,7 +1,7 @@
 package br.com.bonnepet.util.extension
 
 import android.view.View
-import br.com.bonnepet.util.component.SafeClickListener
+import br.com.bonnepet.view.component.SafeClickListener
 
 fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
     val safeClickListener = SafeClickListener {

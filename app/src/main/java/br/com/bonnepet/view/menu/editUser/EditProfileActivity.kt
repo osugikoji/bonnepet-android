@@ -12,7 +12,7 @@ import br.com.bonnepet.R
 import br.com.bonnepet.data.model.AddressDTO
 import br.com.bonnepet.data.model.EditProfileDTO
 import br.com.bonnepet.data.model.ProfileDTO
-import br.com.bonnepet.util.component.MaskEditText
+import br.com.bonnepet.view.component.MaskEditText
 import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.view.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_edit_profile.*

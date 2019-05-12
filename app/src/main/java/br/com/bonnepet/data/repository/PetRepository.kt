@@ -2,12 +2,16 @@ package br.com.bonnepet.data.repository
 
 import br.com.bonnepet.config.RetrofitConfig
 import br.com.bonnepet.data.api.PetApi
+import br.com.bonnepet.data.enums.GenderEnum
+import br.com.bonnepet.data.enums.PetSizeEnum
 import br.com.bonnepet.data.model.PetDTO
-import br.com.bonnepet.util.SchedulerProvider
-import br.com.bonnepet.util.data.GenderEnum
-import br.com.bonnepet.util.data.PetSizeEnum
+import br.com.bonnepet.data.model.PictureDTO
+import br.com.bonnepet.data.util.SchedulerProvider
+import io.reactivex.Completable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.MultipartBody
 import retrofit2.create
 
 /** Repositorio de pet */
@@ -28,7 +32,7 @@ class PetRepository {
             "2 anos e 5 meses",
             PetSizeEnum.SMALL.name,
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-            arrayListOf("Timido","Destemido","Covarde")
+            arrayListOf("Timido", "Destemido", "Covarde")
         ),
         PetDTO(
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAu3262iyGDFqBRb_NdSRgn9NGI9M7C1NNzuubwgGWhhfg1ZdoCA",
@@ -160,17 +164,15 @@ class PetRepository {
         )
     )
 
-    private val petAllergies = arrayOf("Teste1", "teste2", "teste3", "teste4")
-
-    fun getAllPets(): MutableList<PetDTO> {
-        return petList
+    fun getAllPets(): Single<List<PetDTO>> {
+        return petApi.getAllPets().compose(schedulerProvider.getSchedulersForSingle())
     }
 
-    fun getPetAllergies(): Array<String> {
-        return petAllergies
+    fun registerPet(petDTO: PetDTO): Single<String> {
+        return petApi.registerPet(petDTO).compose(schedulerProvider.getSchedulersForSingle())
     }
 
-    fun petRegister(petDTO: PetDTO) {
-        petList.add(petDTO)
+    fun uploadPetPicture(id: String?, file: MultipartBody.Part): Completable {
+        return petApi.uploadPetPicture(id, file).compose(schedulerProvider.getSchedulersForCompletable())
     }
 }

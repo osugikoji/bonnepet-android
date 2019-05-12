@@ -116,7 +116,7 @@
                 style="@style/TextInputLayoutAppearance.OutlineBox"
                 android:layout_marginBottom="16dp">
 
-                <br.com.bonnepet.util.component.AutoCompleteDropDown
+                <br.com.bonnepet.view.component.AutoCompleteDropDown
                     android:id="@+id/input_pet_gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -133,7 +133,7 @@
                 style="@style/TextInputLayoutAppearance.OutlineBox"
                 android:layout_marginBottom="16dp">
 
-                <br.com.bonnepet.util.component.AutoCompleteDropDown
+                <br.com.bonnepet.view.component.AutoCompleteDropDown
                     android:id="@+id/input_behaviour"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -166,7 +166,7 @@
                 style="@style/TextInputLayoutAppearance.OutlineBox"
                 android:layout_marginBottom="16dp">
 
-                <br.com.bonnepet.util.component.AutoCompleteDropDown
+                <br.com.bonnepet.view.component.AutoCompleteDropDown
                     android:id="@+id/input_pet_size"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

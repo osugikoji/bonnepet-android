@@ -7,11 +7,13 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.PetDTO
+import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseFragment
 import br.com.bonnepet.view.pet.adapter.PetAdapter
@@ -28,16 +30,29 @@ class PetFragment : BaseFragment(), PetAdapter.ItemClickListener {
 
     private lateinit var petAdapter: PetAdapter
 
+    private val progressBar by lazy { progress_bar }
+
+    private val swipeRefresh by lazy { swipe_refresh }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideActionBarDisplayHome()
         viewModel = ViewModelProviders.of(this).get(PetViewModel::class.java)
+
+        swipeRefresh.setColorSchemeColors((ContextCompat.getColor(activity!!, R.color.color_primary)))
+        swipeRefresh.setOnRefreshListener {
+            loadData(true)
+        }
 
         petAdapter = PetAdapter(activity!!, ArrayList(), this)
         recyclerView.adapter = petAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
         btnPetRegister.setSafeOnClickListener { startRegisterPetActivity() }
         loadData(true)
+
+        viewModel.isLoading().observe(this, Observer { isLoading ->
+            progressBar.isVisible = isLoading
+        })
     }
 
 
@@ -49,6 +64,7 @@ class PetFragment : BaseFragment(), PetAdapter.ItemClickListener {
         viewModel.getAllPets()
         viewModel.petList.observe(this, Observer { petList ->
             petAdapter.update(petList, resetData)
+            swipeRefresh.isRefreshing = false
         })
     }
 

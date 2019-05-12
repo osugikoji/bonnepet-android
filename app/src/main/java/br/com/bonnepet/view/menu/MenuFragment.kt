@@ -8,8 +8,8 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
-import br.com.bonnepet.util.component.CircularProgressBar
-import br.com.bonnepet.util.component.ImageRotationHelper
+import br.com.bonnepet.view.component.CircularProgressBar
+import br.com.bonnepet.view.component.ImageRotationHelper
 import br.com.bonnepet.util.extension.checkWriteExternalPermission
 import br.com.bonnepet.util.extension.imageUrl
 import br.com.bonnepet.view.base.BaseFragment

@@ -1,4 +1,4 @@
-package br.com.bonnepet.util
+package br.com.bonnepet.data.util
 
 import io.reactivex.*
 
@@ -7,7 +7,7 @@ import io.reactivex.*
  * @param backgroundScheduler thread na qual o Observable seá inscrito
  * @param foregroundScheduler thread na qual o Observable será observado
  */
-class SchedulerProvider(val backgroundScheduler: Scheduler, val foregroundScheduler: Scheduler) {
+class SchedulerProvider(private val backgroundScheduler: Scheduler, private val foregroundScheduler: Scheduler) {
 
     /**
      * Cria um Scheduler para Observables

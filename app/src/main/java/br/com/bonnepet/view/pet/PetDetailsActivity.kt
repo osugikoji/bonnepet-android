@@ -6,11 +6,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import br.com.bonnepet.R
+import br.com.bonnepet.data.enums.GenderEnum
+import br.com.bonnepet.data.enums.PetBehaviourEnum
+import br.com.bonnepet.data.enums.PetSizeEnum
 import br.com.bonnepet.data.model.PetDTO
-import br.com.bonnepet.util.component.CircularProgressBar
-import br.com.bonnepet.util.data.GenderEnum
-import br.com.bonnepet.util.data.PetSizeEnum
+import br.com.bonnepet.util.extension.formatToPetAge
+import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.view.base.BaseActivity
+import br.com.bonnepet.view.component.CircularProgressBar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -50,9 +53,11 @@ class PetDetailsActivity : BaseActivity() {
                     collapsingToolbarLayout.title = getString(activityTitle)
                     isShow = true
                 } else if (isShow) {
-                    if (petDTO.pictureURL.isEmpty()) {
-                        collapsingToolbarLayout.setExpandedTitleColor(ContextCompat
-                            .getColor(this@PetDetailsActivity, R.color.gray_600))
+                    if (petDTO.pictureURL.isNullOrEmpty()) {
+                        collapsingToolbarLayout.setExpandedTitleColor(
+                            ContextCompat
+                                .getColor(this@PetDetailsActivity, R.color.gray_600)
+                        )
                         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_gray_24dp)
                     } else {
                         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
@@ -64,7 +69,8 @@ class PetDetailsActivity : BaseActivity() {
         })
     }
 
-    private fun setPetImage(imageURL: String) {
+    private fun setPetImage(imageURL: String?) {
+        if (imageURL == null) return
         val progressBar = CircularProgressBar(this)
         progressBar.start()
 
@@ -80,7 +86,7 @@ class PetDetailsActivity : BaseActivity() {
 
     private fun setFields(pet: PetDTO) {
         text_breed.text = pet.breed
-        text_age.text = pet.birthDate
+        text_age.text = pet.birthDate?.formatToPetAge(this)
 
         when (pet.gender) {
             GenderEnum.MALE.name -> text_gender.text = getString(R.string.male)
@@ -89,18 +95,28 @@ class PetDetailsActivity : BaseActivity() {
 
         var behaviours = ""
         pet.behaviours.forEach { behaviour ->
-            behaviours = if (behaviours.isBlank()) behaviour else "$behaviours\n$behaviour"
+            var formatBehaviour = ""
+            when (behaviour) {
+                PetBehaviourEnum.SOCIABLE.name -> formatBehaviour = getString(PetBehaviourEnum.SOCIABLE.description)
+                PetBehaviourEnum.SHY.name -> formatBehaviour = getString(PetBehaviourEnum.SHY.description)
+                PetBehaviourEnum.INDEPENDENT.name -> formatBehaviour =
+                    getString(PetBehaviourEnum.INDEPENDENT.description)
+                PetBehaviourEnum.CONFIDENT.name -> formatBehaviour = getString(PetBehaviourEnum.CONFIDENT.description)
+                PetBehaviourEnum.AGGRESSIVE.name -> formatBehaviour = getString(PetBehaviourEnum.AGGRESSIVE.description)
+            }
+            behaviours = if (behaviours.isBlank()) formatBehaviour else "$behaviours\n$formatBehaviour"
         }
+
         text_behaviour.text = behaviours
-
-
-        text_observations.text = pet.observations
 
         when (pet.size) {
             PetSizeEnum.SMALL.name -> text_size.text = getString(R.string.small)
             PetSizeEnum.MEDIUM.name -> text_size.text = getString(R.string.medium)
             PetSizeEnum.LARGE.name -> text_size.text = getString(R.string.large)
         }
+
+        if (pet.observations.isEmpty()) layout_observations.isVisible = false
+        else text_observations.text = pet.observations
     }
 
     /**

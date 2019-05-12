@@ -3,10 +3,10 @@ package br.com.bonnepet.data.repository
 import br.com.bonnepet.config.RetrofitConfig
 import br.com.bonnepet.data.api.BookingApi
 import br.com.bonnepet.data.model.*
-import br.com.bonnepet.util.SchedulerProvider
-import br.com.bonnepet.util.data.BookingStatusEnum
-import br.com.bonnepet.util.data.GenderEnum
-import br.com.bonnepet.util.data.PetSizeEnum
+import br.com.bonnepet.data.util.SchedulerProvider
+import br.com.bonnepet.data.enums.BookingStatusEnum
+import br.com.bonnepet.data.enums.GenderEnum
+import br.com.bonnepet.data.enums.PetSizeEnum
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.create

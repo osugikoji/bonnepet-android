@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.data.model.PetDTO
-import br.com.bonnepet.util.component.CircularProgressBar
-import br.com.bonnepet.util.data.PetSizeEnum
+import br.com.bonnepet.view.component.CircularProgressBar
+import br.com.bonnepet.data.enums.PetSizeEnum
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.pet.PetDetailsActivity
 import br.com.bonnepet.view.pet.adapter.PetAdapter

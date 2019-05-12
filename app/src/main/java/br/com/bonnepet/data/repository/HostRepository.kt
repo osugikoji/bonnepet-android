@@ -5,9 +5,9 @@ import br.com.bonnepet.data.api.PetApi
 import br.com.bonnepet.data.model.AddressDTO
 import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.data.model.PetDTO
-import br.com.bonnepet.util.SchedulerProvider
-import br.com.bonnepet.util.data.GenderEnum
-import br.com.bonnepet.util.data.PetSizeEnum
+import br.com.bonnepet.data.util.SchedulerProvider
+import br.com.bonnepet.data.enums.GenderEnum
+import br.com.bonnepet.data.enums.PetSizeEnum
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.create

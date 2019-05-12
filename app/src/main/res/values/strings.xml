@@ -62,6 +62,11 @@
     <string name="about">Sobre</string>
     <string name="book">Reservar</string>
     <string name="observations">Observações</string>
+    <string name="year">ano</string>
+    <string name="years">anos</string>
+    <string name="month">mês</string>
+    <string name="months">meses</string>
+    <string name="and">e</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -103,6 +108,7 @@
     <string name="sociable">Sociável</string>
     <string name="independent">Independente</string>
     <string name="preferences">Preferências</string>
+    <string name="pet_register_success">Seu pet foi cadastrado com sucesso</string>
 
     <!-- Host -->
     <string name="host_details_title">Detalhes Do Host</string>

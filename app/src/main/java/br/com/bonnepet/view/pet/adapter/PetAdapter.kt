@@ -7,14 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.bonnepet.R
+import br.com.bonnepet.data.enums.GenderEnum
 import br.com.bonnepet.data.model.PetDTO
-import br.com.bonnepet.util.component.CircularProgressBar
-import br.com.bonnepet.util.data.GenderEnum
+import br.com.bonnepet.util.extension.formatToPetAge
 import br.com.bonnepet.util.extension.isVisible
+import br.com.bonnepet.view.component.CircularProgressBar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.android.synthetic.main.pet_item.view.*
+
 
 class PetAdapter(
     private val context: Context,
@@ -56,7 +58,6 @@ class PetAdapter(
         private val petBreed = itemView.pet_breed
         private val petGender = itemView.pet_gender
         private val petAge = itemView.pet_age
-        private val divider = itemView.view_divider
 
         init {
             petLayout.setOnClickListener(this)
@@ -67,9 +68,7 @@ class PetAdapter(
             petName.text = pet.name
             petBreed.text = pet.breed
             setPetGender(pet.gender)
-            petAge.text = pet.birthDate
-
-            if (petList.size - 1 == adapterPosition) divider.isVisible = false
+            petAge.text = pet.birthDate?.formatToPetAge(context)
         }
 
         override fun onClick(v: View?) {
@@ -83,7 +82,7 @@ class PetAdapter(
             }
         }
 
-        private fun setPetImage(imageURL: String) {
+        private fun setPetImage(imageURL: String?) {
             val progressBar = CircularProgressBar(context)
             progressBar.start()
 

@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.text.TextWatcher
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.UserDTO
-import br.com.bonnepet.util.component.ImageRotationHelper
+import br.com.bonnepet.view.component.ImageRotationHelper
 import br.com.bonnepet.util.extension.*
-import br.com.bonnepet.util.component.MaskEditText
+import br.com.bonnepet.view.component.MaskEditText
 import br.com.bonnepet.view.base.BaseFragment
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_user_register_one.*

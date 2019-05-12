@@ -1,4 +1,4 @@
-package br.com.bonnepet.util.data
+package br.com.bonnepet.data.enums
 
 enum class StatusCodeEnum(val code: Int) {
     Continue(100),

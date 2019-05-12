@@ -1,4 +1,4 @@
-package br.com.bonnepet.util.component
+package br.com.bonnepet.view.component
 
 import android.content.Context
 import android.graphics.Rect
