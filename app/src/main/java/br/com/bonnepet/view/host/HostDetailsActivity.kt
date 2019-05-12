@@ -1,7 +1,9 @@
 package br.com.bonnepet.view.host
 
 import Data
+import RequestCode
 import Time
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,9 +13,12 @@ import br.com.bonnepet.R
 import br.com.bonnepet.data.enums.PetSizeEnum
 import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.data.model.PetDTO
+import br.com.bonnepet.util.data.SessionManager
 import br.com.bonnepet.util.extension.isVisible
+import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.component.CircularProgressBar
+import br.com.bonnepet.view.login.LoginActivity
 import br.com.bonnepet.view.pet.PetDetailsActivity
 import br.com.bonnepet.view.pet.adapter.PetAdapter
 import com.bumptech.glide.Glide
@@ -42,15 +47,19 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
 
     private val price by lazy { text_money_value }
 
+    private val btnBook by lazy { btn_book }
+
     private val recyclerView by lazy { recycler_view }
 
     private lateinit var petAdapter: PetAdapter
+
+    private lateinit var hostDTO: HostDTO
 
     override fun onPrepareActivity(state: Bundle?) {
         collapsingToolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.gray_600))
         collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(this, R.color.gray_100))
 
-        val hostDTO = intent.getSerializableExtra(Data.HOST_DTO) as HostDTO
+        hostDTO = intent.getSerializableExtra(Data.HOST_DTO) as HostDTO
         setHostImage(hostDTO.profileDTO.profileImageURL)
 
         setFields(hostDTO)
@@ -88,6 +97,29 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
             petAdapter = PetAdapter(this, hostDTO.petDTO.toMutableList(), this)
             recyclerView.adapter = petAdapter
             recyclerView.layoutManager = LinearLayoutManager(this)
+        }
+
+        btnBook.setSafeOnClickListener { startBookActivity() }
+    }
+
+    private fun startBookActivity() {
+        if (!SessionManager.isLoggedIn()) {
+            startActivityForResult(Intent(this, LoginActivity::class.java), RequestCode.SIGN_UP)
+        } else {
+            val intent = Intent(this, BookActivity::class.java).apply {
+                putExtra(Data.HOST_DTO, hostDTO)
+            }
+            startActivity(intent)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                RequestCode.SIGN_UP -> startBookActivity()
+            }
         }
     }
 

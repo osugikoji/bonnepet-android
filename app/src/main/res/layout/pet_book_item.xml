@@ -9,7 +9,8 @@
         android:id="@+id/layout_pet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Item.Clickable">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/pet_image"
@@ -20,10 +21,11 @@
             app:srcCompat="@drawable/ic_dog"/>
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/pet_image"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_centerInParent="true">
 
             <TextView
@@ -41,21 +43,15 @@
                 android:layout_below="@id/pet_name"
                 android:textSize="12sp"/>
 
-            <TextView
-                android:id="@+id/pet_age"
+            <Switch
+                android:id="@+id/switch_pet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/pet_breed"
-                android:textSize="12sp"/>
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/pet_gender"
-            android:contentDescription="@string/title_pet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"/>
     </RelativeLayout>
 
     <View

@@ -58,6 +58,8 @@
     <string name="filter_menu">Filter</string>
     <string name="br_currency">R$</string>
     <string name="per_night">p/ night</string>
+    <string name="night">night</string>
+    <string name="nights">nights</string>
     <string name="phone">Phone</string>
     <string name="about">About</string>
     <string name="book">Book</string>
@@ -67,6 +69,7 @@
     <string name="month">month</string>
     <string name="months">months</string>
     <string name="and">and</string>
+    <string name="total">Total:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -116,5 +119,9 @@
     <string name="charge">Charge</string>
     <string name="size_preference">Size preference</string>
     <string name="about_you">About you</string>
+    <string name="when_book_date">When will the lodging?</string>
+    <string name="will_take">Will take</string>
+    <string name="will_get">Will get</string>
+    <string name="which_pets">Which pets?</string>
 
 </resources>

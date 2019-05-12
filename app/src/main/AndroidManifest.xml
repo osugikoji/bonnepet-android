@@ -18,6 +18,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".view.host.BookActivity">
+        </activity>
+        <activity android:name=".view.login.LoginActivity">
+        </activity>
         <activity android:name=".view.menu.beHost.BeHostActivity">
         </activity>
         <activity

@@ -58,6 +58,8 @@
     <string name="filter_menu">Filter</string>
     <string name="br_currency">R$</string>
     <string name="per_night">p/ noite</string>
+    <string name="night">noite</string>
+    <string name="nights">noites</string>
     <string name="phone">Telefone</string>
     <string name="about">Sobre</string>
     <string name="book">Reservar</string>
@@ -67,6 +69,7 @@
     <string name="month">mês</string>
     <string name="months">meses</string>
     <string name="and">e</string>
+    <string name="total">Total:</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -116,5 +119,9 @@
     <string name="charge">Diária</string>
     <string name="size_preference">Preferência de tamanho</string>
     <string name="about_you">Sobre você</string>
+    <string name="when_book_date">Quando será a hospedagem?</string>
+    <string name="will_take">Levarei</string>
+    <string name="will_get">Pegarei</string>
+    <string name="which_pets">Quais pets?</string>
 
 </resources>
