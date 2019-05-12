@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.data.repository.HostRepository
+import br.com.bonnepet.util.extension.error
 import br.com.bonnepet.view.base.BaseViewModel
+import io.reactivex.rxkotlin.subscribeBy
 
 class SearchHostViewModel(override val app: Application) : BaseViewModel(app) {
     private val hostRepository = HostRepository()
@@ -14,7 +16,17 @@ class SearchHostViewModel(override val app: Application) : BaseViewModel(app) {
     val hostList: LiveData<MutableList<HostDTO>> = _hostList
 
     fun getAllHost() {
-        _hostList.value = hostRepository.getAllHost()
+        isLoading.value = true
+        compositeDisposable.add(
+            hostRepository.getAllHost()
+                .subscribeBy(onSuccess = { hostDTOList ->
+                    _hostList.value = hostDTOList.toMutableList()
+                    isLoading.value = false
+                }, onError = {
+                    errorMessage.value = it.error(app)
+                    isLoading.value = false
+                })
+        )
     }
 
 }

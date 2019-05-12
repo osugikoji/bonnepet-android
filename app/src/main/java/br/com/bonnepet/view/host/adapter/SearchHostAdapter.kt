@@ -60,10 +60,10 @@ class SearchHostAdapter(
         }
 
         fun bindView(host: HostDTO) {
-            setUserImage(host.pictureURL)
-            userName.text = host.name
-            city.text = host.addressDTO.city
-            district.text = host.addressDTO.district
+            setUserImage(host.profileDTO.profileImageURL)
+            userName.text = host.profileDTO.userName
+            city.text = host.profileDTO.addressDTO.city
+            district.text = host.profileDTO.addressDTO.district
             price.text = host.price
         }
 

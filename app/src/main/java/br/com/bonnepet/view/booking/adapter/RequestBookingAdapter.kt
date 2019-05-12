@@ -68,10 +68,10 @@ class RequestBookingAdapter(
         }
 
         fun bindView(requestBooking: RequestBookingDTO) {
-            setUserImage(requestBooking.host.pictureURL)
-            userName.text = requestBooking.host.name
-            city.text = requestBooking.host.addressDTO.city
-            district.text = requestBooking.host.addressDTO.district
+//            setUserImage(requestBooking.host.pictureURL)
+//            userName.text = requestBooking.host.name
+//            city.text = requestBooking.host.addressDTO.city
+//            district.text = requestBooking.host.addressDTO.district
             price.text = requestBooking.host.price
             setBookingStatus(requestBooking.status)
         }

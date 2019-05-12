@@ -8,11 +8,12 @@ import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.bonnepet.R
+import br.com.bonnepet.data.enums.PetSizeEnum
 import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.data.model.PetDTO
-import br.com.bonnepet.view.component.CircularProgressBar
-import br.com.bonnepet.data.enums.PetSizeEnum
+import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.view.base.BaseActivity
+import br.com.bonnepet.view.component.CircularProgressBar
 import br.com.bonnepet.view.pet.PetDetailsActivity
 import br.com.bonnepet.view.pet.adapter.PetAdapter
 import com.bumptech.glide.Glide
@@ -50,7 +51,7 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
         collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(this, R.color.gray_100))
 
         val hostDTO = intent.getSerializableExtra(Data.HOST_DTO) as HostDTO
-        setHostImage(hostDTO.pictureURL)
+        setHostImage(hostDTO.profileDTO.profileImageURL)
 
         setFields(hostDTO)
 
@@ -67,7 +68,7 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
                     collapsingToolbarLayout.title = getString(activityTitle)
                     isShow = true
                 } else if (isShow) {
-                    if (hostDTO.pictureURL.isEmpty()) {
+                    if (hostDTO.profileDTO.profileImageURL.isEmpty()) {
                         collapsingToolbarLayout.setExpandedTitleColor(
                             ContextCompat
                                 .getColor(this@HostDetailsActivity, R.color.gray_600)
@@ -76,41 +77,43 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
                     } else {
                         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
                     }
-                    collapsingToolbarLayout.title = hostDTO.name
+                    collapsingToolbarLayout.title = hostDTO.profileDTO.userName
                     isShow = false
                 }
             }
         })
 
-        petAdapter = PetAdapter(this, hostDTO.pet.toMutableList(), this)
-        recyclerView.adapter = petAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        if (hostDTO.petDTO.isEmpty()) card_my_pets.isVisible = false
+        else {
+            petAdapter = PetAdapter(this, hostDTO.petDTO.toMutableList(), this)
+            recyclerView.adapter = petAdapter
+            recyclerView.layoutManager = LinearLayoutManager(this)
+        }
     }
 
     private fun setFields(host: HostDTO) {
-        textAboutMe.text = host.aboutMe
+        textAboutMe.text = host.about
 
-        val address = "${host.addressDTO.street}, ${host.addressDTO.number}\n" +
-                "${host.addressDTO.district}\n" +
-                "${host.addressDTO.city} - ${host.addressDTO.state}"
+        val address = "${host.profileDTO.addressDTO.street}, ${host.profileDTO.addressDTO.number}\n" +
+                "${host.profileDTO.addressDTO.district}\n" +
+                "${host.profileDTO.addressDTO.city} - ${host.profileDTO.addressDTO.state}"
         textAddress.text = address
 
         var phone = ""
-        host.phone.forEach {
-            phone += "$it\n"
-        }
+        phone += host.profileDTO.telephone + "\n" + host.profileDTO.cellphone
+
         textPhone.text = phone
 
         var petSize = ""
-        host.preferencePetSize.forEach { size ->
-            when (size.toInt()) {
-                PetSizeEnum.SMALL.ordinal -> {
+        host.sizePreferenceList.forEach { size ->
+            when (size) {
+                PetSizeEnum.SMALL.name -> {
                     petSize += "${getString(PetSizeEnum.SMALL.description)}, "
                 }
-                PetSizeEnum.MEDIUM.ordinal -> {
+                PetSizeEnum.MEDIUM.name -> {
                     petSize += "${getString(PetSizeEnum.MEDIUM.description)}, "
                 }
-                PetSizeEnum.LARGE.ordinal -> {
+                PetSizeEnum.LARGE.name -> {
                     petSize += "${getString(PetSizeEnum.LARGE.description)}, "
                 }
             }

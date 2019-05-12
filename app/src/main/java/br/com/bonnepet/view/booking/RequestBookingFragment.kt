@@ -29,7 +29,7 @@ class RequestBookingFragment : BaseFragment(), RequestBookingAdapter.ItemClickLi
         requestBookingAdapter = RequestBookingAdapter(activity!!, ArrayList(), this)
         recyclerView.adapter = requestBookingAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        loadData(true)
+//        loadData(true)
     }
 
     private fun loadData(resetData: Boolean) {

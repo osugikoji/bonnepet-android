@@ -51,11 +51,11 @@ class MainActivity : BaseActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_reservations -> {
-                    replaceFragment(fragmentContent, BookingFragment())
+                    replaceFragment(fragmentContent, LoginFragment())
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_pet -> {
-                    replaceFragment(fragmentContent, PetFragment())
+                    replaceFragment(fragmentContent, LoginFragment())
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_menu -> {
