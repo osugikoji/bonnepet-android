@@ -1,13 +1,15 @@
 package br.com.bonnepet.data.repository
 
 import br.com.bonnepet.config.RetrofitConfig
-import br.com.bonnepet.data.api.PetApi
-import br.com.bonnepet.data.model.AddressDTO
-import br.com.bonnepet.data.model.HostDTO
-import br.com.bonnepet.data.model.PetDTO
-import br.com.bonnepet.data.util.SchedulerProvider
+import br.com.bonnepet.data.api.HostApi
 import br.com.bonnepet.data.enums.GenderEnum
 import br.com.bonnepet.data.enums.PetSizeEnum
+import br.com.bonnepet.data.model.AddressDTO
+import br.com.bonnepet.data.model.HostDTO
+import br.com.bonnepet.data.model.NewHostDTO
+import br.com.bonnepet.data.model.PetDTO
+import br.com.bonnepet.data.util.SchedulerProvider
+import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.create
@@ -15,7 +17,7 @@ import retrofit2.create
 /** Repositorio de pet */
 class HostRepository {
 
-    private val petApi = RetrofitConfig.getInstance().create<PetApi>()
+    private val hostApi = RetrofitConfig.getInstance().create<HostApi>()
     private val schedulerProvider = SchedulerProvider(
         Schedulers.io(),
         AndroidSchedulers.mainThread()
@@ -48,9 +50,9 @@ class HostRepository {
                     arrayListOf("Shy")
                 )
             ).toList(),
-            arrayOf("(19)98225-2031","(19)3225-2031").toList(),
+            arrayOf("(19)98225-2031", "(19)3225-2031").toList(),
             "80",
-            arrayOf("0","1").toList(),
+            arrayOf("0", "1").toList(),
             AddressDTO("", "Jose Bernardinetti", "20", "Barão Geraldo", "Campinas", "São Paulo")
         ),
         HostDTO(
@@ -69,7 +71,7 @@ class HostRepository {
                     arrayListOf("Timido", "Destemido", "Covarde")
                 )
             ).toList(),
-            arrayOf("(19)98225-2031","(19)3225-2031").toList(),
+            arrayOf("(19)98225-2031", "(19)3225-2031").toList(),
             "60",
             arrayOf("0").toList(),
             AddressDTO("", "Jose Bernardinetti", "40", "Barão Geraldo", "Campinas", "São Paulo")
@@ -90,9 +92,9 @@ class HostRepository {
                     arrayListOf("Timido", "Destemido", "Covarde")
                 )
             ).toList(),
-            arrayOf("(19)98225-2031","(19)3225-2031").toList(),
+            arrayOf("(19)98225-2031", "(19)3225-2031").toList(),
             "50",
-            arrayOf("0","1").toList(),
+            arrayOf("0", "1").toList(),
             AddressDTO("", "Jose Bernardinetti", "33", "Barão Geraldo", "Campinas", "São Paulo")
         ),
         HostDTO(
@@ -111,9 +113,9 @@ class HostRepository {
                     arrayListOf("Timido", "Destemido", "Covarde")
                 )
             ).toList(),
-            arrayOf("(19)98225-2031","(19)3225-2031").toList(),
+            arrayOf("(19)98225-2031", "(19)3225-2031").toList(),
             "999",
-            arrayOf("0","1", "2").toList(),
+            arrayOf("0", "1", "2").toList(),
             AddressDTO("", "Jose Bernardinetti", "20", "Barão Geraldo", "Santos", "São Paulo")
         ),
         HostDTO(
@@ -134,10 +136,14 @@ class HostRepository {
             ).toList(),
             arrayOf("(19)98225-2031").toList(),
             "99",
-            arrayOf("0","1").toList(),
+            arrayOf("0", "1").toList(),
             AddressDTO("", "Jose Bernardinetti", "50", "Barão Geraldo", "Campinas", "São Paulo")
         )
     )
+
+    fun registerHost(newHostDTO: NewHostDTO) : Completable {
+        return hostApi.registerHost(newHostDTO).compose(schedulerProvider.getSchedulersForCompletable())
+    }
 
 
     fun getAllHost(): MutableList<HostDTO> {

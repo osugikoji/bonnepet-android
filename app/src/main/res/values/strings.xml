@@ -112,5 +112,9 @@
 
     <!-- Host -->
     <string name="host_details_title">Detalhes Do Host</string>
+    <string name="host_register_title">Cadastro De Host</string>
+    <string name="charge">Diária</string>
+    <string name="size_preference">Preferência de tamanho</string>
+    <string name="about_you">Sobre você</string>
 
 </resources>

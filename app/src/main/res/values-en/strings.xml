@@ -112,5 +112,9 @@
 
     <!-- Host -->
     <string name="host_details_title">Detalhes Do Host</string>
+    <string name="host_register_title">Host Register</string>
+    <string name="charge">Charge</string>
+    <string name="size_preference">Size preference</string>
+    <string name="about_you">About you</string>
 
 </resources>

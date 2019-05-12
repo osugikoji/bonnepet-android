@@ -2,17 +2,19 @@ package br.com.bonnepet.view.menu
 
 import Data
 import RequestCode
+import Time
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
-import br.com.bonnepet.view.component.CircularProgressBar
-import br.com.bonnepet.view.component.ImageRotationHelper
 import br.com.bonnepet.util.extension.checkWriteExternalPermission
 import br.com.bonnepet.util.extension.imageUrl
 import br.com.bonnepet.view.base.BaseFragment
+import br.com.bonnepet.view.component.CircularProgressBar
+import br.com.bonnepet.view.component.ImageRotationHelper
+import br.com.bonnepet.view.menu.beHost.BeHostActivity
 import br.com.bonnepet.view.menu.editUser.EditProfileActivity
 import br.com.bonnepet.view.menu.language.LanguageActivity
 import br.com.bonnepet.view.splash.SplashActivity
@@ -38,6 +40,7 @@ class MenuFragment : BaseFragment() {
 
         profileImage.setOnClickListener { openGallery() }
         edit_profile.setOnClickListener { startEditProfileActivity() }
+        be_host.setOnClickListener { startActivity(Intent(context, BeHostActivity::class.java)) }
         change_language.setOnClickListener { startActivity(Intent(context, LanguageActivity::class.java)) }
         exit.setOnClickListener { logout() }
 
@@ -53,7 +56,7 @@ class MenuFragment : BaseFragment() {
         })
 
         viewModel.sessionExpired().observe(this, Observer { isExpired ->
-           // if (isExpired) logout()
+            // if (isExpired) logout()
         })
     }
 
