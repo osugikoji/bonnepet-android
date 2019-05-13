@@ -112,6 +112,8 @@
     <string name="independent">Independent</string>
     <string name="preferences">preferences</string>
     <string name="pet_register_success">Your pet has been successfully registered</string>
+    <string name="empty_pet_title">No Pets Added</string>
+    <string name="empty_pet_subtitle">It Looks You Don\'t Have Any Pets</string>
 
     <!-- Host -->
     <string name="host_details_title">Detalhes Do Host</string>
@@ -123,5 +125,7 @@
     <string name="will_take">Will take</string>
     <string name="will_get">Will get</string>
     <string name="which_pets">Which pets?</string>
+    <string name="invalid_book_date">Invalid book date</string>
+    <string name="select_pet">Select a pet</string>
 
 </resources>

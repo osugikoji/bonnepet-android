@@ -7,6 +7,7 @@ import br.com.bonnepet.data.util.SchedulerProvider
 import br.com.bonnepet.data.enums.BookingStatusEnum
 import br.com.bonnepet.data.enums.GenderEnum
 import br.com.bonnepet.data.enums.PetSizeEnum
+import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.create
@@ -196,6 +197,10 @@ class BookingRepository {
 //            BookingStatusEnum.REFUSED.name
 //        )
 //    )
+
+    fun insertBooking(newBookingDTO: NewBookingDTO): Completable {
+        return bookingApi.insertBooking(newBookingDTO).compose(schedulerProvider.getSchedulersForCompletable())
+    }
 
     fun getHostBookings(): MutableList<HostBookingDTO> {
         return hostBookingList

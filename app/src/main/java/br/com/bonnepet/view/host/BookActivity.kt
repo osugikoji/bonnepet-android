@@ -42,7 +42,11 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
 
     private val recyclerView by lazy { recycler_view }
 
+    private val btnBook by lazy { btn_book }
+
     private lateinit var petBookAdapter: PetBookAdapter
+
+    private val progressBar by lazy { progress_bar }
 
     override fun onPrepareActivity(state: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(BookViewModel::class.java)
@@ -59,6 +63,8 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
         recyclerView.adapter = petBookAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        btnBook.setOnClickListener { book() }
+
         viewModel.textNight.observe(this, Observer {
             nightText.text = it
         })
@@ -66,7 +72,19 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
             totalPriceText.text = it
         })
 
+        viewModel.errorMessage().observe(this, Observer {
+            showToast(it)
+        })
+
+        viewModel.isLoading().observe(this, Observer {
+            progressBar.isVisible = it
+        })
+
         loadPetData(true)
+    }
+
+    private fun book() {
+        viewModel.book(dateTakeText.text.toString(), dateGetText.text.toString(), totalPriceText.text.toString())
     }
 
     private fun loadPetData(resetData: Boolean) {
@@ -107,7 +125,7 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
     }
 
     override fun onSwitchClick(pet: PetDTO, isChecked: Boolean) {
-
+        viewModel.petSelected(pet, isChecked)
     }
 
     /**

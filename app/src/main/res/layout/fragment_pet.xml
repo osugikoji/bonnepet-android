@@ -20,8 +20,35 @@
             android:layout_height="match_parent"
             tools:listitem="@layout/pet_item"
             android:scrollbars="vertical"/>
-
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_empty"
+        android:layout_below="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_empty_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="26sp"
+            android:textColor="@color/color_primary"
+            android:text="@string/empty_pet_title"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_empty_title"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/gray_700"
+            android:textSize="16sp"
+            android:layout_marginTop="6dp"
+            android:text="@string/empty_pet_subtitle"/>
+
+    </RelativeLayout>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -7,13 +7,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.HostDTO
+import br.com.bonnepet.data.model.NewBookingDTO
 import br.com.bonnepet.data.model.PetDTO
 import br.com.bonnepet.data.repository.BookingRepository
 import br.com.bonnepet.data.repository.PetRepository
+import br.com.bonnepet.util.extension.error
 import br.com.bonnepet.util.extension.parseToDate
 import br.com.bonnepet.view.base.BaseViewModel
 import io.reactivex.rxkotlin.subscribeBy
 import org.joda.time.Days
+import org.joda.time.LocalDate
 
 class BookViewModel(override val app: Application) : BaseViewModel(app) {
 
@@ -22,6 +25,8 @@ class BookViewModel(override val app: Application) : BaseViewModel(app) {
     private val petRepository = PetRepository()
 
     private lateinit var hostDTO: HostDTO
+
+    private var petsBooking: MutableList<PetDTO> = ArrayList()
 
     private val _textNight = MutableLiveData<String>()
     val textNight: LiveData<String> = _textNight
@@ -34,6 +39,46 @@ class BookViewModel(override val app: Application) : BaseViewModel(app) {
 
     fun initViewModel(intent: Intent) {
         hostDTO = intent.getSerializableExtra(Data.HOST_DTO) as HostDTO
+    }
+
+    fun book(initialDate: String, finalDate: String, totalPrice: String) {
+        if (totalPrice.toInt() <= 0) {
+            errorMessage.value = app.getString(R.string.invalid_book_date)
+            return
+        }
+
+        if (initialDate.parseToDate()!!.toLocalDate().isBefore(LocalDate())) {
+            errorMessage.value = app.getString(R.string.invalid_book_date)
+            return
+        }
+
+        if (petsBooking.isEmpty()) {
+            errorMessage.value = app.getString(R.string.select_pet)
+            return
+        }
+
+        val petIds: MutableList<String> = ArrayList()
+        petsBooking.forEach { pet ->
+            petIds.add(pet.id)
+        }
+
+        isLoading.value = true
+        val newBookingDTO = NewBookingDTO(hostDTO.id, initialDate, finalDate, petIds, totalPrice)
+        compositeDisposable.add(
+            bookRepository.insertBooking(newBookingDTO)
+                .subscribeBy(onComplete = {
+                    errorMessage.value = "Reserva feito com sucesso"
+                    isLoading.value = false
+                }, onError = {
+                    errorMessage.value = it.error(app)
+                    isLoading.value = false
+                })
+        )
+    }
+
+    fun petSelected(petDTO: PetDTO, isChecked: Boolean) {
+        if (isChecked) petsBooking.add(petDTO)
+        else petsBooking.remove(petDTO)
     }
 
     fun getAllPets() {

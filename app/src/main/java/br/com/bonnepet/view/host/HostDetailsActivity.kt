@@ -55,6 +55,8 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
 
     private lateinit var hostDTO: HostDTO
 
+    private val cardBook by lazy { card_book }
+
     override fun onPrepareActivity(state: Bundle?) {
         collapsingToolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.gray_600))
         collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(this, R.color.gray_100))

@@ -63,6 +63,8 @@ class PetFragment : BaseFragment(), PetAdapter.ItemClickListener {
     private fun loadData(resetData: Boolean) {
         viewModel.getAllPets()
         viewModel.petList.observe(this, Observer { petList ->
+            layout_empty.isVisible = petList.isEmpty()
+            recyclerView.isVisible = petList.isNotEmpty()
             petAdapter.update(petList, resetData)
             swipeRefresh.isRefreshing = false
         })
