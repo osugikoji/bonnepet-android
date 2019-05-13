@@ -23,6 +23,7 @@ android {
         }
 
         release {
+            resValue "string", "server_name", "https://bonnepet.herokuapp.com/"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
