@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.com.bonnepet.R
-import br.com.bonnepet.data.model.RequestBookingDTO
+import br.com.bonnepet.data.model.BookingDetailsDTO
 import br.com.bonnepet.data.enums.BookingStatusEnum
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.request_booking_item.view.*
 
 class RequestBookingAdapter(
     private val context: Context,
-    private var requestBookingList: MutableList<RequestBookingDTO>,
+    private var bookingDetailsList: MutableList<BookingDetailsDTO>,
     private val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<RequestBookingAdapter.RequestBookingViewHolder>() {
 
@@ -34,20 +34,20 @@ class RequestBookingAdapter(
     }
 
     override fun getItemCount(): Int {
-        return requestBookingList.size
+        return bookingDetailsList.size
     }
 
     override fun onBindViewHolder(holder: RequestBookingViewHolder, position: Int) {
-        holder.bindView(requestBookingList[position])
+        holder.bindView(bookingDetailsList[position])
     }
 
-    fun update(requestBookingList: MutableList<RequestBookingDTO>, resetData: Boolean) {
+    fun update(bookingDetailsList: MutableList<BookingDetailsDTO>, resetData: Boolean) {
         when (resetData) {
             true -> {
-                this.requestBookingList.clear()
-                this.requestBookingList.addAll(requestBookingList)
+                this.bookingDetailsList.clear()
+                this.bookingDetailsList.addAll(bookingDetailsList)
             }
-            else -> this.requestBookingList.addAll(requestBookingList)
+            else -> this.bookingDetailsList.addAll(bookingDetailsList)
         }
         notifyDataSetChanged()
     }
@@ -67,17 +67,17 @@ class RequestBookingAdapter(
             petLayout.setOnClickListener(this)
         }
 
-        fun bindView(requestBooking: RequestBookingDTO) {
-//            setUserImage(requestBooking.host.pictureURL)
-//            userName.text = requestBooking.host.name
-//            city.text = requestBooking.host.addressDTO.city
-//            district.text = requestBooking.host.addressDTO.district
-            price.text = requestBooking.host.price
-            setBookingStatus(requestBooking.status)
+        fun bindView(bookingDetails: BookingDetailsDTO) {
+//            setUserImage(bookingDetails.host.pictureURL)
+//            userName.text = bookingDetails.host.name
+//            city.text = bookingDetails.host.addressDTO.city
+//            district.text = bookingDetails.host.addressDTO.district
+//            totalPrice.text = bookingDetails.host.totalPrice
+            setBookingStatus(bookingDetails.status)
         }
 
         override fun onClick(v: View?) {
-            itemClickListener.onItemClick(requestBookingList[adapterPosition])
+            itemClickListener.onItemClick(bookingDetailsList[adapterPosition])
         }
 
         private fun setBookingStatus(status: String) {
@@ -105,6 +105,6 @@ class RequestBookingAdapter(
      * Permite que classes externas definam o listener de click
      */
     interface ItemClickListener {
-        fun onItemClick(requestBooking: RequestBookingDTO)
+        fun onItemClick(bookingDetails: BookingDetailsDTO)
     }
 }

@@ -326,4 +326,27 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_book_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="16dp"
+        android:visibility="gone"
+        app:layout_anchor="@id/nested_scroll_view"
+        app:layout_anchorGravity="bottom"
+        app:cardCornerRadius="2dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_book_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/book_details"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
 </com.google.android.material.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout>

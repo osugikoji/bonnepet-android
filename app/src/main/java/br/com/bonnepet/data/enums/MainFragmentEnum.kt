@@ -3,7 +3,7 @@ package br.com.bonnepet.data.enums
 import androidx.fragment.app.Fragment
 import br.com.bonnepet.R
 import br.com.bonnepet.view.booking.BookingFragment
-import br.com.bonnepet.view.host.SearchHostFragment
+import br.com.bonnepet.view.host.searchHost.SearchHostFragment
 import br.com.bonnepet.view.login.LoginFragment
 import br.com.bonnepet.view.menu.MenuFragment
 import br.com.bonnepet.view.pet.PetFragment

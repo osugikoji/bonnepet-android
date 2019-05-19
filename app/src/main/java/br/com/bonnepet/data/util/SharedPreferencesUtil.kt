@@ -13,7 +13,7 @@ object SharedPreferencesUtil {
         preferences = context.getSharedPreferences(FILE_NAME, MODE)
     }
 
-    fun getString(key: String, defaultValue: String = ""): String? =
+    fun getString(key: String, defaultValue: String? = ""): String? =
         preferences.getString(key, defaultValue)
 
     fun putString(key: String, value: String) {

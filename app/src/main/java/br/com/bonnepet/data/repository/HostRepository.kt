@@ -19,10 +19,13 @@ class HostRepository {
         AndroidSchedulers.mainThread()
     )
 
-    fun registerHost(newHostDTO: NewHostDTO) : Completable {
+    fun registerHost(newHostDTO: NewHostDTO): Completable {
         return hostApi.registerHost(newHostDTO).compose(schedulerProvider.getSchedulersForCompletable())
     }
 
+    fun getHost(id: Int): Single<HostDTO> {
+        return hostApi.getHost(id).compose(schedulerProvider.getSchedulersForSingle())
+    }
 
     fun getAllHost(): Single<List<HostDTO>> {
         return hostApi.getAllHosts().compose(schedulerProvider.getSchedulersForSingle())

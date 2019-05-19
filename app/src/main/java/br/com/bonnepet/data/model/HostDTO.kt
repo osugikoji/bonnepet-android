@@ -8,5 +8,6 @@ data class HostDTO(
     var petDTO: List<PetDTO>,
     var price: String,
     var sizePreferenceList: List<String>,
-    var about: String
+    var about: String,
+    var bookingDetailsDTO: BookingDetailsDTO?
 ) : Serializable

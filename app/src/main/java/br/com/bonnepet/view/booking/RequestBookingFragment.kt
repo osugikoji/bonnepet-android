@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.bonnepet.R
-import br.com.bonnepet.data.model.RequestBookingDTO
+import br.com.bonnepet.data.model.BookingDetailsDTO
 import br.com.bonnepet.view.base.BaseFragment
 import br.com.bonnepet.view.booking.adapter.RequestBookingAdapter
 import kotlinx.android.synthetic.main.fragment_request_booking.*
@@ -34,11 +34,11 @@ class RequestBookingFragment : BaseFragment(), RequestBookingAdapter.ItemClickLi
 
     private fun loadData(resetData: Boolean) {
         viewModel.getRequestBookings()
-        viewModel.requestBookingList.observe(this, Observer { requestBookingList ->
+        viewModel.bookingDetailsList.observe(this, Observer { requestBookingList ->
             requestBookingAdapter.update(requestBookingList, resetData)
         })
     }
 
-    override fun onItemClick(requestBooking: RequestBookingDTO) {
+    override fun onItemClick(bookingDetails: BookingDetailsDTO) {
     }
 }

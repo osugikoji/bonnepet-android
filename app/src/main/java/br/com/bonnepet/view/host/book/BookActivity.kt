@@ -1,7 +1,9 @@
-package br.com.bonnepet.view.host
+package br.com.bonnepet.view.host.book
 
 import Time
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -13,6 +15,7 @@ import br.com.bonnepet.data.model.PetDTO
 import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.host.adapter.PetBookAdapter
+import br.com.bonnepet.view.pet.PetRegisterActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -42,6 +45,8 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
 
     private val recyclerView by lazy { recycler_view }
 
+    private val btnAddPet by lazy { btn_add_pet }
+
     private val btnBook by lazy { btn_book }
 
     private lateinit var petBookAdapter: PetBookAdapter
@@ -55,6 +60,7 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
         nightText.text = initialNightText
         totalPriceText.text = "0"
         setHostProfile()
+        layout_host.isClickable = false
 
         layoutDateTake.setOnClickListener { buildDatePicker(dateTakeText) }
         layoutDateGet.setOnClickListener { buildDatePicker(dateGetText) }
@@ -63,6 +69,7 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
         recyclerView.adapter = petBookAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        btnAddPet.setOnClickListener { addPet() }
         btnBook.setOnClickListener { book() }
 
         viewModel.textNight.observe(this, Observer {
@@ -80,7 +87,28 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
             progressBar.isVisible = it
         })
 
+        viewModel.bookingSuccess.observe(this, Observer {
+            if (it) {
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
+        })
+
         loadPetData(true)
+    }
+
+    private fun addPet() {
+        startActivityForResult(Intent(this, PetRegisterActivity::class.java), RequestCode.PET_REGISTER)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                RequestCode.PET_REGISTER -> loadPetData(true)
+            }
+        }
     }
 
     private fun book() {
@@ -134,6 +162,7 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
+                setResult(Activity.RESULT_OK)
                 finish()
             }
         }

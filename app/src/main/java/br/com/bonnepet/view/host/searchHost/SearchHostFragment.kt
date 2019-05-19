@@ -1,6 +1,7 @@
-package br.com.bonnepet.view.host
+package br.com.bonnepet.view.host.searchHost
 
 import Data
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -14,6 +15,7 @@ import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.view.base.BaseFragment
 import br.com.bonnepet.view.host.adapter.SearchHostAdapter
+import br.com.bonnepet.view.host.hostDetails.HostDetailsActivity
 import kotlinx.android.synthetic.main.search_fragment.*
 
 class SearchHostFragment : BaseFragment(), SearchHostAdapter.ItemClickListener {
@@ -67,6 +69,16 @@ class SearchHostFragment : BaseFragment(), SearchHostAdapter.ItemClickListener {
         val intent = Intent(activity, HostDetailsActivity::class.java).apply {
             putExtra(Data.HOST_DTO, host)
         }
-        startActivity(intent)
+        startActivityForResult(intent, RequestCode.REFRESH_SEARCH_HOST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                RequestCode.REFRESH_SEARCH_HOST -> loadData(true)
+            }
+        }
     }
 }

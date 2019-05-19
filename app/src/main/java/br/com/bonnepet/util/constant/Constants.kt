@@ -17,7 +17,9 @@ object RequestCode {
     const val PERMISSION = 2
     const val SIGN_UP = 3
     const val EDIT_PROFILE = 4
-    const val PET_REGISTER = 4
+    const val PET_REGISTER = 5
+    const val REFRESH_HOST_DETAILS = 6
+    const val REFRESH_SEARCH_HOST = 7
 }
 
 // Mascaras
@@ -40,6 +42,7 @@ object Data {
     const val PROFILE_DTO = "PROFILE_DTO"
     const val PET_DTO= "PET_DTO"
     const val HOST_DTO= "HOST_DTO"
+    const val BOOK_DETAILS_DTO= "BOOK_DETAILS_DTO"
 }
 
 object Time {

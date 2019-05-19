@@ -9,5 +9,6 @@ class ProfileDTO(
     val birthDate: String,
     val cellphone: String,
     val telephone: String,
-    val addressDTO: AddressDTO
+    val addressDTO: AddressDTO,
+    val id: String
 ): Serializable

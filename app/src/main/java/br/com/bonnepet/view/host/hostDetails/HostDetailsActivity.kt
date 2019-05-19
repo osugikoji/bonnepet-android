@@ -1,4 +1,4 @@
-package br.com.bonnepet.view.host
+package br.com.bonnepet.view.host.hostDetails
 
 import Data
 import RequestCode
@@ -8,6 +8,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.bonnepet.R
 import br.com.bonnepet.data.enums.PetSizeEnum
@@ -18,6 +20,8 @@ import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.component.CircularProgressBar
+import br.com.bonnepet.view.host.BookDetailsActivity
+import br.com.bonnepet.view.host.book.BookActivity
 import br.com.bonnepet.view.login.LoginActivity
 import br.com.bonnepet.view.pet.PetDetailsActivity
 import br.com.bonnepet.view.pet.adapter.PetAdapter
@@ -30,6 +34,7 @@ import kotlinx.android.synthetic.main.activity_host_details.*
 class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
     override val layoutResource = R.layout.activity_host_details
     override val activityTitle = R.string.host_details_title
+    private lateinit var viewModel: HostDetailsViewModel
 
     private val collapsingToolbarLayout by lazy { collapse_toolbar }
 
@@ -57,11 +62,17 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
 
     private val cardBook by lazy { card_book }
 
+    private val cardBookDetails by lazy { card_book_details }
+
+    private val btnBookDetails by lazy { btn_book_details }
+
     override fun onPrepareActivity(state: Bundle?) {
+        viewModel = ViewModelProviders.of(this).get(HostDetailsViewModel::class.java)
         collapsingToolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.gray_600))
         collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(this, R.color.gray_100))
 
         hostDTO = intent.getSerializableExtra(Data.HOST_DTO) as HostDTO
+        viewModel.initViewModel(hostDTO)
         setHostImage(hostDTO.profileDTO.profileImageURL)
 
         setFields(hostDTO)
@@ -102,6 +113,8 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
         }
 
         btnBook.setSafeOnClickListener { startBookActivity() }
+        btnBookDetails.setSafeOnClickListener { startBookDetailsActivity() }
+        refreshData()
     }
 
     private fun startBookActivity() {
@@ -111,8 +124,15 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
             val intent = Intent(this, BookActivity::class.java).apply {
                 putExtra(Data.HOST_DTO, hostDTO)
             }
-            startActivity(intent)
+            startActivityForResult(intent, RequestCode.REFRESH_HOST_DETAILS)
         }
+    }
+
+    private fun startBookDetailsActivity() {
+        val intent = Intent(this, BookDetailsActivity::class.java).apply {
+            putExtra(Data.BOOK_DETAILS_DTO, viewModel.getBookDetails())
+        }
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -121,8 +141,16 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 RequestCode.SIGN_UP -> startBookActivity()
+                RequestCode.REFRESH_HOST_DETAILS -> refreshData()
             }
         }
+    }
+
+    private fun refreshData() {
+        viewModel.getHost()
+        viewModel.host.observe(this, Observer {
+            setFields(it)
+        })
     }
 
     private fun setFields(host: HostDTO) {
@@ -155,6 +183,15 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
         textPreferencePetSize.text = petSize.removeSuffix(", ")
 
         price.text = host.price
+
+        if (host.profileDTO.id == SessionManager.getUserId().toString()) cardBook.isVisible = false
+
+        if (host.bookingDetailsDTO != null) cardBookDetailsVisibility(true)
+    }
+
+    private fun cardBookDetailsVisibility(visibility: Boolean) {
+        cardBook.isVisible = !visibility
+        cardBookDetails.isVisible = visibility
     }
 
     private fun setHostImage(imageURL: String) {
@@ -177,6 +214,7 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
+                setResult(Activity.RESULT_OK)
                 finish()
             }
         }

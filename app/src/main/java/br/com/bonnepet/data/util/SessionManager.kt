@@ -23,7 +23,7 @@ object SessionManager {
     }
 
     fun getUserId(): Int? {
-        val token = SharedPreferencesUtil.getString(Prefs.TOKEN) ?: return null
+        val token = SharedPreferencesUtil.getString(Prefs.TOKEN, null) ?: return null
 
         val tokenData = token.getTokenData()
 

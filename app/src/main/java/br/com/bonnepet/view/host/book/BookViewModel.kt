@@ -1,4 +1,4 @@
-package br.com.bonnepet.view.host
+package br.com.bonnepet.view.host.book
 
 import Data
 import android.app.Application
@@ -37,6 +37,9 @@ class BookViewModel(override val app: Application) : BaseViewModel(app) {
     private val _petList = MutableLiveData<MutableList<PetDTO>>()
     val petList: LiveData<MutableList<PetDTO>> = _petList
 
+    private val _bookingSuccess = MutableLiveData<Boolean>()
+    val bookingSuccess: LiveData<Boolean> = _bookingSuccess
+
     fun initViewModel(intent: Intent) {
         hostDTO = intent.getSerializableExtra(Data.HOST_DTO) as HostDTO
     }
@@ -67,6 +70,7 @@ class BookViewModel(override val app: Application) : BaseViewModel(app) {
         compositeDisposable.add(
             bookRepository.insertBooking(newBookingDTO)
                 .subscribeBy(onComplete = {
+                    _bookingSuccess.value = true
                     errorMessage.value = "Reserva feito com sucesso"
                     isLoading.value = false
                 }, onError = {
