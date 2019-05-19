@@ -135,9 +135,9 @@ class MenuFragment : BaseFragment() {
 
         val intent = Intent(activity, SplashActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
         startActivity(intent)
+        activity?.finish()
     }
 }

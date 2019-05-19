@@ -22,7 +22,7 @@ fun AppCompatActivity.addFragment(frameId: Int, fragment: Fragment) {
 
 
 fun AppCompatActivity.replaceFragment(frameId: Int, fragment: Fragment) {
-    supportFragmentManager.inTransaction { replace(frameId, fragment) }
+    supportFragmentManager.inTransaction { setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).replace(frameId, fragment).setPrimaryNavigationFragment(fragment) }
 }
 
 fun Activity.checkWriteExternalPermission(): Boolean {

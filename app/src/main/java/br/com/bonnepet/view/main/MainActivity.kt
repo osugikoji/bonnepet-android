@@ -3,6 +3,7 @@ package br.com.bonnepet.view.main
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
+import br.com.bonnepet.data.enums.MainFragmentEnum
 import br.com.bonnepet.util.extension.replaceFragment
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.booking.BookingFragment
@@ -16,28 +17,29 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity() {
     override val layoutResource = R.layout.activity_main
     override val activityTitle: Nothing? = null
-
-    private val fragmentContent by lazy { fragment_content.id }
-
+    private val container by lazy { fragment_content.id }
     private lateinit var viewModel: MainViewModel
 
     private val bottomMenu by lazy { navigation }
 
     override fun onPrepareActivity(state: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        bottomMenu.setOnNavigationItemSelectedListener(bottomNavigationListener)
+
         if (viewModel.isUserAuthenticated()) userAuthenticated()
         else userNotAuthenticated()
+
+        bottomMenu.setOnNavigationItemSelectedListener(bottomNavigationListener)
     }
 
     fun userAuthenticated() {
         bottomMenu.menu.findItem(R.id.navigation_menu).isChecked = true
-        replaceFragment(fragmentContent, MenuFragment())
+        supportFragmentManager.beginTransaction().remove(MainFragmentEnum.LOGIN.instance)
+        swapFragments(MainFragmentEnum.MENU)
     }
 
     private fun userNotAuthenticated() {
         bottomMenu.menu.findItem(R.id.navigation_menu).isChecked = true
-        replaceFragment(fragmentContent, LoginFragment())
+        swapFragments(MainFragmentEnum.LOGIN)
     }
 
     /**
@@ -46,26 +48,43 @@ class MainActivity : BaseActivity() {
     private val bottomNavigationListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.navigation_search -> {
-                    replaceFragment(fragmentContent, SearchHostFragment())
+                MainFragmentEnum.SEARCH.id -> {
+                    swapFragments(MainFragmentEnum.SEARCH)
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.navigation_reservations -> {
-                    if (viewModel.isUserAuthenticated()) replaceFragment(fragmentContent, BookingFragment())
-                    else replaceFragment(fragmentContent, LoginFragment())
+                MainFragmentEnum.BOOKING.id -> {
+                    swapFragments(MainFragmentEnum.BOOKING)
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.navigation_pet -> {
-                    if (viewModel.isUserAuthenticated()) replaceFragment(fragmentContent, PetFragment())
-                    else replaceFragment(fragmentContent, LoginFragment())
+                MainFragmentEnum.PET.id -> {
+                    swapFragments(MainFragmentEnum.PET)
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.navigation_menu -> {
-                    if (viewModel.isUserAuthenticated()) replaceFragment(fragmentContent, MenuFragment())
-                    else replaceFragment(fragmentContent, LoginFragment())
+                MainFragmentEnum.MENU.id -> {
+                    swapFragments(MainFragmentEnum.MENU)
                     return@OnNavigationItemSelectedListener true
                 }
                 else -> false
             }
         }
+
+    private fun swapFragments(fragmentEnum: MainFragmentEnum) {
+        val currentFragment = supportFragmentManager.primaryNavigationFragment
+        if (currentFragment != null && currentFragment::class.java == fragmentEnum.instance::class.java) {
+            return
+        }
+
+        if (viewModel.isUserNotAuthenticated() && fragmentEnum != MainFragmentEnum.SEARCH) {
+            replaceFragment(container, LoginFragment())
+            return
+        }
+
+        when (fragmentEnum) {
+            MainFragmentEnum.SEARCH -> replaceFragment(container, SearchHostFragment())
+            MainFragmentEnum.BOOKING -> replaceFragment(container, BookingFragment())
+            MainFragmentEnum.PET -> replaceFragment(container, PetFragment())
+            else -> replaceFragment(container, MenuFragment())
+        }
+
+    }
 }

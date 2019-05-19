@@ -28,6 +28,7 @@ abstract class BaseFragment : Fragment() {
     private var v: View? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         if (v == null) {
             v = inflater.inflate(layoutResource, container, false)
         }

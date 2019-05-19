@@ -14,7 +14,7 @@ import java.util.*
 
 
 class LanguageActivity : BaseActivity() {
-    override val layoutResource = br.com.bonnepet.R.layout.activity_language
+    override val layoutResource = R.layout.activity_language
     override val activityTitle = R.string.title_activity_language
 
     private val portugueseRadio by lazy { portuguese_radio_button }
@@ -54,9 +54,12 @@ class LanguageActivity : BaseActivity() {
     }
 
     private fun restartApp() {
-        val intent = Intent(this, SplashActivity::class.java)
-        this.startActivity(intent)
-        this.finishAffinity()
+        val intent = Intent(this, SplashActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+        startActivity(intent)
+        finish()
     }
 
     /**

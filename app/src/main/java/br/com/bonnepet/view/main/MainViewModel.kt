@@ -4,9 +4,12 @@ import android.app.Application
 import br.com.bonnepet.util.data.SessionManager
 import br.com.bonnepet.view.base.BaseViewModel
 
-class MainViewModel(override val app: Application): BaseViewModel(app) {
+class MainViewModel(override val app: Application) : BaseViewModel(app) {
 
-    fun isUserAuthenticated(): Boolean {
-        return SessionManager.isLoggedIn()
-    }
+    fun isUserAuthenticated(): Boolean =
+        SessionManager.isLoggedIn()
+
+    fun isUserNotAuthenticated(): Boolean =
+        !SessionManager.isLoggedIn()
+
 }

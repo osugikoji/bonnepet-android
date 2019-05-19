@@ -1,5 +1,6 @@
 package br.com.bonnepet.view.login
 
+import RequestCode
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -42,15 +43,13 @@ class LoginFragment : BaseFragment() {
         registerLink.setSafeOnClickListener { goToRegister() }
 
         viewModel.errorMessage().observe(this, Observer { message ->
-            hideProgressBar()
             showToast(message)
+            hideProgressBar()
         })
 
         viewModel.onLoginSuccess.observe(this, Observer { authenticationResult ->
             hideProgressBar()
-            if (authenticationResult) {
-                mainActivity.userAuthenticated()
-            }
+            if (authenticationResult) mainActivity.userAuthenticated()
         })
     }
 
