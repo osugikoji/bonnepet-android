@@ -4,12 +4,12 @@
                 android:layout_width="wrap_content">
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/layout_booking"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Item.Clickable">
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/layout_booking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Item.Clickable">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/user_image"
@@ -36,19 +36,46 @@
                 android:textSize="15sp"/>
 
             <TextView
-                android:id="@+id/text_city"
+                android:id="@+id/text_take"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_user_name"
-                android:text="Campinas"
+                android:textColor="@color/gray_500"
+                android:text="Levarei:"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"/>
+
+
+            <TextView
+                android:id="@+id/text_take_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/text_take"
+                android:layout_below="@id/text_user_name"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:text="08/09/2019"
                 android:textSize="12sp"/>
 
             <TextView
-                android:id="@+id/text_district"
+                android:id="@+id/text_get"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/text_city"
-                android:text="Barão Geraldo"
+                android:layout_below="@id/text_take_date"
+                android:textColor="@color/gray_500"
+                android:text="Buscarei:"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/text_get_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/text_get"
+                android:layout_below="@+id/text_take_date"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="4dp"
+                android:text="08/25/2019"
                 android:textSize="12sp"/>
         </RelativeLayout>
 
@@ -59,20 +86,19 @@
             android:layout_marginEnd="20dp"
             android:layout_centerInParent="true">
 
-            <ImageView
+            <com.google.android.material.chip.Chip
+                android:id="@+id/statusColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
-                android:textSize="14sp"/>
-        </RelativeLayout>
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="4dp"
+                android:textColor="@color/gray_100"
+                app:chipBackgroundColor="@color/yellow"
+                android:text="Em aberto"
+                app:rippleColor="@color/transparent"
+                android:textSize="12sp"/>
 
-        <FrameLayout
-            android:id="@+id/statusColor"
-            android:layout_width="3dp"
-            android:layout_marginEnd="7dp"
-            android:layout_height="60dp"
-            android:background="@color/light_red"
-            android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
 
     </RelativeLayout>
 

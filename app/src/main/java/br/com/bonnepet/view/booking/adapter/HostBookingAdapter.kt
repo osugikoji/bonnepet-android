@@ -52,8 +52,8 @@ class HostBookingAdapter(
         private val petLayout = itemView.layout_booking
         private val userImage = itemView.user_image
         private val userName = itemView.text_user_name
-        private val city = itemView.text_city
-        private val district = itemView.text_district
+        //        private val city = itemView.text_city
+//        private val district = itemView.text_district
         private val bookingStatus = itemView.statusColor
 
         init {
@@ -63,8 +63,8 @@ class HostBookingAdapter(
         fun bindView(hostBooking: HostBookingDTO) {
             setUserImage(hostBooking.pictureURL)
             userName.text = hostBooking.user.name
-            city.text = hostBooking.user.addressDTO?.city
-            district.text = hostBooking.user.addressDTO?.district
+//            city.text = hostBooking.user.addressDTO?.city
+//            district.text = hostBooking.user.addressDTO?.district
             setBookingStatus(hostBooking.status)
         }
 
@@ -73,11 +73,9 @@ class HostBookingAdapter(
         }
 
         private fun setBookingStatus(status: String) {
-            when (status) {
-                BookingStatusEnum.OPEN.name -> bookingStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.yellow))
-                BookingStatusEnum.CONFIRMED.name -> bookingStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.green))
-                BookingStatusEnum.REFUSED.name -> bookingStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.light_red))
-            }
+            val statusEnum = BookingStatusEnum.getStatusEnum(status)
+            bookingStatus.setChipBackgroundColorResource(statusEnum!!.color)
+            bookingStatus.setText(statusEnum.description)
         }
 
         private fun setUserImage(imageURL: String) {

@@ -5,25 +5,18 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.com.bonnepet.R
-import br.com.bonnepet.data.model.BookingDetailsDTO
 import br.com.bonnepet.data.enums.BookingStatusEnum
+import br.com.bonnepet.data.model.HostDTO
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import kotlinx.android.synthetic.main.booking_item.view.layout_booking
-import kotlinx.android.synthetic.main.booking_item.view.statusColor
-import kotlinx.android.synthetic.main.booking_item.view.text_city
-import kotlinx.android.synthetic.main.booking_item.view.text_district
-import kotlinx.android.synthetic.main.booking_item.view.text_user_name
-import kotlinx.android.synthetic.main.booking_item.view.user_image
 import kotlinx.android.synthetic.main.request_booking_item.view.*
 
 class RequestBookingAdapter(
     private val context: Context,
-    private var bookingDetailsList: MutableList<BookingDetailsDTO>,
+    private var hostList: MutableList<HostDTO>,
     private val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<RequestBookingAdapter.RequestBookingViewHolder>() {
 
@@ -34,20 +27,20 @@ class RequestBookingAdapter(
     }
 
     override fun getItemCount(): Int {
-        return bookingDetailsList.size
+        return hostList.size
     }
 
     override fun onBindViewHolder(holder: RequestBookingViewHolder, position: Int) {
-        holder.bindView(bookingDetailsList[position])
+        holder.bindView(hostList[position])
     }
 
-    fun update(bookingDetailsList: MutableList<BookingDetailsDTO>, resetData: Boolean) {
+    fun update(bookingDetailsList: MutableList<HostDTO>, resetData: Boolean) {
         when (resetData) {
             true -> {
-                this.bookingDetailsList.clear()
-                this.bookingDetailsList.addAll(bookingDetailsList)
+                this.hostList.clear()
+                this.hostList.addAll(bookingDetailsList)
             }
-            else -> this.bookingDetailsList.addAll(bookingDetailsList)
+            else -> this.hostList.addAll(bookingDetailsList)
         }
         notifyDataSetChanged()
     }
@@ -55,37 +48,40 @@ class RequestBookingAdapter(
 
     inner class RequestBookingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-        private val petLayout = itemView.layout_booking
+        private val bookLayout = itemView.layout_booking
         private val userImage = itemView.user_image
         private val userName = itemView.text_user_name
         private val city = itemView.text_city
         private val district = itemView.text_district
-        private val price = itemView.text_money_value
+        private val takeDate = itemView.text_take_date
+        private val getDate = itemView.text_get_date
+        private val totalPrice = itemView.text_price_value
         private val bookingStatus = itemView.statusColor
 
         init {
-            petLayout.setOnClickListener(this)
+            bookLayout.setOnClickListener(this)
         }
 
-        fun bindView(bookingDetails: BookingDetailsDTO) {
-//            setUserImage(bookingDetails.host.pictureURL)
-//            userName.text = bookingDetails.host.name
-//            city.text = bookingDetails.host.addressDTO.city
-//            district.text = bookingDetails.host.addressDTO.district
-//            totalPrice.text = bookingDetails.host.totalPrice
-            setBookingStatus(bookingDetails.status)
+        fun bindView(hostList: HostDTO) {
+            setUserImage(hostList.profileDTO.profileImageURL)
+            userName.text = hostList.profileDTO.userName
+            city.text = hostList.profileDTO.addressDTO.city
+            district.text = hostList.profileDTO.addressDTO.district
+            takeDate.text = hostList.bookingDetailsDTO?.stayInitialDate
+            getDate.text = hostList.bookingDetailsDTO?.stayInitialDate
+            val price = "R$ ${hostList.bookingDetailsDTO?.totalPrice}"
+            totalPrice.text = price
+            setBookingStatus(hostList.bookingDetailsDTO!!.status)
         }
 
         override fun onClick(v: View?) {
-            itemClickListener.onItemClick(bookingDetailsList[adapterPosition])
+            itemClickListener.onItemClick(hostList[adapterPosition])
         }
 
         private fun setBookingStatus(status: String) {
-            when (status) {
-                BookingStatusEnum.OPEN.name -> bookingStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.yellow))
-                BookingStatusEnum.CONFIRMED.name -> bookingStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.green))
-                BookingStatusEnum.REFUSED.name -> bookingStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.light_red))
-            }
+            val statusEnum = BookingStatusEnum.getStatusEnum(status)
+            bookingStatus.setChipBackgroundColorResource(statusEnum!!.color)
+            bookingStatus.setText(statusEnum.description)
         }
 
         private fun setUserImage(imageURL: String) {
@@ -105,6 +101,6 @@ class RequestBookingAdapter(
      * Permite que classes externas definam o listener de click
      */
     interface ItemClickListener {
-        fun onItemClick(bookingDetails: BookingDetailsDTO)
+        fun onItemClick(hostList: HostDTO)
     }
 }

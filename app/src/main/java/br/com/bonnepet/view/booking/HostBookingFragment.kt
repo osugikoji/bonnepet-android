@@ -19,7 +19,7 @@ class HostBookingFragment : BaseFragment(), HostBookingAdapter.ItemClickListener
 
     private val recyclerView by lazy { recycler_view }
 
-    lateinit var hostBookingAdapter: HostBookingAdapter
+    private lateinit var hostBookingAdapter: HostBookingAdapter
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
