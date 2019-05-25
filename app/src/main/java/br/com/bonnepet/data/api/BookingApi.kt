@@ -1,5 +1,6 @@
 package br.com.bonnepet.data.api
 
+import br.com.bonnepet.data.model.HostBookingDTO
 import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.data.model.NewBookingDTO
 import io.reactivex.Completable
@@ -15,4 +16,7 @@ interface BookingApi {
 
     @GET("bookings/requested")
     fun getRequestedBookings(): Single<List<HostDTO>>
+
+    @GET("bookings/host")
+    fun getBookingsHost(): Single<List<HostBookingDTO>>
 }

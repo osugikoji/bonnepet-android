@@ -1,113 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content">
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="2dp">
 
-
-    <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <FrameLayout
         android:id="@+id/layout_booking"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Item.Clickable">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/user_image"
-            android:layout_gravity="start"
-            android:layout_width="62dp"
-            android:layout_height="62dp"
-            android:layout_marginStart="20dp"
-            app:srcCompat="@drawable/ic_account_circle"/>
-
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/user_image"
-            android:layout_marginStart="20dp"
-            android:layout_centerInParent="true">
+            android:layout_width="match_parent"
+            android:layout_marginBottom="60dp"
+            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/text_user_name"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/user_image"
+                android:layout_gravity="start"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:layout_marginStart="20dp"
+                app:srcCompat="@drawable/ic_account_circle"/>
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:fontFamily="@font/montserrat_medium"
-                android:text="Sandra"
-                android:textSize="15sp"/>
+                android:layout_toEndOf="@+id/user_image"
+                android:layout_marginStart="20dp"
+                android:layout_centerInParent="true">
 
-            <TextView
-                android:id="@+id/text_take"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_user_name"
-                android:textColor="@color/gray_500"
-                android:text="Levarei:"
-                android:layout_marginTop="4dp"
-                android:textSize="12sp"/>
+                <TextView
+                    android:id="@+id/text_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/text_stay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_user_name"
+                    android:textColor="@color/gray_500"
+                    android:text="@string/stay_days"
+                    android:layout_marginTop="4dp"
+                    android:textSize="12sp"/>
 
 
-            <TextView
-                android:id="@+id/text_take_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/text_take"
-                android:layout_below="@id/text_user_name"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                android:text="08/09/2019"
-                android:textSize="12sp"/>
+                <TextView
+                    android:id="@+id/text_stay_days"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/text_stay"
+                    android:layout_below="@id/text_user_name"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:text="4 dias"
+                    android:textSize="12sp"/>
 
-            <TextView
-                android:id="@+id/text_get"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_take_date"
-                android:textColor="@color/gray_500"
-                android:text="Buscarei:"
-                android:layout_marginTop="4dp"
-                android:textSize="12sp"/>
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/text_get_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/text_get"
-                android:layout_below="@+id/text_take_date"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="4dp"
-                android:text="08/25/2019"
-                android:textSize="12sp"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
-            android:layout_centerInParent="true">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/statusColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="4dp"
-                android:textColor="@color/gray_100"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/gray_50"
                 app:chipBackgroundColor="@color/yellow"
-                android:text="Em aberto"
                 app:rippleColor="@color/transparent"
                 android:textSize="12sp"/>
 
         </RelativeLayout>
 
-    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="16dp">
 
-    <View
-        android:layout_below="@id/layout_booking"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@color/gray_300"/>
+            <TextView
+                android:id="@+id/text_take"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:textColor="@color/gray_500"
+                android:text="@string/check_in"
+                android:textSize="12sp"/>
 
-</RelativeLayout>
+            <TextView
+                android:id="@+id/text_take_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_take"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/text_get"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/gray_500"
+                android:text="@string/check_out"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/text_get_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/text_get"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/br_currency"
+                android:layout_toStartOf="@id/text_money_value"
+                android:layout_alignBottom="@id/text_money_value"
+                android:textSize="14sp"
+                android:paddingBottom="4dp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_primary"/>
+
+            <TextView
+                android:id="@+id/text_money_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:maxLength="5"
+                android:layout_marginStart="4dp"
+                android:textSize="26sp"
+                android:textColor="@color/color_primary"/>
+        </RelativeLayout>
+    </FrameLayout>
+
+</com.google.android.material.card.MaterialCardView>

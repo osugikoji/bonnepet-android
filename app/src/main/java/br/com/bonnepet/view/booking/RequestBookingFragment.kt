@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.BookingDetailsDTO
 import br.com.bonnepet.data.model.HostDTO
+import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.view.base.BaseFragment
 import br.com.bonnepet.view.booking.adapter.RequestBookingAdapter
 import br.com.bonnepet.view.host.hostDetails.HostDetailsActivity
@@ -27,6 +28,8 @@ class RequestBookingFragment : BaseFragment(), RequestBookingAdapter.ItemClickLi
 
     private val swipeRefresh by lazy { swipe_refresh }
 
+    private val progressBar by lazy { progress_bar }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         hideActionBarDisplayHome()
@@ -41,11 +44,17 @@ class RequestBookingFragment : BaseFragment(), RequestBookingAdapter.ItemClickLi
         swipeRefresh.setOnRefreshListener {
             loadData(true)
         }
+
+        viewModel.isLoading().observe(this, Observer {
+            progressBar.isVisible = it
+        })
     }
 
     private fun loadData(resetData: Boolean) {
         viewModel.getRequestBookings()
         viewModel.bookingDetailsList.observe(this, Observer { requestBookingList ->
+            layout_empty_bookings.isVisible = requestBookingList.isEmpty()
+            recyclerView.isVisible = requestBookingList.isNotEmpty()
             requestBookingAdapter.update(requestBookingList, resetData)
             swipeRefresh.isRefreshing = false
         })

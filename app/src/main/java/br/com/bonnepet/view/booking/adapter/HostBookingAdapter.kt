@@ -5,11 +5,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.com.bonnepet.R
-import br.com.bonnepet.data.model.HostBookingDTO
 import br.com.bonnepet.data.enums.BookingStatusEnum
+import br.com.bonnepet.data.model.HostBookingDTO
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -52,24 +51,35 @@ class HostBookingAdapter(
         private val petLayout = itemView.layout_booking
         private val userImage = itemView.user_image
         private val userName = itemView.text_user_name
-        //        private val city = itemView.text_city
-//        private val district = itemView.text_district
+        private val stayDays = itemView.text_stay_days
         private val bookingStatus = itemView.statusColor
+        private val checkInDate = itemView.text_take_date
+        private val checkOutDate = itemView.text_get_date
+        private val totalPrice = itemView.text_money_value
 
         init {
             petLayout.setOnClickListener(this)
         }
 
         fun bindView(hostBooking: HostBookingDTO) {
-            setUserImage(hostBooking.pictureURL)
-            userName.text = hostBooking.user.name
-//            city.text = hostBooking.user.addressDTO?.city
-//            district.text = hostBooking.user.addressDTO?.district
-            setBookingStatus(hostBooking.status)
+            setUserImage(hostBooking.profileDTO.profileImageURL)
+            userName.text = hostBooking.profileDTO.userName
+            setStayDays(hostBooking.bookingDetailsDTO.stayDays)
+            setBookingStatus(hostBooking.bookingDetailsDTO.status)
+            checkInDate.text = hostBooking.bookingDetailsDTO.stayInitialDate
+            checkOutDate.text = hostBooking.bookingDetailsDTO.stayFinalDate
+            totalPrice.text = hostBooking.bookingDetailsDTO.totalPrice
         }
 
         override fun onClick(v: View?) {
             itemClickListener.onItemClick(hostBookingList[adapterPosition])
+        }
+
+        private fun setStayDays(days: String) {
+            val textDays =
+                if (days.toInt() == 1) "$days ${context.getString(R.string.night)}"
+                else "$days ${context.getString(R.string.nights)}"
+            stayDays.text = textDays
         }
 
         private fun setBookingStatus(status: String) {

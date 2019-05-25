@@ -26,7 +26,7 @@ class PetAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.pet_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.pet_card_item, parent, false)
         return PetViewHolder(view)
     }
 

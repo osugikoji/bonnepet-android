@@ -11,13 +11,11 @@
     app:cardCornerRadius="6dp"
     app:cardElevation="2dp">
 
-
     <RelativeLayout
         android:id="@+id/layout_pet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
+        style="@style/Item.Clickable">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/pet_image"
@@ -28,11 +26,10 @@
             app:srcCompat="@drawable/ic_dog"/>
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/pet_image"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_centerInParent="true">
 
             <TextView
@@ -50,15 +47,21 @@
                 android:layout_below="@id/pet_name"
                 android:textSize="12sp"/>
 
-            <Switch
-                android:id="@+id/switch_pet"
+            <TextView
+                android:id="@+id/pet_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
-
+                android:layout_below="@id/pet_breed"
+                android:textSize="12sp"/>
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/pet_gender"
+            android:contentDescription="@string/title_pet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"/>
     </RelativeLayout>
 
 </com.google.android.material.card.MaterialCardView>

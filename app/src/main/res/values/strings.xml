@@ -73,6 +73,9 @@
     <string name="status">Status</string>
     <string name="cancel">Cancelar</string>
     <string name="price">Preço</string>
+    <string name="empty_book_message">Você não tem reservas</string>
+    <string name="day">dia</string>
+    <string name="days">dias</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -115,8 +118,8 @@
     <string name="independent">Independente</string>
     <string name="preferences">Preferências</string>
     <string name="pet_register_success">Seu pet foi cadastrado com sucesso</string>
-    <string name="empty_pet_title">Nenhum Pet Adicionado</string>
-    <string name="empty_pet_subtitle">Parece Que Você Não Tem Nenhum Pet</string>
+    <string name="empty_pet_title"><b>Nenhum pet adicionado</b></string>
+    <string name="empty_pet_subtitle">Parece que você não tem nenhum pet</string>
     <string name="pets">Pets</string>
 
     <!-- Host -->
@@ -134,6 +137,12 @@
     <string name="book_details">Detalhes da reserva</string>
     <string name="book_details_title">Detalhes Da Reserva</string>
     <string name="book_total_price">Preço da estadia</string>
+    <string name="check_in">Check-in</string>
+    <string name="check_out">Check-out</string>
+    <string name="stay_days">Estadia:</string>
+    <string name="not_host"><b>Voce não é um host</b></string>
+    <string name="host_pet_now">Hospede pets em seu lar agora!</string>
+    <string name="turn_host">Virar host</string>
 
     <!-- Status -->
     <string name="status_open">Em aberto</string>

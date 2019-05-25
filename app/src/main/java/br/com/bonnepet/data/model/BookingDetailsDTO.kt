@@ -7,5 +7,6 @@ data class BookingDetailsDTO(
     var stayFinalDate: String,
     var petDTO: List<PetDTO>,
     var totalPrice: String,
-    var status: String
+    var status: String,
+    var stayDays: String
 ) : Serializable

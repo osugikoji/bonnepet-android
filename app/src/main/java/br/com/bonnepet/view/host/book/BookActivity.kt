@@ -1,5 +1,6 @@
 package br.com.bonnepet.view.host.book
 
+import RequestCode
 import Time
 import android.app.Activity
 import android.app.DatePickerDialog
@@ -148,8 +149,6 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
         cityText.text = viewModel.getAddress().city
         districtText.text = viewModel.getAddress().district
         priceText.text = viewModel.getPrice()
-
-        view_divider.isVisible = false
     }
 
     override fun onSwitchClick(pet: PetDTO, isChecked: Boolean) {
