@@ -62,7 +62,7 @@ class BookRequestActivity : BaseActivity(), PetAdapter.ItemClickListener {
         hostBookingDTO = intent.getSerializableExtra(Data.HOST_BOOKING_DTO) as HostBookingDTO
         setFields()
         btn_refuse.setSafeOnClickListener { viewModel.refuseBooking(hostBookingDTO.bookingDetailsDTO.id) }
-        btn_accept.setSafeOnClickListener { }
+        btn_accept.setSafeOnClickListener { viewModel.acceptBooking(hostBookingDTO.bookingDetailsDTO.id) }
 
         viewModel.isLoading().observe(this, Observer {
             progressBar.isVisible = it

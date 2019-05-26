@@ -23,4 +23,7 @@ interface BookingApi {
 
     @PUT("bookings/{id}/refuse")
     fun refuseBooking(@Path("id") id: String): Single<HostBookingDTO>
+
+    @PUT("bookings/{id}/accept")
+    fun acceptBooking(@Path("id") id: String): Single<HostBookingDTO>
 }

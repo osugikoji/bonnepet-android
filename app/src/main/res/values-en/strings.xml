@@ -72,10 +72,12 @@
     <string name="total">Total:</string>
     <string name="status">Status</string>
     <string name="cancel">Cancel</string>
+    <string name="finish">Finish</string>
     <string name="price">Price</string>
     <string name="empty_book_message">You have no bookings</string>
     <string name="day">day</string>
     <string name="days">days</string>
+    <string name="edit">Edit</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -125,6 +127,7 @@
     <!-- Host -->
     <string name="host_details_title">Detalhes Do Host</string>
     <string name="host_register_title">Host Register</string>
+    <string name="host_edit_title">Edit Host</string>
     <string name="charge">Charge</string>
     <string name="size_preference">Size preference</string>
     <string name="about_you">About you</string>

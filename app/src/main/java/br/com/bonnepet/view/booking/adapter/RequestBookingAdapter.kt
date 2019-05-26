@@ -68,7 +68,7 @@ class RequestBookingAdapter(
             city.text = hostList.profileDTO.addressDTO.city
             district.text = hostList.profileDTO.addressDTO.district
             takeDate.text = hostList.bookingDetailsDTO?.stayInitialDate
-            getDate.text = hostList.bookingDetailsDTO?.stayInitialDate
+            getDate.text = hostList.bookingDetailsDTO?.stayFinalDate
             val price = "R$ ${hostList.bookingDetailsDTO?.totalPrice}"
             totalPrice.text = price
             setBookingStatus(hostList.bookingDetailsDTO!!.status)

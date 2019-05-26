@@ -74,6 +74,7 @@ class PetRegisterActivity : BaseActivity() {
 
         viewModel.onPetRegisterSuccess.observe(this, Observer { message ->
             showToast(message)
+            finish()
         })
 
         viewModel.errorMessage().observe(this, Observer { message ->

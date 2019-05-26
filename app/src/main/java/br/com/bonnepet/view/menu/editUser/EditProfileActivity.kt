@@ -84,6 +84,7 @@ class EditProfileActivity : BaseActivity() {
             showToast(getString(R.string.edit_profile_successfully))
             setResult(Activity.RESULT_OK)
             progressBar.isVisible = false
+            finish()
         })
     }
 

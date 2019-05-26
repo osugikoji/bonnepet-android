@@ -41,5 +41,8 @@ class BookingRepository {
         return bookingApi.refuseBooking(id).compose(schedulerProvider.getSchedulersForSingle())
     }
 
+    fun acceptBooking(id: String): Single<HostBookingDTO> {
+        return bookingApi.acceptBooking(id).compose(schedulerProvider.getSchedulersForSingle())
+    }
 
 }

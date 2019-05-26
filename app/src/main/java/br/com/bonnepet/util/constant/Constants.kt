@@ -42,10 +42,11 @@ object Header {
 
 object Data {
     const val PROFILE_DTO = "PROFILE_DTO"
-    const val PET_DTO= "PET_DTO"
-    const val HOST_DTO= "HOST_DTO"
-    const val BOOK_DETAILS_DTO= "BOOK_DETAILS_DTO"
-    const val HOST_BOOKING_DTO= "HOST_BOOKING_DTO"
+    const val PET_DTO = "PET_DTO"
+    const val HOST_DTO = "HOST_DTO"
+    const val BOOK_DETAILS_DTO = "BOOK_DETAILS_DTO"
+    const val HOST_BOOKING_DTO = "HOST_BOOKING_DTO"
+    const val EDIT_HOST_DTO = "EDIT_HOST_DTO"
 }
 
 object Time {

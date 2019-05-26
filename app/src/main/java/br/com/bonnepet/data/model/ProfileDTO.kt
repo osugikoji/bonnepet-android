@@ -10,5 +10,6 @@ class ProfileDTO(
     val cellphone: String,
     val telephone: String,
     val addressDTO: AddressDTO,
-    val id: String
-): Serializable
+    val id: String,
+    val editHostDTO: EditHostDTO
+) : Serializable

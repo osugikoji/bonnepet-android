@@ -31,5 +31,18 @@ class BookRequestViewModel(override val app: Application) : BaseViewModel(app) {
         )
     }
 
+    fun acceptBooking(id: String) {
+        isLoading.value = true
 
+        compositeDisposable.add(
+            bookingRepository.acceptBooking(id)
+                .subscribeBy(onSuccess = {
+                    isLoading.value = false
+                    _hostBooking.value = it
+                }, onError = {
+                    errorMessage.value = it.error(app)
+                    isLoading.value = false
+                })
+        )
+    }
 }

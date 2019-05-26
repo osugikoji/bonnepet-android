@@ -12,6 +12,7 @@ import br.com.bonnepet.R
 import br.com.bonnepet.data.enums.BookingStatusEnum
 import br.com.bonnepet.data.model.BookingDetailsDTO
 import br.com.bonnepet.data.model.PetDTO
+import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.pet.PetDetailsActivity
@@ -33,7 +34,7 @@ class BookDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
 
     private val textTotalMoney by lazy { text_total_money }
 
-    private val textStatus by lazy { text_status }
+    private val chipStatus by lazy { statusColor }
 
     private lateinit var petAdapter: PetAdapter
 
@@ -44,7 +45,7 @@ class BookDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
         textDateTake.text = bookingDetailsDTO.stayInitialDate
         textDateGet.text = bookingDetailsDTO.stayFinalDate
         textTotalMoney.text = bookingDetailsDTO.totalPrice
-        textStatus.setText(BookingStatusEnum.getStatusDescription(bookingDetailsDTO.status))
+        setBookStatus()
 
         petAdapter = PetAdapter(this, bookingDetailsDTO.petDTO.toMutableList(), this)
         recyclerView.adapter = petAdapter
@@ -62,6 +63,15 @@ class BookDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
         viewModel.errorMessage().observe(this, Observer {
             showToast(it)
         })
+
+        card_book_cancel.isVisible = bookingDetailsDTO.status == BookingStatusEnum.OPEN.name
+        card_book_finish.isVisible = bookingDetailsDTO.status == BookingStatusEnum.CONFIRMED.name
+    }
+
+    private fun setBookStatus() {
+        val bookingStatusEnum = BookingStatusEnum.getStatusEnum(bookingDetailsDTO.status)
+        chipStatus.setChipBackgroundColorResource(bookingStatusEnum!!.color)
+        chipStatus.setText(bookingStatusEnum.description)
     }
 
     /**

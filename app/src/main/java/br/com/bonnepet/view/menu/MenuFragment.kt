@@ -9,12 +9,14 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
+import br.com.bonnepet.data.model.EditHostDTO
 import br.com.bonnepet.util.extension.checkWriteExternalPermission
 import br.com.bonnepet.util.extension.imageUrl
 import br.com.bonnepet.view.base.BaseFragment
 import br.com.bonnepet.view.component.CircularProgressBar
 import br.com.bonnepet.view.component.ImageRotationHelper
 import br.com.bonnepet.view.menu.beHost.BeHostActivity
+import br.com.bonnepet.view.menu.beHost.EditHostActivity
 import br.com.bonnepet.view.menu.editUser.EditProfileActivity
 import br.com.bonnepet.view.menu.language.LanguageActivity
 import br.com.bonnepet.view.splash.SplashActivity
@@ -33,6 +35,10 @@ class MenuFragment : BaseFragment() {
     private val profileImage by lazy { profile_image }
     private val userNameTextView by lazy { user_name }
 
+    private val beHostMenu by lazy { be_host }
+
+    private val beHostTextMenu by lazy { text_be_host }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MenuViewModel::class.java)
@@ -40,7 +46,6 @@ class MenuFragment : BaseFragment() {
 
         profileImage.setOnClickListener { openGallery() }
         edit_profile.setOnClickListener { startEditProfileActivity() }
-        be_host.setOnClickListener { startActivity(Intent(context, BeHostActivity::class.java)) }
         change_language.setOnClickListener { startActivity(Intent(context, LanguageActivity::class.java)) }
         exit.setOnClickListener { logout() }
 
@@ -49,15 +54,26 @@ class MenuFragment : BaseFragment() {
         viewModel.onUserProfile.observe(this, Observer { profileDTO ->
             userNameTextView.text = profileDTO.userName
             setProfileImage(profileDTO.profileImageURL)
+            setHostMenu(profileDTO.editHostDTO)
         })
 
         viewModel.errorMessage().observe(this, Observer { message ->
             showToast(message)
         })
 
-        viewModel.sessionExpired().observe(this, Observer { isExpired ->
-            // if (isExpired) logout()
-        })
+    }
+
+    private fun setHostMenu(editHostDTO: EditHostDTO?) {
+        if (editHostDTO == null) {
+            beHostTextMenu.text = getString(R.string.be_host)
+            beHostMenu.setOnClickListener { startActivity(Intent(context, BeHostActivity::class.java)) }
+        } else {
+            beHostTextMenu.text = getString(R.string.host_edit_title)
+            val intent = Intent(context, EditHostActivity::class.java).apply {
+                putExtra(Data.EDIT_HOST_DTO, editHostDTO)
+            }
+            beHostMenu.setOnClickListener { startActivityForResult(intent, RequestCode.REFRESH_DATA) }
+        }
     }
 
     /**
@@ -82,7 +98,7 @@ class MenuFragment : BaseFragment() {
                     val selectedImage = ImageRotationHelper.getCorrectImageRotation(intent?.data?.imageUrl(context))
                     updateProfilePicture(selectedImage)
                 }
-                RequestCode.EDIT_PROFILE -> {
+                RequestCode.REFRESH_DATA -> {
                     viewModel.userProfile()
                 }
             }
@@ -115,7 +131,7 @@ class MenuFragment : BaseFragment() {
         val intent = Intent(context, EditProfileActivity::class.java).apply {
             putExtra(Data.PROFILE_DTO, viewModel.getProfileDTO())
         }
-        startActivityForResult(intent, RequestCode.EDIT_PROFILE)
+        startActivityForResult(intent, RequestCode.REFRESH_DATA)
     }
 
     private fun setProfileImage(profileURL: String?) {
