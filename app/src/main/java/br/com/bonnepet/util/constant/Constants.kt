@@ -21,6 +21,7 @@ object RequestCode {
     const val REFRESH_HOST_DETAILS = 6
     const val REFRESH_SEARCH_HOST = 7
     const val REFRESH_REQUEST_BOOKING = 8
+    const val REFRESH_DATA = 9
 }
 
 // Mascaras

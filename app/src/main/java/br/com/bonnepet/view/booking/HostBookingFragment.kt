@@ -2,6 +2,8 @@ package br.com.bonnepet.view.booking
 
 
 import Data
+import RequestCode
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -75,10 +77,20 @@ class HostBookingFragment : BaseFragment(), HostBookingAdapter.ItemClickListener
         })
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                RequestCode.REFRESH_DATA -> loadData(true)
+            }
+        }
+    }
+
     override fun onItemClick(hostBooking: HostBookingDTO) {
         val intent = Intent(activity, BookRequestActivity::class.java).apply {
             putExtra(Data.HOST_BOOKING_DTO, hostBooking)
         }
-        startActivity(intent)
+        startActivityForResult(intent, RequestCode.REFRESH_DATA)
     }
 }

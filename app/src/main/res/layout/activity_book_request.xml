@@ -82,7 +82,6 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/gray_50"
                             app:chipBackgroundColor="@color/yellow"
-                            android:text="@string/status_open"
                             app:rippleColor="@color/transparent"
                             android:textSize="12sp"/>
 

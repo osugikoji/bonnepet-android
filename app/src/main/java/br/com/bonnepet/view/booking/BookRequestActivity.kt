@@ -2,15 +2,20 @@ package br.com.bonnepet.view.booking
 
 import Data
 import Time
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.bonnepet.R
 import br.com.bonnepet.data.enums.BookingStatusEnum
 import br.com.bonnepet.data.model.HostBookingDTO
 import br.com.bonnepet.data.model.PetDTO
 import br.com.bonnepet.util.extension.formatToCurrency
+import br.com.bonnepet.util.extension.isVisible
+import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.pet.PetDetailsActivity
 import br.com.bonnepet.view.pet.adapter.PetAdapter
@@ -21,6 +26,7 @@ import kotlinx.android.synthetic.main.activity_book_request.*
 
 class BookRequestActivity : BaseActivity(), PetAdapter.ItemClickListener {
     override val layoutResource = R.layout.activity_book_request
+    private lateinit var viewModel: BookRequestViewModel
 
     override val activityTitle: Nothing? = null
 
@@ -48,16 +54,35 @@ class BookRequestActivity : BaseActivity(), PetAdapter.ItemClickListener {
 
     private val progressBar by lazy { progress_bar }
 
+    private val cardBottom by lazy { card_view_bottom }
+
     override fun onPrepareActivity(state: Bundle?) {
+        viewModel = ViewModelProviders.of(this).get(BookRequestViewModel::class.java)
+
         hostBookingDTO = intent.getSerializableExtra(Data.HOST_BOOKING_DTO) as HostBookingDTO
         setFields()
+        btn_refuse.setSafeOnClickListener { viewModel.refuseBooking(hostBookingDTO.bookingDetailsDTO.id) }
+        btn_accept.setSafeOnClickListener { }
 
+        viewModel.isLoading().observe(this, Observer {
+            progressBar.isVisible = it
+        })
+
+        viewModel.errorMessage().observe(this, Observer {
+            showToast(it)
+        })
+
+        viewModel.hostBooking.observe(this, Observer {
+            hostBookingDTO = it
+            setFields()
+        })
     }
+
 
     private fun setFields() {
         setUserImage(hostBookingDTO.profileDTO.profileImageURL)
         userName.text = hostBookingDTO.profileDTO.userName
-        status.text = getString(BookingStatusEnum.getStatusDescription(hostBookingDTO.bookingDetailsDTO.status))
+        setStatus()
         totalPrice.text = hostBookingDTO.bookingDetailsDTO.totalPrice.formatToCurrency()
         checkInText.text = hostBookingDTO.bookingDetailsDTO.stayInitialDate
         checkOutText.text = hostBookingDTO.bookingDetailsDTO.stayFinalDate
@@ -66,6 +91,14 @@ class BookRequestActivity : BaseActivity(), PetAdapter.ItemClickListener {
         petAdapter = PetAdapter(this, hostBookingDTO.bookingDetailsDTO.petDTO.toMutableList(), this)
         recyclerView.adapter = petAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun setStatus() {
+        val bookingStatusEnum = BookingStatusEnum.getStatusEnum(hostBookingDTO.bookingDetailsDTO.status)
+        status.setChipBackgroundColorResource(bookingStatusEnum!!.color)
+        status.setText(bookingStatusEnum.description)
+
+        cardBottom.isVisible = bookingStatusEnum == BookingStatusEnum.OPEN
     }
 
     private fun setStayDaysText(days: String) {
@@ -89,6 +122,7 @@ class BookRequestActivity : BaseActivity(), PetAdapter.ItemClickListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
+                setResult(Activity.RESULT_OK)
                 finish()
             }
         }

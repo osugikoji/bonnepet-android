@@ -20,4 +20,7 @@ interface BookingApi {
 
     @DELETE("bookings/{id}/cancel")
     fun cancelBooking(@Path("id") id: String): Completable
+
+    @PUT("bookings/{id}/refuse")
+    fun refuseBooking(@Path("id") id: String): Single<HostBookingDTO>
 }
