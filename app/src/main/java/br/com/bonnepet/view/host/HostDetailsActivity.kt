@@ -1,4 +1,4 @@
-package br.com.bonnepet.view.host.hostDetails
+package br.com.bonnepet.view.host
 
 import Data
 import RequestCode
@@ -20,8 +20,7 @@ import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.component.CircularProgressBar
-import br.com.bonnepet.view.host.BookDetailsActivity
-import br.com.bonnepet.view.host.book.BookActivity
+import br.com.bonnepet.view.booking.BookDetailsActivity
 import br.com.bonnepet.view.login.LoginActivity
 import br.com.bonnepet.view.pet.PetDetailsActivity
 import br.com.bonnepet.view.pet.adapter.PetAdapter
@@ -132,7 +131,7 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
         val intent = Intent(this, BookDetailsActivity::class.java).apply {
             putExtra(Data.BOOK_DETAILS_DTO, viewModel.getBookDetails())
         }
-        startActivity(intent)
+        startActivityForResult(intent, RequestCode.REFRESH_HOST_DETAILS)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -184,14 +183,12 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
 
         price.text = host.price
 
-        if (host.profileDTO.id == SessionManager.getUserId().toString()) cardBook.isVisible = false
-
-        if (host.bookingDetailsDTO != null) cardBookDetailsVisibility(true)
+        cardBookDetailsVisibility(host.bookingDetailsDTO != null)
     }
 
     private fun cardBookDetailsVisibility(visibility: Boolean) {
-        cardBook.isVisible = !visibility
         cardBookDetails.isVisible = visibility
+        cardBook.isVisible = hostDTO.profileDTO.id != SessionManager.getUserId().toString() && !visibility
     }
 
     private fun setHostImage(imageURL: String) {

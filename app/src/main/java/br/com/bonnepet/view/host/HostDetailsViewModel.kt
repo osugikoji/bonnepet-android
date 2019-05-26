@@ -1,26 +1,33 @@
-package br.com.bonnepet.view.host.searchHost
+package br.com.bonnepet.view.host
 
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import br.com.bonnepet.data.model.BookingDetailsDTO
 import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.data.repository.HostRepository
 import br.com.bonnepet.util.extension.error
 import br.com.bonnepet.view.base.BaseViewModel
 import io.reactivex.rxkotlin.subscribeBy
 
-class SearchHostViewModel(override val app: Application) : BaseViewModel(app) {
+class HostDetailsViewModel(override val app: Application) : BaseViewModel(app) {
     private val hostRepository = HostRepository()
 
-    private val _hostList = MutableLiveData<MutableList<HostDTO>>()
-    val hostList: LiveData<MutableList<HostDTO>> = _hostList
+    private val _host = MutableLiveData<HostDTO>()
+    val host: LiveData<HostDTO> = _host
 
-    fun getAllHost() {
+    private lateinit var hostDTO: HostDTO
+
+    fun initViewModel(hostDTO: HostDTO) {
+        this.hostDTO = hostDTO
+    }
+
+    fun getHost() {
         isLoading.value = true
         compositeDisposable.add(
-            hostRepository.getAllHost()
-                .subscribeBy(onSuccess = { hostDTOList ->
-                    _hostList.value = hostDTOList.toMutableList()
+            hostRepository.getHost(hostDTO.id.toInt())
+                .subscribeBy(onSuccess = { hostDTO ->
+                    _host.value = hostDTO
                     isLoading.value = false
                 }, onError = {
                     errorMessage.value = it.error(app)
@@ -28,5 +35,9 @@ class SearchHostViewModel(override val app: Application) : BaseViewModel(app) {
                 })
         )
     }
+
+    fun getBookDetails(): BookingDetailsDTO? =
+        _host.value?.bookingDetailsDTO
+
 
 }

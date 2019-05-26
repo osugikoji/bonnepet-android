@@ -33,4 +33,8 @@ class BookingRepository {
         return bookingApi.getRequestedBookings().compose(schedulerProvider.getSchedulersForSingle())
     }
 
+    fun cancelBooking(id: String): Completable {
+        return bookingApi.cancelBooking(id).compose(schedulerProvider.getSchedulersForCompletable())
+    }
+
 }

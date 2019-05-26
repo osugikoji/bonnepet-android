@@ -49,3 +49,6 @@ fun String.formatToPetAge(context: Context): String? {
         null
     }
 }
+
+fun String.formatToCurrency(): String = "R$ $this"
+

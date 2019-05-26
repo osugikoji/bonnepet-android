@@ -140,9 +140,12 @@
     <string name="check_in">Check-in</string>
     <string name="check_out">Check-out</string>
     <string name="stay_days">Estadia:</string>
+    <string name="stay_days_2">Estadia</string>
     <string name="not_host"><b>Voce não é um host</b></string>
     <string name="host_pet_now">Hospede pets em seu lar agora!</string>
     <string name="turn_host">Virar host</string>
+    <string name="refuse">Recusar</string>
+    <string name="accept">Aceitar</string>
 
     <!-- Status -->
     <string name="status_open">Em aberto</string>

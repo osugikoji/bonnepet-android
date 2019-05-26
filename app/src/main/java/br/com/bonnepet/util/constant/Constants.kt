@@ -20,6 +20,7 @@ object RequestCode {
     const val PET_REGISTER = 5
     const val REFRESH_HOST_DETAILS = 6
     const val REFRESH_SEARCH_HOST = 7
+    const val REFRESH_REQUEST_BOOKING = 8
 }
 
 // Mascaras
@@ -43,6 +44,7 @@ object Data {
     const val PET_DTO= "PET_DTO"
     const val HOST_DTO= "HOST_DTO"
     const val BOOK_DETAILS_DTO= "BOOK_DETAILS_DTO"
+    const val HOST_BOOKING_DTO= "HOST_BOOKING_DTO"
 }
 
 object Time {

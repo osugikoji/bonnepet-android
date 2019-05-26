@@ -5,9 +5,7 @@ import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.data.model.NewBookingDTO
 import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface BookingApi {
 
@@ -19,4 +17,7 @@ interface BookingApi {
 
     @GET("bookings/host")
     fun getBookingsHost(): Single<List<HostBookingDTO>>
+
+    @DELETE("bookings/{id}/cancel")
+    fun cancelBooking(@Path("id") id: String): Completable
 }

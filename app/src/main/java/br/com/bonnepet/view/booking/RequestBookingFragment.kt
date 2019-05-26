@@ -1,6 +1,7 @@
 package br.com.bonnepet.view.booking
 
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -8,12 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.bonnepet.R
-import br.com.bonnepet.data.model.BookingDetailsDTO
 import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.view.base.BaseFragment
 import br.com.bonnepet.view.booking.adapter.RequestBookingAdapter
-import br.com.bonnepet.view.host.hostDetails.HostDetailsActivity
+import br.com.bonnepet.view.host.HostDetailsActivity
 import kotlinx.android.synthetic.main.fragment_request_booking.*
 
 
@@ -60,10 +60,20 @@ class RequestBookingFragment : BaseFragment(), RequestBookingAdapter.ItemClickLi
         })
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                RequestCode.REFRESH_REQUEST_BOOKING -> loadData(true)
+            }
+        }
+    }
+
     override fun onItemClick(hostList: HostDTO) {
         val intent = Intent(activity, HostDetailsActivity::class.java).apply {
             putExtra(Data.HOST_DTO, hostList)
         }
-        startActivity(intent)
+        startActivityForResult(intent, RequestCode.REFRESH_REQUEST_BOOKING)
     }
 }

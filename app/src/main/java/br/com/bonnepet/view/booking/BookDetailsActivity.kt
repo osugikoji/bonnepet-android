@@ -1,14 +1,18 @@
-package br.com.bonnepet.view.host
+package br.com.bonnepet.view.booking
 
 import Data
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.bonnepet.R
 import br.com.bonnepet.data.enums.BookingStatusEnum
 import br.com.bonnepet.data.model.BookingDetailsDTO
 import br.com.bonnepet.data.model.PetDTO
+import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.pet.PetDetailsActivity
 import br.com.bonnepet.view.pet.adapter.PetAdapter
@@ -17,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_book_details.*
 class BookDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
     override val layoutResource = R.layout.activity_book_details
     override val activityTitle = R.string.book_details_title
+    private lateinit var viewModel: BookDetailsViewModel
 
     private val recyclerView by lazy { recycler_view }
 
@@ -33,6 +38,7 @@ class BookDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
     private lateinit var petAdapter: PetAdapter
 
     override fun onPrepareActivity(state: Bundle?) {
+        viewModel = ViewModelProviders.of(this).get(BookDetailsViewModel::class.java)
         bookingDetailsDTO = intent.getSerializableExtra(Data.BOOK_DETAILS_DTO) as BookingDetailsDTO
 
         textDateTake.text = bookingDetailsDTO.stayInitialDate
@@ -43,6 +49,19 @@ class BookDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
         petAdapter = PetAdapter(this, bookingDetailsDTO.petDTO.toMutableList(), this)
         recyclerView.adapter = petAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        btn_book_cancel.setSafeOnClickListener { viewModel.cancelBooking(bookingDetailsDTO.id) }
+
+        viewModel.onCancelBooking.observe(this, Observer {
+            if (it) {
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
+        })
+
+        viewModel.errorMessage().observe(this, Observer {
+            showToast(it)
+        })
     }
 
     /**

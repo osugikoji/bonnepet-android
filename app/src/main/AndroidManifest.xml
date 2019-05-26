@@ -18,16 +18,18 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.host.BookDetailsActivity">
+        <activity android:name=".view.booking.BookRequestActivity">
         </activity>
-        <activity android:name=".view.host.book.BookActivity">
+        <activity android:name=".view.booking.BookDetailsActivity">
+        </activity>
+        <activity android:name=".view.host.BookActivity">
         </activity>
         <activity android:name=".view.login.LoginActivity">
         </activity>
         <activity android:name=".view.menu.beHost.BeHostActivity">
         </activity>
         <activity
-            android:name=".view.host.hostDetails.HostDetailsActivity"
+            android:name=".view.host.HostDetailsActivity"
             android:windowSoftInputMode="adjustResize">
         </activity>
         <activity android:name=".view.pet.PetDetailsActivity">

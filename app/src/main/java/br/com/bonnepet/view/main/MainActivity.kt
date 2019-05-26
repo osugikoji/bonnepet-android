@@ -7,7 +7,7 @@ import br.com.bonnepet.data.enums.MainFragmentEnum
 import br.com.bonnepet.util.extension.replaceFragment
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.booking.BookingFragment
-import br.com.bonnepet.view.host.searchHost.SearchHostFragment
+import br.com.bonnepet.view.host.SearchHostFragment
 import br.com.bonnepet.view.login.LoginFragment
 import br.com.bonnepet.view.menu.MenuFragment
 import br.com.bonnepet.view.pet.PetFragment

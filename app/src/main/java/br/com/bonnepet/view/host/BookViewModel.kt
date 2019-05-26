@@ -1,4 +1,4 @@
-package br.com.bonnepet.view.host.book
+package br.com.bonnepet.view.host
 
 import Data
 import android.app.Application
@@ -17,6 +17,7 @@ import br.com.bonnepet.view.base.BaseViewModel
 import io.reactivex.rxkotlin.subscribeBy
 import org.joda.time.Days
 import org.joda.time.LocalDate
+import java.math.BigDecimal
 
 class BookViewModel(override val app: Application) : BaseViewModel(app) {
 
@@ -115,8 +116,7 @@ class BookViewModel(override val app: Application) : BaseViewModel(app) {
             if (daysNumber > 1) "$daysNumber ${app.getString(R.string.nights)}"
             else "$daysNumber ${app.getString(R.string.night)}"
 
-        _textTotalPrice.value = (daysNumber * getPrice().toInt()).toString()
-
+        _textTotalPrice.value = (daysNumber * BigDecimal(getPrice()).toInt()).toString()
     }
 
     fun getHostPicture() =

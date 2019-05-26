@@ -1,4 +1,4 @@
-package br.com.bonnepet.view.host.searchHost
+package br.com.bonnepet.view.host
 
 import Data
 import android.app.Activity
@@ -15,7 +15,6 @@ import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.view.base.BaseFragment
 import br.com.bonnepet.view.host.adapter.SearchHostAdapter
-import br.com.bonnepet.view.host.hostDetails.HostDetailsActivity
 import kotlinx.android.synthetic.main.search_fragment.*
 
 class SearchHostFragment : BaseFragment(), SearchHostAdapter.ItemClickListener {
