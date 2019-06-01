@@ -16,8 +16,12 @@ private inline fun FragmentManager.inTransaction(func: FragmentTransaction.() ->
     beginTransaction().func().commit()
 }
 
-fun AppCompatActivity.addFragment(frameId: Int, fragment: Fragment) {
-    supportFragmentManager.inTransaction { add(frameId, fragment) }
+fun AppCompatActivity.addFragment(frameId: Int, fragment: Fragment, tag: String) {
+    supportFragmentManager.inTransaction { setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).add(frameId, fragment, tag) }
+}
+
+fun AppCompatActivity.showFragment(active: Fragment, current: Fragment) {
+    supportFragmentManager.inTransaction { setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).hide(active).show(current) }
 }
 
 

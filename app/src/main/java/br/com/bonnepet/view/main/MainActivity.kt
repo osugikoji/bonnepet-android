@@ -1,10 +1,12 @@
 package br.com.bonnepet.view.main
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
 import br.com.bonnepet.data.enums.MainFragmentEnum
-import br.com.bonnepet.util.extension.replaceFragment
+import br.com.bonnepet.util.extension.addFragment
+import br.com.bonnepet.util.extension.showFragment
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.booking.BookingFragment
 import br.com.bonnepet.view.host.SearchHostFragment
@@ -21,6 +23,16 @@ class MainActivity : BaseActivity() {
     private lateinit var viewModel: MainViewModel
 
     private val bottomMenu by lazy { navigation }
+
+    private val searchFragment by lazy { SearchHostFragment() }
+    private val bookingFragment by lazy { BookingFragment() }
+    private val petFragment by lazy { PetFragment() }
+    private val menuFragment by lazy { MenuFragment() }
+    private val loginFragment by lazy { LoginFragment() }
+
+    private var activeFragment: Fragment = searchFragment
+
+    private val fragmentManager = supportFragmentManager
 
     override fun onPrepareActivity(state: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
@@ -69,23 +81,47 @@ class MainActivity : BaseActivity() {
         }
 
     private fun swapFragments(fragmentEnum: MainFragmentEnum) {
-        val currentFragment = supportFragmentManager.primaryNavigationFragment
-        if (currentFragment != null && currentFragment::class.java == fragmentEnum.instance::class.java) {
-            return
-        }
+        if (activeFragment::class.java == fragmentEnum.instance::class.java) return
 
         if (viewModel.isUserNotAuthenticated() && fragmentEnum != MainFragmentEnum.SEARCH) {
-            replaceFragment(container, LoginFragment())
+            if (fragmentManager.findFragmentByTag(MainFragmentEnum.LOGIN.name) == null) {
+                addFragment(container, loginFragment, fragmentEnum.name)
+            }
+            showFragment(activeFragment, loginFragment)
+            activeFragment = loginFragment
             return
         }
 
         when (fragmentEnum) {
-            MainFragmentEnum.SEARCH -> replaceFragment(container,
-                SearchHostFragment()
-            )
-            MainFragmentEnum.BOOKING -> replaceFragment(container, BookingFragment())
-            MainFragmentEnum.PET -> replaceFragment(container, PetFragment())
-            else -> replaceFragment(container, MenuFragment())
+            MainFragmentEnum.SEARCH -> {
+                if (fragmentManager.findFragmentByTag(fragmentEnum.name) == null) {
+                    addFragment(container, searchFragment, fragmentEnum.name)
+                }
+                showFragment(activeFragment, searchFragment)
+                activeFragment = searchFragment
+                searchFragment.setToolbarTitle(R.string.search_accommodation)
+            }
+            MainFragmentEnum.BOOKING -> {
+                if (fragmentManager.findFragmentByTag(fragmentEnum.name) == null) {
+                    addFragment(container, bookingFragment, fragmentEnum.name)
+                }
+                showFragment(activeFragment, bookingFragment)
+                activeFragment = bookingFragment
+            }
+            MainFragmentEnum.PET -> {
+                if (fragmentManager.findFragmentByTag(fragmentEnum.name) == null) {
+                    addFragment(container, petFragment, fragmentEnum.name)
+                }
+                showFragment(activeFragment, petFragment)
+                activeFragment = petFragment
+            }
+            else -> {
+                if (fragmentManager.findFragmentByTag(fragmentEnum.name) == null) {
+                    addFragment(container, menuFragment, fragmentEnum.name)
+                }
+                showFragment(activeFragment, menuFragment)
+                activeFragment = menuFragment
+            }
         }
 
     }
