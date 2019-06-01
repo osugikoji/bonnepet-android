@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.Credential
 import br.com.bonnepet.data.repository.UserRepository
-import br.com.bonnepet.util.data.SessionManager
+import br.com.bonnepet.data.util.SessionManager
 import br.com.bonnepet.data.enums.StatusCodeEnum
 import br.com.bonnepet.util.extension.error
 import br.com.bonnepet.view.base.BaseViewModel

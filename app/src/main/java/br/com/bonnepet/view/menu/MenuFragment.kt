@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.EditHostDTO
+import br.com.bonnepet.data.model.ProfileDTO
 import br.com.bonnepet.util.extension.checkWriteExternalPermission
 import br.com.bonnepet.util.extension.imageUrl
 import br.com.bonnepet.view.base.BaseFragment
@@ -42,6 +43,8 @@ class MenuFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MenuViewModel::class.java)
+        viewModel.initViewModel(arguments)
+
         hideActionBarDisplayHome()
 
         profileImage.setOnClickListener { openGallery() }
@@ -49,9 +52,7 @@ class MenuFragment : BaseFragment() {
         change_language.setOnClickListener { startActivity(Intent(context, LanguageActivity::class.java)) }
         exit.setOnClickListener { logout() }
 
-        viewModel.userProfile()
-
-        viewModel.onUserProfile.observe(this, Observer { profileDTO ->
+        viewModel.userProfileRetriever.observe(this, Observer { profileDTO ->
             userNameTextView.text = profileDTO.userName
             setProfileImage(profileDTO.profileImageURL)
             setHostMenu(profileDTO.editHostDTO)
@@ -60,7 +61,11 @@ class MenuFragment : BaseFragment() {
         viewModel.errorMessage().observe(this, Observer { message ->
             showToast(message)
         })
+    }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.userProfile()
     }
 
     private fun setHostMenu(editHostDTO: EditHostDTO?) {

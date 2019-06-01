@@ -46,7 +46,7 @@ class RequestBookingFragment : BaseFragment(), RequestBookingAdapter.ItemClickLi
         }
 
         viewModel.isLoading().observe(this, Observer {
-            progressBar.isVisible = it
+            progressBar.isVisible = it && !swipeRefresh.isRefreshing
         })
     }
 

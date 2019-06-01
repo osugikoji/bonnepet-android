@@ -2,6 +2,7 @@ package br.com.bonnepet.view.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
 import br.com.bonnepet.data.enums.MainFragmentEnum
@@ -36,6 +37,7 @@ class MainActivity : BaseActivity() {
 
     override fun onPrepareActivity(state: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel.initViewModel(intent)
 
         if (viewModel.isUserAuthenticated()) userAuthenticated()
         else userNotAuthenticated()
@@ -46,7 +48,14 @@ class MainActivity : BaseActivity() {
     fun userAuthenticated() {
         bottomMenu.menu.findItem(R.id.navigation_menu).isChecked = true
         supportFragmentManager.beginTransaction().remove(MainFragmentEnum.LOGIN.instance)
-        swapFragments(MainFragmentEnum.MENU)
+        viewModel.userProfile()
+        viewModel.onUserProfile.observe(this, Observer { profileDTO ->
+            val bundle = Bundle().apply {
+                putSerializable(Data.PROFILE_DTO, profileDTO)
+            }
+            menuFragment.arguments = bundle
+            swapFragments(MainFragmentEnum.MENU)
+        })
     }
 
     private fun userNotAuthenticated() {

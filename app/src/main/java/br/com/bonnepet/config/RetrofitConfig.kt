@@ -2,7 +2,7 @@ package br.com.bonnepet.config
 
 import br.com.bonnepet.App
 import br.com.bonnepet.R
-import br.com.bonnepet.util.data.SessionManager
+import br.com.bonnepet.data.util.SessionManager
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -18,8 +18,6 @@ object RetrofitConfig {
     }
 
     private fun okHttpClient(): OkHttpClient {
-        val authorization = SessionManager.getAuthorizationHeader()
-
         return OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
@@ -29,7 +27,7 @@ object RetrofitConfig {
                 val request = it.request()
                 val requestBuilder = request.newBuilder()
                     .method(request.method(), request.body())
-                    .addHeader(Header.AUTHORIZATION, authorization ?: "")
+                    .addHeader(Header.AUTHORIZATION, SessionManager.getAuthorizationHeader() ?: "")
                 it.proceed(requestBuilder.build())
 
             }.build()

@@ -1,12 +1,13 @@
 package br.com.bonnepet.view.menu
 
 import android.app.Application
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.bonnepet.data.model.PictureDTO
 import br.com.bonnepet.data.model.ProfileDTO
 import br.com.bonnepet.data.repository.UserRepository
-import br.com.bonnepet.util.data.SessionManager
+import br.com.bonnepet.data.util.SessionManager
 import br.com.bonnepet.data.enums.StatusCodeEnum
 import br.com.bonnepet.util.extension.error
 import br.com.bonnepet.view.base.BaseViewModel
@@ -21,12 +22,15 @@ class MenuViewModel(override val app: Application) : BaseViewModel(app) {
 
     private val userRepository = UserRepository()
 
-    private val _onUserProfile = MutableLiveData<ProfileDTO>()
-    val onUserProfile: LiveData<ProfileDTO> = _onUserProfile
-
+    private val _userProfileRetriever = MutableLiveData<ProfileDTO>()
+    val userProfileRetriever: LiveData<ProfileDTO> = _userProfileRetriever
 
     private val _onProfilePictureUpload = MutableLiveData<PictureDTO>()
     val onProfilePictureUpload: LiveData<PictureDTO> = _onProfilePictureUpload
+
+    fun initViewModel(arguments: Bundle?) {
+        _userProfileRetriever.value = arguments?.getSerializable(Data.PROFILE_DTO) as ProfileDTO
+    }
 
     fun clearUserSession() {
         SessionManager.clearUserSession()
@@ -62,7 +66,7 @@ class MenuViewModel(override val app: Application) : BaseViewModel(app) {
         compositeDisposable.add(
             userRepository.getUserProfile()
                 .subscribeBy(onSuccess = {
-                    _onUserProfile.value = it
+                    _userProfileRetriever.value = it
                 }, onError = {
                     try {
                         if (StatusCodeEnum.Forbidden.code == (it as HttpException).code()) sessionExpired.value = true
@@ -75,10 +79,10 @@ class MenuViewModel(override val app: Application) : BaseViewModel(app) {
     }
 
     fun getProfileDTO(): ProfileDTO? {
-        return onUserProfile.value
+        return userProfileRetriever.value
     }
 
     fun isProfileDTOEmpty(): Boolean {
-        return onUserProfile.value == null
+        return userProfileRetriever.value == null
     }
 }

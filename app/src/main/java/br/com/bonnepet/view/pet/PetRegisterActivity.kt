@@ -73,6 +73,7 @@ class PetRegisterActivity : BaseActivity() {
         })
 
         viewModel.onPetRegisterSuccess.observe(this, Observer { message ->
+            setResult(Activity.RESULT_OK)
             showToast(message)
             finish()
         })
@@ -192,7 +193,6 @@ class PetRegisterActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
-                setResult(Activity.RESULT_OK)
                 finish()
             }
         }

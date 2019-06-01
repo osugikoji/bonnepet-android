@@ -12,15 +12,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.bonnepet.R
-import br.com.bonnepet.data.enums.PetSizeEnum
-import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.data.model.PetDTO
-import br.com.bonnepet.util.data.SessionManager
+import br.com.bonnepet.data.util.SessionManager
 import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseActivity
-import br.com.bonnepet.view.component.CircularProgressBar
 import br.com.bonnepet.view.booking.BookDetailsActivity
+import br.com.bonnepet.view.component.CircularProgressBar
 import br.com.bonnepet.view.login.LoginActivity
 import br.com.bonnepet.view.pet.PetDetailsActivity
 import br.com.bonnepet.view.pet.adapter.PetAdapter
@@ -57,24 +55,19 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
 
     private lateinit var petAdapter: PetAdapter
 
-    private lateinit var hostDTO: HostDTO
-
     private val cardBook by lazy { card_book }
 
     private val cardBookDetails by lazy { card_book_details }
 
     private val btnBookDetails by lazy { btn_book_details }
 
+    private var isDataUpdated = false
+
     override fun onPrepareActivity(state: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(HostDetailsViewModel::class.java)
+        viewModel.initViewModel(intent)
         collapsingToolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.gray_600))
         collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(this, R.color.gray_100))
-
-        hostDTO = intent.getSerializableExtra(Data.HOST_DTO) as HostDTO
-        viewModel.initViewModel(hostDTO)
-        setHostImage(hostDTO.profileDTO.profileImageURL)
-
-        setFields(hostDTO)
 
         appBarLayout.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
             var isShow = true
@@ -89,7 +82,7 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
                     collapsingToolbarLayout.title = getString(activityTitle)
                     isShow = true
                 } else if (isShow) {
-                    if (hostDTO.profileDTO.profileImageURL.isEmpty()) {
+                    if (viewModel.isHostImageEmpty()) {
                         collapsingToolbarLayout.setExpandedTitleColor(
                             ContextCompat
                                 .getColor(this@HostDetailsActivity, R.color.gray_600)
@@ -98,22 +91,26 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
                     } else {
                         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
                     }
-                    collapsingToolbarLayout.title = hostDTO.profileDTO.userName
+                    collapsingToolbarLayout.title = viewModel.getHostName()
                     isShow = false
                 }
             }
         })
 
-        if (hostDTO.petDTO.isEmpty()) card_my_pets.isVisible = false
-        else {
-            petAdapter = PetAdapter(this, hostDTO.petDTO.toMutableList(), this)
-            recyclerView.adapter = petAdapter
-            recyclerView.layoutManager = LinearLayoutManager(this)
-        }
+        setHostImage(viewModel.getHostImage())
+        setFields()
+        setHostPetCard()
 
         btnBook.setSafeOnClickListener { startBookActivity() }
         btnBookDetails.setSafeOnClickListener { startBookDetailsActivity() }
-        refreshData()
+    }
+
+    private fun setHostPetCard() {
+        if (!viewModel.hostHasPet()) return
+        card_my_pets.isVisible = true
+        petAdapter = PetAdapter(this, viewModel.getAllPetHost().toMutableList(), this)
+        recyclerView.adapter = petAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     private fun startBookActivity() {
@@ -121,9 +118,9 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
             startActivityForResult(Intent(this, LoginActivity::class.java), RequestCode.SIGN_UP)
         } else {
             val intent = Intent(this, BookActivity::class.java).apply {
-                putExtra(Data.HOST_DTO, hostDTO)
+                putExtra(Data.HOST_DTO, viewModel.hostDTO)
             }
-            startActivityForResult(intent, RequestCode.REFRESH_HOST_DETAILS)
+            startActivityForResult(intent, RequestCode.REFRESH_DATA)
         }
     }
 
@@ -131,7 +128,7 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
         val intent = Intent(this, BookDetailsActivity::class.java).apply {
             putExtra(Data.BOOK_DETAILS_DTO, viewModel.getBookDetails())
         }
-        startActivityForResult(intent, RequestCode.REFRESH_HOST_DETAILS)
+        startActivityForResult(intent, RequestCode.REFRESH_DATA)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -140,7 +137,7 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 RequestCode.SIGN_UP -> startBookActivity()
-                RequestCode.REFRESH_HOST_DETAILS -> refreshData()
+                RequestCode.REFRESH_DATA -> refreshData()
             }
         }
     }
@@ -148,47 +145,26 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
     private fun refreshData() {
         viewModel.getHost()
         viewModel.host.observe(this, Observer {
-            setFields(it)
+            if (it) {
+                setFields()
+                isDataUpdated = true
+            }
         })
     }
 
-    private fun setFields(host: HostDTO) {
-        textAboutMe.text = host.about
+    private fun setFields() {
+        textAboutMe.text = viewModel.getHostAbout()
+        textAddress.text = viewModel.getHostAddress()
+        textPhone.text = viewModel.getHostPhone()
+        textPreferencePetSize.text = viewModel.getHostSizePreference()
+        price.text = viewModel.getHostPrice()
 
-        val address = "${host.profileDTO.addressDTO.street}, ${host.profileDTO.addressDTO.number}\n" +
-                "${host.profileDTO.addressDTO.district}\n" +
-                "${host.profileDTO.addressDTO.city} - ${host.profileDTO.addressDTO.state}"
-        textAddress.text = address
-
-        var phone = ""
-        phone += host.profileDTO.telephone + "\n" + host.profileDTO.cellphone
-
-        textPhone.text = phone
-
-        var petSize = ""
-        host.sizePreferenceList.forEach { size ->
-            when (size) {
-                PetSizeEnum.SMALL.name -> {
-                    petSize += "${getString(PetSizeEnum.SMALL.description)}, "
-                }
-                PetSizeEnum.MEDIUM.name -> {
-                    petSize += "${getString(PetSizeEnum.MEDIUM.description)}, "
-                }
-                PetSizeEnum.LARGE.name -> {
-                    petSize += "${getString(PetSizeEnum.LARGE.description)}, "
-                }
-            }
-        }
-        textPreferencePetSize.text = petSize.removeSuffix(", ")
-
-        price.text = host.price
-
-        cardBookDetailsVisibility(host.bookingDetailsDTO != null)
+        cardBookDetailsVisibility(viewModel.getBookDetails() != null)
     }
 
     private fun cardBookDetailsVisibility(visibility: Boolean) {
         cardBookDetails.isVisible = visibility
-        cardBook.isVisible = hostDTO.profileDTO.id != SessionManager.getUserId().toString() && !visibility
+        cardBook.isVisible = viewModel.hostDTO.profileDTO.id != SessionManager.getUserId().toString() && !visibility
     }
 
     private fun setHostImage(imageURL: String) {
@@ -211,11 +187,16 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
-                setResult(Activity.RESULT_OK)
+                if (isDataUpdated) setResult(Activity.RESULT_OK)
                 finish()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        if (isDataUpdated) setResult(Activity.RESULT_OK)
+        super.onBackPressed()
     }
 
     override fun onItemClick(pet: PetDTO) {

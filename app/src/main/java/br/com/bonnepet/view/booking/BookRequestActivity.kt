@@ -56,6 +56,8 @@ class BookRequestActivity : BaseActivity(), PetAdapter.ItemClickListener {
 
     private val cardBottom by lazy { card_view_bottom }
 
+    private var isDataUpdated = false
+
     override fun onPrepareActivity(state: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(BookRequestViewModel::class.java)
 
@@ -73,6 +75,7 @@ class BookRequestActivity : BaseActivity(), PetAdapter.ItemClickListener {
         })
 
         viewModel.hostBooking.observe(this, Observer {
+            isDataUpdated = true
             hostBookingDTO = it
             setFields()
         })
@@ -122,11 +125,16 @@ class BookRequestActivity : BaseActivity(), PetAdapter.ItemClickListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
-                setResult(Activity.RESULT_OK)
+                if (isDataUpdated) setResult(Activity.RESULT_OK)
                 finish()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        if (isDataUpdated) setResult(Activity.RESULT_OK)
+        super.onBackPressed()
     }
 
     override fun onItemClick(pet: PetDTO) {

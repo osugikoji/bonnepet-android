@@ -48,7 +48,7 @@ class SearchHostFragment : BaseFragment(), SearchHostAdapter.ItemClickListener {
         loadData(true)
 
         viewModel.isLoading().observe(this, Observer { isLoading ->
-            progressBar.isVisible = isLoading
+            progressBar.isVisible = isLoading && !swipeRefresh.isRefreshing
         })
     }
 

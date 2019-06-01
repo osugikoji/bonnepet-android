@@ -38,6 +38,8 @@ class BookDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
 
     private lateinit var petAdapter: PetAdapter
 
+    private val progressBar by lazy { progress_bar }
+
     override fun onPrepareActivity(state: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(BookDetailsViewModel::class.java)
         bookingDetailsDTO = intent.getSerializableExtra(Data.BOOK_DETAILS_DTO) as BookingDetailsDTO
@@ -62,6 +64,10 @@ class BookDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
 
         viewModel.errorMessage().observe(this, Observer {
             showToast(it)
+        })
+
+        viewModel.isLoading().observe(this, Observer {
+            progressBar.isVisible = it
         })
 
         card_book_cancel.isVisible = bookingDetailsDTO.status == BookingStatusEnum.OPEN.name
