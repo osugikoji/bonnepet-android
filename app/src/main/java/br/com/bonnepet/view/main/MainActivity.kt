@@ -99,7 +99,6 @@ class MainActivity : BaseActivity() {
                 }
                 showFragment(activeFragment, searchFragment)
                 activeFragment = searchFragment
-                searchFragment.setToolbarTitle(R.string.search_accommodation)
             }
             MainFragmentEnum.BOOKING -> {
                 if (fragmentManager.findFragmentByTag(fragmentEnum.name) == null) {
