@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import br.com.bonnepet.R
+import kotlinx.android.synthetic.main.tool_bar.*
 
 abstract class BaseFragment : Fragment() {
 
@@ -44,7 +45,7 @@ abstract class BaseFragment : Fragment() {
      * A Toolbar será configurada como uma [ActionBar] se ela existir no layout
      */
     private fun onPrepareSupportActionBar() {
-        toolbar = activity?.findViewById(R.id.tool_bar)
+        toolbar = tool_bar
         val toolbarTitle: TextView? = toolbar?.findViewById(R.id.toolbar_title)
         if (toolbar != null) {
             toolbarTitle?.text = getText(fragmentTitle ?: return)
