@@ -17,15 +17,15 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
-class PetRegisterViewModel(override val app: Application) : BaseViewModel(app) {
+class PetEditViewModel(override val app: Application) : BaseViewModel(app) {
 
     private val petRepository = PetRepository()
 
-    private val _onPetRegisterSuccess = MutableLiveData<String>()
-    val onPetRegisterSuccess: LiveData<String> = _onPetRegisterSuccess
+    private val _onPetEditSuccess = MutableLiveData<PetDTO>()
+    val onPetEditSuccess: LiveData<PetDTO> = _onPetEditSuccess
 
-    fun registerPet(
-        name: String, breed: String, gender: String, birthDate: String, size: String,
+    fun editPet(
+        petId: String, name: String, breed: String, gender: String, birthDate: String, size: String,
         observations: String, behaviours: String, selectedUriImage: File?
     ) {
         isLoading.value = true
@@ -39,27 +39,28 @@ class PetRegisterViewModel(override val app: Application) : BaseViewModel(app) {
             birthDate,
             getSizeEnum(size),
             observations,
-            getPetBehaviourListEnum(behaviours)
+            getPetBehaviourListEnum(behaviours),
+            petId
         )
 
         compositeDisposable.add(
-            petRepository.registerPet(petDTO)
-                .subscribeBy(onSuccess = { response ->
+            petRepository.editPet(petDTO)
+                .subscribeBy(onSuccess = { petEditDTO ->
                     if (bodyImage != null) {
                         // Faz o upload da imagem
                         compositeDisposable.add(
-                            petRepository.uploadPetPicture(response, bodyImage)
-                                .subscribeBy(onSuccess = {
+                            petRepository.uploadPetPicture(petDTO.id, bodyImage)
+                                .subscribeBy(onSuccess = { petDTO ->
                                     isLoading.value = false
-                                    _onPetRegisterSuccess.value = app.getString(R.string.pet_register_success)
+                                    _onPetEditSuccess.value = petDTO
                                 }, onError = {
                                     isLoading.value = false
-                                    _onPetRegisterSuccess.value = app.getString(R.string.pet_register_success)
+                                    errorMessage.value = it.error(getApplication())
                                 })
                         )
                     } else {
                         isLoading.value = false
-                        _onPetRegisterSuccess.value = app.getString(R.string.pet_register_success)
+                        _onPetEditSuccess.value = petEditDTO
                     }
                 }, onError = {
                     isLoading.value = false

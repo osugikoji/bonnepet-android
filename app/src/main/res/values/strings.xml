@@ -3,6 +3,7 @@
 
     <string name="title_activity_register">Cadastrar</string>
     <string name="title_activity_language">Idioma</string>
+    <string name="title_activity_edit_pet">Editar Pet</string>
 
     <!-- Bottom Menu -->
     <string name="title_search">Buscar</string>
@@ -120,6 +121,7 @@
     <string name="independent">Independente</string>
     <string name="preferences">Preferências</string>
     <string name="pet_register_success">Seu pet foi cadastrado com sucesso</string>
+    <string name="pet_edit_success">Seu pet foi editado com sucesso</string>
     <string name="empty_pet_title"><b>Nenhum pet adicionado</b></string>
     <string name="empty_pet_subtitle">Parece que você não tem nenhum pet</string>
     <string name="pets">Pets</string>
@@ -156,5 +158,10 @@
     <string name="status_refused">Recusado</string>
     <string name="status_finalized">Finalizado</string>
     <string name="status_error">Indefinido</string>
+
+    <!-- Validation -->
+    <string name="invalid_email">Por favor, insira um endereço de e-mail válido</string>
+    <string name="invalid_date">Data inválida</string>
+    <string name="invalid_phone">Número de telefone inválido</string>
 
 </resources>

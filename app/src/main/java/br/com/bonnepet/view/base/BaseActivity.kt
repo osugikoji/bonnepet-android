@@ -12,6 +12,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import br.com.bonnepet.R
 import java.util.*
 
 
@@ -47,8 +48,8 @@ abstract class BaseActivity : AppCompatActivity() {
      * A Toolbar será configurada como uma [ActionBar] se ela existir no layout
      */
     private fun onPrepareSupportActionBar() {
-        toolbar = findViewById(br.com.bonnepet.R.id.tool_bar)
-        val toolbarTitle: TextView? = toolbar?.findViewById(br.com.bonnepet.R.id.toolbar_title)
+        toolbar = findViewById(R.id.tool_bar)
+        val toolbarTitle: TextView? = toolbar?.findViewById(R.id.toolbar_title)
         if (toolbar != null) {
             setSupportActionBar(toolbar)
             toolbarTitle?.text = getText(activityTitle ?: return)
@@ -63,6 +64,9 @@ abstract class BaseActivity : AppCompatActivity() {
     protected fun hideActionBarDisplayHome() {
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
+
+    protected  fun showSupportActionBarTitle() =
+        supportActionBar?.setDisplayShowTitleEnabled(true)
 
     protected fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()

@@ -14,12 +14,15 @@ interface PetApi {
     @POST("pets/insert")
     fun registerPet(@Body petDTO: PetDTO): Single<String>
 
+    @PUT("pets/updatePet")
+    fun editPet(@Body petDTO: PetDTO): Single<PetDTO>
+
     /**
      *  Faz o upload da imagem, sendo [id] o id do pet e [filePart] a imagem
      */
     @Multipart
     @POST("pets/{id}/picture")
-    fun uploadPetPicture(@Path("id") id: String?, @Part filePart: MultipartBody.Part): Completable
+    fun uploadPetPicture(@Path("id") id: String?, @Part filePart: MultipartBody.Part): Single<PetDTO>
 
     @GET("pets")
     fun getAllPets(): Single<List<PetDTO>>

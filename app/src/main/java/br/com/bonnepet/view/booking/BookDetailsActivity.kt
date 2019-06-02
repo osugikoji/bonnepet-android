@@ -58,6 +58,7 @@ class BookDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
         viewModel.onCancelBooking.observe(this, Observer {
             if (it) {
                 setResult(Activity.RESULT_OK)
+                SharedPreferencesUtil.putBoolean(Prefs.FETCH_SEARCH_FRAGMENT, true)
                 finish()
             }
         })
@@ -93,6 +94,7 @@ class BookDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
     override fun onItemClick(pet: PetDTO) {
         val intent = Intent(this, PetDetailsActivity::class.java).apply {
             putExtra(Data.PET_DTO, pet)
+            putExtra(Data.CAN_EDIT_PET, false)
         }
         startActivity(intent)
     }

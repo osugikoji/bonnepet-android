@@ -202,6 +202,7 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
     override fun onItemClick(pet: PetDTO) {
         val intent = Intent(this, PetDetailsActivity::class.java).apply {
             putExtra(Data.PET_DTO, pet)
+            putExtra(Data.CAN_EDIT_PET, false)
         }
         startActivity(intent)
     }

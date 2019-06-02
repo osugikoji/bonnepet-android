@@ -38,16 +38,16 @@ class HostBookingFragment : BaseFragment(), HostBookingAdapter.ItemClickListener
         hideActionBarDisplayHome()
         viewModel = ViewModelProviders.of(this).get(HostBookingViewModel::class.java)
 
-        btn_turn_host.setSafeOnClickListener { startActivity(Intent(context, BeHostActivity::class.java)) }
+        btn_turn_host.setSafeOnClickListener { startBeHostActivity() }
 
         hostBookingAdapter = HostBookingAdapter(activity!!, ArrayList(), this)
         recyclerView.adapter = hostBookingAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        loadData(true)
+        loadData()
 
         swipeRefresh.setColorSchemeColors((ContextCompat.getColor(activity!!, R.color.color_primary)))
         swipeRefresh.setOnRefreshListener {
-            loadData(true)
+            loadData()
         }
 
         viewModel.isLoading().observe(this, Observer {
@@ -55,22 +55,31 @@ class HostBookingFragment : BaseFragment(), HostBookingAdapter.ItemClickListener
         })
 
         viewModel.errorMessage().observe(this, Observer {
-            if (it == "NOT_A_HOST") showNotHostLayout()
+            if (it == "NOT_A_HOST") showNoHostLayout()
             else showToast(it)
         })
     }
 
-    private fun showNotHostLayout() {
+    private fun startBeHostActivity() {
+        startActivityForResult(Intent(context, BeHostActivity::class.java), RequestCode.REFRESH_DATA)
+    }
+
+    private fun showNoHostLayout() {
+        layout_not_host.isVisible = true
         layout_empty_bookings.isVisible = false
         recyclerView.isVisible = false
-        layout_not_host.isVisible = true
         swipeRefresh.isRefreshing = false
     }
 
-    private fun loadData(resetData: Boolean) {
+    private fun layoutEmptyVisibility(visibility: Boolean) {
+        layout_empty_bookings.isVisible = visibility
+        layout_not_host.isVisible = false
+    }
+
+    fun loadData(resetData: Boolean = true) {
         viewModel.getHostBookings()
         viewModel.hostBookingList.observe(this, Observer { hostBookingList ->
-            layout_empty_bookings.isVisible = hostBookingList.isEmpty()
+            layoutEmptyVisibility(hostBookingList.isEmpty())
             recyclerView.isVisible = hostBookingList.isNotEmpty()
             hostBookingAdapter.update(hostBookingList, resetData)
             swipeRefresh.isRefreshing = false
@@ -82,7 +91,7 @@ class HostBookingFragment : BaseFragment(), HostBookingAdapter.ItemClickListener
 
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                RequestCode.REFRESH_DATA -> loadData(true)
+                RequestCode.REFRESH_DATA -> loadData()
             }
         }
     }

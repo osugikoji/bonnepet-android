@@ -4,6 +4,7 @@ package br.com.bonnepet.view.pet
 import Data
 import RequestCode
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -41,14 +42,14 @@ class PetFragment : BaseFragment(), PetAdapter.ItemClickListener {
 
         swipeRefresh.setColorSchemeColors((ContextCompat.getColor(activity!!, R.color.color_primary)))
         swipeRefresh.setOnRefreshListener {
-            loadData(true)
+            loadData()
         }
 
         petAdapter = PetAdapter(activity!!, ArrayList(), this)
         recyclerView.adapter = petAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
         btnPetRegister.setSafeOnClickListener { startRegisterPetActivity() }
-        loadData(true)
+        loadData()
 
         viewModel.isLoading().observe(this, Observer { isLoading ->
             progressBar.isVisible = isLoading && !swipeRefresh.isRefreshing
@@ -60,7 +61,7 @@ class PetFragment : BaseFragment(), PetAdapter.ItemClickListener {
         startActivityForResult(Intent(context, PetRegisterActivity::class.java), RequestCode.PET_REGISTER)
     }
 
-    private fun loadData(resetData: Boolean) {
+    private fun loadData(resetData: Boolean = true) {
         viewModel.getAllPets()
         viewModel.petList.observe(this, Observer { petList ->
             layout_empty.isVisible = petList.isEmpty()
@@ -75,8 +76,17 @@ class PetFragment : BaseFragment(), PetAdapter.ItemClickListener {
 
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                RequestCode.PET_REGISTER -> loadData(true)
+                RequestCode.PET_REGISTER -> loadData()
+                RequestCode.PET_EDITED -> loadData()
             }
+        }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden && SharedPreferencesUtil.getBoolean(Prefs.FETCH_PET_FRAGMENT)) {
+            loadData()
+            SharedPreferencesUtil.putBoolean(Prefs.FETCH_PET_FRAGMENT, false)
         }
     }
 
@@ -84,6 +94,6 @@ class PetFragment : BaseFragment(), PetAdapter.ItemClickListener {
         val intent = Intent(activity, PetDetailsActivity::class.java).apply {
             putExtra(Data.PET_DTO, pet)
         }
-        startActivity(intent)
+        startActivityForResult(intent, RequestCode.PET_EDITED)
     }
 }

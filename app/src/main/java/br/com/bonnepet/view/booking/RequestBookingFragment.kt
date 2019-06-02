@@ -1,6 +1,8 @@
 package br.com.bonnepet.view.booking
 
 
+import Data
+import RequestCode
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -38,11 +40,11 @@ class RequestBookingFragment : BaseFragment(), RequestBookingAdapter.ItemClickLi
         requestBookingAdapter = RequestBookingAdapter(activity!!, ArrayList(), this)
         recyclerView.adapter = requestBookingAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        loadData(true)
+        loadData()
 
         swipeRefresh.setColorSchemeColors((ContextCompat.getColor(activity!!, R.color.color_primary)))
         swipeRefresh.setOnRefreshListener {
-            loadData(true)
+            loadData()
         }
 
         viewModel.isLoading().observe(this, Observer {
@@ -50,7 +52,7 @@ class RequestBookingFragment : BaseFragment(), RequestBookingAdapter.ItemClickLi
         })
     }
 
-    private fun loadData(resetData: Boolean) {
+    fun loadData(resetData: Boolean = true) {
         viewModel.getRequestBookings()
         viewModel.bookingDetailsList.observe(this, Observer { requestBookingList ->
             layout_empty_bookings.isVisible = requestBookingList.isEmpty()
@@ -65,7 +67,7 @@ class RequestBookingFragment : BaseFragment(), RequestBookingAdapter.ItemClickLi
 
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                RequestCode.REFRESH_REQUEST_BOOKING -> loadData(true)
+                RequestCode.REFRESH_REQUEST_BOOKING -> loadData()
             }
         }
     }

@@ -2,9 +2,8 @@ package br.com.bonnepet.util.extension
 
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Patterns
-import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import br.com.bonnepet.data.enums.TextTypeEnum
 
 fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
@@ -17,23 +16,4 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
             afterTextChanged.invoke(editable.toString())
         }
     })
-}
-
-fun EditText.validate(): Boolean {
-    val text = this.text
-    if (text.isEmpty()) {
-        this.error = "Este campo é obrigatório"
-        return false
-    }
-
-    when (this.inputType - 1) {
-        EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS -> {
-            if (!Patterns.EMAIL_ADDRESS.matcher(text).matches()) {
-                this.error = "Por favor, insira um endereço de e-mail válido"
-                return false
-            }
-        }
-    }
-
-    return true
 }

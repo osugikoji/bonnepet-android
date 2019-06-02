@@ -1,6 +1,8 @@
 package br.com.bonnepet.view.host
 
+import Prefs
 import RequestCode
+import SharedPreferencesUtil
 import Time
 import android.app.Activity
 import android.app.DatePickerDialog
@@ -22,6 +24,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.android.synthetic.main.activity_book.*
 import kotlinx.android.synthetic.main.host_item.*
+import org.joda.time.DateTime
 import java.util.*
 
 class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
@@ -67,6 +70,7 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
         layoutDateGet.setOnClickListener { buildDatePicker(dateGetText) }
 
         petBookAdapter = PetBookAdapter(this, ArrayList(), this)
+        recyclerView.isNestedScrollingEnabled = false
         recyclerView.adapter = petBookAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -91,11 +95,12 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
         viewModel.bookingSuccess.observe(this, Observer {
             if (it) {
                 setResult(Activity.RESULT_OK)
+                SharedPreferencesUtil.putBoolean(Prefs.FETCH_REQUEST_BOOKING_FRAGMENT, true)
                 finish()
             }
         })
 
-        loadPetData(true)
+        loadPetData()
     }
 
     private fun addPet() {
@@ -107,7 +112,10 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
 
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                RequestCode.PET_REGISTER -> loadPetData(true)
+                RequestCode.PET_REGISTER -> {
+                    loadPetData()
+                    SharedPreferencesUtil.putBoolean(Prefs.FETCH_PET_FRAGMENT, true)
+                }
             }
         }
     }
@@ -116,7 +124,7 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
         viewModel.book(dateTakeText.text.toString(), dateGetText.text.toString(), totalPriceText.text.toString())
     }
 
-    private fun loadPetData(resetData: Boolean) {
+    private fun loadPetData(resetData: Boolean = true) {
         viewModel.getAllPets()
         viewModel.petList.observe(this, Observer { petList ->
             petBookAdapter.update(petList, resetData)
@@ -132,6 +140,7 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
                 textView.text = date
                 viewModel.calculateTotalPriceAndNight(dateTakeText.text.toString(), dateGetText.text.toString())
             }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+        datePickerDialog.datePicker.minDate = DateTime.now().millis
         datePickerDialog.show()
     }
 

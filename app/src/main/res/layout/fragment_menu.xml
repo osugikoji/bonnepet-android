@@ -8,213 +8,225 @@
     <include
         layout="@layout/tool_bar_transparent"/>
 
-    <LinearLayout
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/profile_image"
+        android:layout_centerHorizontal="true"
+        android:layout_width="192dp"
+        android:layout_height="192dp"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/tool_bar"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:srcCompat="@drawable/ic_account_circle"/>
+
+    <RelativeLayout
+        android:id="@+id/divider_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_image"
+        android:layout_marginTop="10dp">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/user_name"
+            android:background="@color/gray_300"/>
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:fontFamily="@font/risque_regular"
+            android:textColor="@color/gray_600"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/user_name"
+            android:background="@color/gray_300"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_below="@id/divider_user_name">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/profile_image"
-            android:layout_gravity="center"
-            android:layout_width="192dp"
-            android:layout_height="192dp"
-            android:layout_marginTop="80dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            app:srcCompat="@drawable/ic_account_circle"/>
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="128dp">
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
 
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/user_name"
                 android:background="@color/gray_300"/>
 
-            <TextView
-                android:id="@+id/user_name"
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:id="@+id/edit_profile"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:textSize="18sp"
-                android:textAllCaps="true"
-                android:fontFamily="@font/risque_regular"
-                android:textColor="@color/gray_600"/>
+                style="@style/Item.Clickable">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/edit_profile"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:layout_marginEnd="20dp"
+                    app:srcCompat="@drawable/ic_edit_outline"/>
+            </FrameLayout>
 
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/user_name"
                 android:background="@color/gray_300"/>
-        </RelativeLayout>
 
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@color/gray_300"/>
-
-        <FrameLayout
-            android:id="@+id/edit_profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Item.Clickable">
-
-            <TextView
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:id="@+id/change_password"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|center"
+                style="@style/Item.Clickable">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/change_password"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:layout_marginEnd="20dp"
+                    app:srcCompat="@drawable/ic_lock_reset"/>
+            </FrameLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
                 android:layout_marginStart="20dp"
-                android:text="@string/edit_profile"
-                android:textSize="14sp"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center"
                 android:layout_marginEnd="20dp"
-                app:srcCompat="@drawable/ic_edit_outline"/>
-        </FrameLayout>
+                android:background="@color/gray_300"/>
 
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@color/gray_300"/>
-
-        <FrameLayout
-            android:id="@+id/change_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Item.Clickable">
-
-            <TextView
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:id="@+id/be_host"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|center"
+                style="@style/Item.Clickable">
+
+                <TextView
+                    android:id="@+id/text_be_host"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/be_host"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:layout_marginEnd="20dp"
+                    app:srcCompat="@drawable/ic_account_star_outline"/>
+            </FrameLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
                 android:layout_marginStart="20dp"
-                android:text="@string/change_password"
-                android:textSize="14sp"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center"
                 android:layout_marginEnd="20dp"
-                app:srcCompat="@drawable/ic_lock_reset"/>
-        </FrameLayout>
+                android:background="@color/gray_300"/>
 
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@color/gray_300"/>
-
-        <FrameLayout
-            android:id="@+id/be_host"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Item.Clickable">
-
-            <TextView
-                android:id="@+id/text_be_host"
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:id="@+id/change_language"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|center"
+                style="@style/Item.Clickable">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/change_language"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:layout_marginEnd="20dp"
+                    app:srcCompat="@drawable/ic_web"/>
+            </FrameLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
                 android:layout_marginStart="20dp"
-                android:text="@string/be_host"
-                android:textSize="14sp"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center"
                 android:layout_marginEnd="20dp"
-                app:srcCompat="@drawable/ic_account_star_outline"/>
-        </FrameLayout>
+                android:background="@color/gray_300"/>
 
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@color/gray_300"/>
-
-        <FrameLayout
-            android:id="@+id/change_language"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Item.Clickable">
-
-            <TextView
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:id="@+id/exit"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|center"
+                style="@style/Item.Clickable">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/exit"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:layout_marginEnd="20dp"
+                    app:srcCompat="@drawable/ic_exit_to_app"/>
+            </FrameLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
                 android:layout_marginStart="20dp"
-                android:text="@string/change_language"
-                android:textSize="14sp"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center"
                 android:layout_marginEnd="20dp"
-                app:srcCompat="@drawable/ic_web"/>
-        </FrameLayout>
+                android:background="@color/gray_300"/>
 
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@color/gray_300"/>
+        </LinearLayout>
+    </RelativeLayout>
 
-        <FrameLayout
-            android:id="@+id/exit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Item.Clickable">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|center"
-                android:layout_marginStart="20dp"
-                android:text="@string/exit"
-                android:textSize="14sp"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center"
-                android:layout_marginEnd="20dp"
-                app:srcCompat="@drawable/ic_exit_to_app"/>
-        </FrameLayout>
 
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@color/gray_300"/>
-
-    </LinearLayout>
 
 
 </RelativeLayout>

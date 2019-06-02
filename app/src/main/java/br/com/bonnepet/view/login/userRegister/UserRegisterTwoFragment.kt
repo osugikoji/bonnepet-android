@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
@@ -15,6 +16,16 @@ import br.com.bonnepet.util.extension.popBackStack
 import br.com.bonnepet.util.extension.validate
 import br.com.bonnepet.view.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_user_register_two.*
+import kotlinx.android.synthetic.main.fragment_user_register_two.forgot_cep_link
+import kotlinx.android.synthetic.main.fragment_user_register_two.input_cep
+import kotlinx.android.synthetic.main.fragment_user_register_two.input_city
+import kotlinx.android.synthetic.main.fragment_user_register_two.input_district
+import kotlinx.android.synthetic.main.fragment_user_register_two.input_layout_city
+import kotlinx.android.synthetic.main.fragment_user_register_two.input_layout_district
+import kotlinx.android.synthetic.main.fragment_user_register_two.input_layout_street
+import kotlinx.android.synthetic.main.fragment_user_register_two.input_number
+import kotlinx.android.synthetic.main.fragment_user_register_two.input_state
+import kotlinx.android.synthetic.main.fragment_user_register_two.input_street
 
 /** Formulário de registro de endereço */
 class UserRegisterTwoFragment : BaseFragment() {
@@ -43,10 +54,15 @@ class UserRegisterTwoFragment : BaseFragment() {
 
     private val btnReturn by lazy { btn_return }
 
+    private lateinit var stateAdapter: ArrayAdapter<String>
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         inputCep.afterTextChanged { cep ->
             registerViewModel.getAddress(cep)
         }
+
+        buildInputState()
+
         cepLink.setOnClickListener { redirectToSearchCep() }
         btnRegister.setOnClickListener { requestRegister() }
         btnReturn.setOnClickListener { previousFragment() }
@@ -70,6 +86,12 @@ class UserRegisterTwoFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    private fun buildInputState() {
+        val items = (resources.getStringArray(R.array.states)).toList()
+        stateAdapter = ArrayAdapter(context!!, R.layout.support_simple_spinner_dropdown_item, items)
+        inputState.setAdapter(stateAdapter)
+    }
+
     private fun requestRegister() {
         if (validateInputs()) {
             val addressDTO = AddressDTO(
@@ -91,12 +113,13 @@ class UserRegisterTwoFragment : BaseFragment() {
      */
     private fun validateInputs(): Boolean {
 
-        val cep = inputCep.validate()
-        val district = inputDistrict.validate()
-        val street = inputStreet.validate()
-        val number = inputNumber.validate()
-        val state = inputState.validate()
-        val city = inputCity.validate()
+        val cep = inputCep.validate(context!!)
+        val district = inputDistrict.validate(context!!)
+        val street = inputStreet.validate(context!!)
+        val number = inputNumber.validate(context!!)
+        val state = inputState.validate(context!!)
+        buildInputState()
+        val city = inputCity.validate(context!!)
 
         return cep && district && street && number && state && city
     }

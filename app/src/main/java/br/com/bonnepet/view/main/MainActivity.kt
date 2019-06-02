@@ -96,6 +96,7 @@ class MainActivity : BaseActivity() {
             if (fragmentManager.findFragmentByTag(MainFragmentEnum.LOGIN.name) == null) {
                 addFragment(container, loginFragment, fragmentEnum.name)
             }
+            if (activeFragment::class.java == loginFragment::class.java) return
             showFragment(activeFragment, loginFragment)
             activeFragment = loginFragment
             return

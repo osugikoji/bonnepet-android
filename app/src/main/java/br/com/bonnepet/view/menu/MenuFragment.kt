@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.EditHostDTO
-import br.com.bonnepet.data.model.ProfileDTO
 import br.com.bonnepet.util.extension.checkWriteExternalPermission
 import br.com.bonnepet.util.extension.imageUrl
 import br.com.bonnepet.view.base.BaseFragment
@@ -71,7 +70,7 @@ class MenuFragment : BaseFragment() {
     private fun setHostMenu(editHostDTO: EditHostDTO?) {
         if (editHostDTO == null) {
             beHostTextMenu.text = getString(R.string.be_host)
-            beHostMenu.setOnClickListener { startActivity(Intent(context, BeHostActivity::class.java)) }
+            beHostMenu.setOnClickListener { startActivityForResult(Intent(context, BeHostActivity::class.java), RequestCode.BE_HOST_SUCCESS) }
         } else {
             beHostTextMenu.text = getString(R.string.host_edit_title)
             val intent = Intent(context, EditHostActivity::class.java).apply {
@@ -105,6 +104,10 @@ class MenuFragment : BaseFragment() {
                 }
                 RequestCode.REFRESH_DATA -> {
                     viewModel.userProfile()
+                }
+                RequestCode.BE_HOST_SUCCESS -> {
+                    viewModel.userProfile()
+                    SharedPreferencesUtil.putBoolean(Prefs.FETCH_HOST_BOOKING_FRAGMENT, true)
                 }
             }
         }

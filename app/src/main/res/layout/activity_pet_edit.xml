@@ -40,7 +40,6 @@
                         android:id="@+id/image_pet"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
                         app:srcCompat="@drawable/ic_dog"
                         android:padding="40dp"/>
                 </com.google.android.material.card.MaterialCardView>
@@ -87,8 +86,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/pet_breed"
-                    android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ"
                     android:inputType="textPersonName"
+                    android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ"
                     android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
 

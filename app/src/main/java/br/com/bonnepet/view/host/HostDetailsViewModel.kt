@@ -45,7 +45,7 @@ class HostDetailsViewModel(override val app: Application) : BaseViewModel(app) {
     fun getHostSizePreference(): String {
         var petSize = ""
         hostDTO.sizePreferenceList.forEach { size ->
-            petSize += "${getApplication<Application>().getString(PetSizeEnum.getPetSizeDescription(size)!!)}, "
+            petSize += "${getApplication<Application>().getString(PetSizeEnum.getDescription(size)!!)}, "
         }
         return petSize.removeSuffix(", ")
     }

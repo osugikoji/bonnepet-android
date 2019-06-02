@@ -18,6 +18,8 @@ class BookingFragment : BaseFragment() {
 
     private val viewPager by lazy { viewpager }
 
+    private lateinit var adapter: ViewPagerAdapter
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         hideActionBarDisplayHome()
@@ -26,9 +28,21 @@ class BookingFragment : BaseFragment() {
     }
 
     private fun setupViewPager(viewPager: ViewPager) {
-        val adapter = ViewPagerAdapter(childFragmentManager)
+        adapter = ViewPagerAdapter(childFragmentManager)
         adapter.addFragment(HostBookingFragment(), getString(R.string.your_home))
         adapter.addFragment(RequestBookingFragment(), getString(R.string.your_request))
         viewPager.adapter = adapter
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden && SharedPreferencesUtil.getBoolean(Prefs.FETCH_HOST_BOOKING_FRAGMENT)) {
+            (adapter.getItem(0) as HostBookingFragment).loadData()
+            SharedPreferencesUtil.putBoolean(Prefs.FETCH_HOST_BOOKING_FRAGMENT, false)
+        }
+        if (!hidden && SharedPreferencesUtil.getBoolean(Prefs.FETCH_REQUEST_BOOKING_FRAGMENT)) {
+            (adapter.getItem(1) as RequestBookingFragment).loadData()
+            SharedPreferencesUtil.putBoolean(Prefs.FETCH_REQUEST_BOOKING_FRAGMENT, false)
+        }
     }
 }

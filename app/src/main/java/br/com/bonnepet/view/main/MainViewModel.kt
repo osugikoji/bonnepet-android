@@ -43,9 +43,9 @@ class MainViewModel(override val app: Application) : BaseViewModel(app) {
     }
 
     fun isUserAuthenticated(): Boolean =
-        SessionManager.isLoggedIn()
+        SessionManager.isUserAuthenticated()
 
     fun isUserNotAuthenticated(): Boolean =
-        !SessionManager.isLoggedIn()
+        !SessionManager.isUserAuthenticated()
 
 }

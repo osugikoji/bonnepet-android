@@ -28,7 +28,11 @@ class PetRepository {
         return petApi.registerPet(petDTO).compose(schedulerProvider.getSchedulersForSingle())
     }
 
-    fun uploadPetPicture(id: String?, file: MultipartBody.Part): Completable {
-        return petApi.uploadPetPicture(id, file).compose(schedulerProvider.getSchedulersForCompletable())
+    fun editPet(petDTO: PetDTO): Single<PetDTO> {
+        return petApi.editPet(petDTO).compose(schedulerProvider.getSchedulersForSingle())
+    }
+
+    fun uploadPetPicture(id: String?, file: MultipartBody.Part): Single<PetDTO>  {
+        return petApi.uploadPetPicture(id, file).compose(schedulerProvider.getSchedulersForSingle())
     }
 }

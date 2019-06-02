@@ -3,6 +3,7 @@
 
     <string name="title_activity_register">Sign Up</string>
     <string name="title_activity_language">Language</string>
+    <string name="title_activity_edit_pet">Edit Pet</string>
 
     <!-- Bottom Menu -->
     <string name="title_search">Search</string>
@@ -120,6 +121,7 @@
     <string name="independent">Independent</string>
     <string name="preferences">preferences</string>
     <string name="pet_register_success">Your pet has been successfully registered</string>
+    <string name="pet_edit_success">Your pet has been successfully edited</string>
     <string name="empty_pet_title"><b>No pets added</b></string>
     <string name="empty_pet_subtitle">It looks you don\'t have any pets</string>
     <string name="pets">Pets</string>
@@ -156,5 +158,10 @@
     <string name="status_refused">Refused</string>
     <string name="status_finalized">Finalized</string>
     <string name="status_error">Undefined</string>
+
+    <!-- Validation -->
+    <string name="invalid_email">Please, enter a valid email address</string>
+    <string name="invalid_date">Invalid date</string>
+    <string name="invalid_phone">Invalid phone number</string>
 
 </resources>

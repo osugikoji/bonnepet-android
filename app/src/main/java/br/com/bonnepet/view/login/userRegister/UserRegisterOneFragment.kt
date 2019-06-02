@@ -6,12 +6,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
 import br.com.bonnepet.R
+import br.com.bonnepet.data.enums.TextTypeEnum
 import br.com.bonnepet.data.model.UserDTO
 import br.com.bonnepet.view.component.ImageRotationHelper
 import br.com.bonnepet.util.extension.*
 import br.com.bonnepet.view.component.MaskEditText
 import br.com.bonnepet.view.base.BaseFragment
 import com.bumptech.glide.Glide
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_user_register_one.*
 
 
@@ -85,7 +87,6 @@ class UserRegisterOneFragment : BaseFragment() {
 
     private fun replaceFragment() {
         if (validateInputs()) {
-
             val userDTO = UserDTO(
                 null,
                 inputEmail.text.toString(),
@@ -105,11 +106,11 @@ class UserRegisterOneFragment : BaseFragment() {
      */
     private fun validateInputs(): Boolean {
 
-        val email = inputEmail.validate()
-        val name = inputName.validate()
-        val password = inputPassword.validate()
-        val birthDate = inputBirthDate.validate()
-        val cellphone = inputCellphone.validate()
+        val email = inputEmail.validate(context!!, TextTypeEnum.EMAIL)
+        val name = inputName.validate(context!!, TextTypeEnum.NAME)
+        val password = inputPassword.validate(context!!)
+        val birthDate = inputBirthDate.validate(context!!, TextTypeEnum.DATE)
+        val cellphone = inputCellphone.validate(context!!, TextTypeEnum.PHONE)
 
         return email && name && password && birthDate && cellphone
     }

@@ -7,5 +7,14 @@ enum class PetBehaviourEnum(val description: Int) {
     SHY(R.string.shy),
     AGGRESSIVE(R.string.aggressive),
     SOCIABLE(R.string.sociable),
-    INDEPENDENT(R.string.independent)
+    INDEPENDENT(R.string.independent);
+
+    companion object {
+        fun getDescription(enumName: String): Int? {
+            values().forEach { value ->
+                if (value.name == enumName) return value.description
+            }
+            return null
+        }
+    }
 }

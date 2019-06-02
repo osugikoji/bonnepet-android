@@ -89,7 +89,7 @@ class LoginFragment : BaseFragment() {
         registerLink.visibility = View.VISIBLE
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
 

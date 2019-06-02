@@ -29,17 +29,11 @@ class EditHostViewModel(override val app: Application) : BaseViewModel(app) {
     fun getPrice(): String =
         editHostDTO.price
 
-    fun getPreferenceSize(context: Context): String {
-        var sizeList = ""
-        editHostDTO.sizeList.forEach { size ->
-            val sizeDescription = context.getString(PetSizeEnum.getPetSizeDescription(size)!!)
-            sizeList += "$sizeDescription, "
-        }
-        return sizeList.removeSuffix(", ")
-    }
-
     fun getAboutHost(): String =
         editHostDTO.about
+
+    fun getPetPreferenceSize(): List<String> =
+        editHostDTO.sizeList
 
 
     fun editHost(price: String, preferencesSize: String, aboutYou: String) {

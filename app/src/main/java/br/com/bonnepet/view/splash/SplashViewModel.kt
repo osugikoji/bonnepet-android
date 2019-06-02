@@ -36,5 +36,5 @@ class SplashViewModel(override val app: Application) : BaseViewModel(app) {
     }
 
     fun isUserAuthenticated(): Boolean =
-        SessionManager.isLoggedIn()
+        SessionManager.isUserAuthenticated()
 }

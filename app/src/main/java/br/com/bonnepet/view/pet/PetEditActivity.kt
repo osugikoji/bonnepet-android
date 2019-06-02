@@ -1,5 +1,6 @@
 package br.com.bonnepet.view.pet
 
+import Data
 import Mask
 import RequestCode
 import Time
@@ -14,23 +15,25 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
 import br.com.bonnepet.data.enums.GenderEnum
+import br.com.bonnepet.data.enums.PetBehaviourEnum
 import br.com.bonnepet.data.enums.PetSizeEnum
 import br.com.bonnepet.data.enums.TextTypeEnum
+import br.com.bonnepet.data.model.PetDTO
 import br.com.bonnepet.util.extension.*
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.component.CheckBoxDialog
 import br.com.bonnepet.view.component.ImageRotationHelper
 import br.com.bonnepet.view.component.MaskEditText
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import kotlinx.android.synthetic.main.activity_pet_register.*
+import kotlinx.android.synthetic.main.activity_pet_edit.*
 import java.io.File
 
-class PetRegisterActivity : BaseActivity() {
-    override val layoutResource = R.layout.activity_pet_register
-    private lateinit var viewModel: PetRegisterViewModel
-
-    override val activityTitle = R.string.register_pet_title
+class PetEditActivity : BaseActivity() {
+    override val layoutResource = R.layout.activity_pet_edit
+    override val activityTitle = R.string.title_activity_edit_pet
+    private lateinit var viewModel: PetEditViewModel
 
     private val petImage by lazy { image_pet }
     private val textPetName by lazy { input_pet_name }
@@ -41,20 +44,21 @@ class PetRegisterActivity : BaseActivity() {
     private val textPetSize by lazy { input_pet_size }
     private val textPetObservations by lazy { input_observations }
 
-    private val progressBar by lazy { progress_bar }
+    private var selectedImage: File? = null
 
     private val btnAddImage by lazy { btn_add_image }
     private val btnSave by lazy { btn_save }
 
-    private var selectedImage: File? = null
+    private lateinit var petDTO: PetDTO
 
     private lateinit var inputDateMask: TextWatcher
 
-    override fun onPrepareActivity(state: Bundle?) {
-        viewModel = ViewModelProviders.of(this).get(PetRegisterViewModel::class.java)
+    private val progressBar by lazy { progress_bar }
 
-        btnAddImage.setSafeOnClickListener { openGallery() }
-        btnSave.setSafeOnClickListener { requestRegister() }
+    override fun onPrepareActivity(state: Bundle?) {
+        viewModel = ViewModelProviders.of(this).get(PetEditViewModel::class.java)
+        petDTO = intent.getSerializableExtra(Data.PET_DTO) as PetDTO
+        setFields()
 
         buildPetBreedAdapter()
         buildPetGenderAdapter()
@@ -66,19 +70,56 @@ class PetRegisterActivity : BaseActivity() {
         inputDateMask = MaskEditText(textPetBirthDate, Mask.DATE_MASK)
         textPetBirthDate.addTextChangedListener(inputDateMask)
 
-        viewModel.isLoading().observe(this, Observer { isLoading ->
-            progressBar.isVisible = isLoading
-        })
+        btnAddImage.setSafeOnClickListener { openGallery() }
+        btnSave.setSafeOnClickListener { requestEdit() }
 
-        viewModel.onPetRegisterSuccess.observe(this, Observer { message ->
-            setResult(Activity.RESULT_OK)
-            showToast(message)
+        viewModel.onPetEditSuccess.observe(this, Observer { petDTO ->
+            val intent = Intent().apply {
+                putExtra(Data.PET_EDIT_DTO, petDTO)
+            }
+            setResult(Activity.RESULT_OK, intent)
+            showToast(getString(R.string.pet_edit_success))
             finish()
         })
 
         viewModel.errorMessage().observe(this, Observer { message ->
             showToast(message)
         })
+
+        viewModel.isLoading().observe(this, Observer { isLoading ->
+            progressBar.isVisible = isLoading
+        })
+    }
+
+    private fun requestEdit() {
+        if (validateInputs()) {
+            viewModel.editPet(
+                petDTO.id,
+                textPetName.text.toString(),
+                textPetBreed.text.toString(),
+                textPetGender.text.toString(),
+                textPetBirthDate.text.toString(),
+                textPetSize.text.toString(),
+                textPetObservations.text.toString(),
+                textPetBehaviour.text.toString(),
+                selectedImage
+            )
+        }
+    }
+
+    /**
+     *  Valida os campos
+     */
+    private fun validateInputs(): Boolean {
+
+        val name = textPetName.validate(this)
+        val breed = textPetBreed.validate(this)
+        val gender = textPetGender.validate(this)
+        val behaviour = textPetBehaviour.validate(this)
+        val birthDate = textPetBirthDate.validate(this, TextTypeEnum.DATE)
+        val petSize = textPetSize.validate(this)
+
+        return name && breed && gender && behaviour && birthDate && petSize
     }
 
     private fun buildPetBreedAdapter() {
@@ -108,36 +149,6 @@ class PetRegisterActivity : BaseActivity() {
         )
         val adapter = ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, items)
         textPetSize.setAdapter(adapter)
-    }
-
-    private fun requestRegister() {
-        if (validateInputs()) {
-            viewModel.registerPet(
-                textPetName.text.toString(),
-                textPetBreed.text.toString(),
-                textPetGender.text.toString(),
-                textPetBirthDate.text.toString(),
-                textPetSize.text.toString(),
-                textPetObservations.text.toString(),
-                textPetBehaviour.text.toString(),
-                selectedImage
-            )
-        }
-    }
-
-    /**
-     *  Valida os campos
-     */
-    private fun validateInputs(): Boolean {
-
-        val name = textPetName.validate(this)
-        val breed = textPetBreed.validate(this)
-        val gender = textPetGender.validate(this)
-        val behaviour = textPetBehaviour.validate(this)
-        val birthDate = textPetBirthDate.validate(this, TextTypeEnum.DATE)
-        val petSize = textPetSize.validate(this)
-
-        return name && breed && gender && behaviour && birthDate && petSize
     }
 
     /**
@@ -173,6 +184,38 @@ class PetRegisterActivity : BaseActivity() {
         }
     }
 
+    private fun setFields() {
+        setPetImage(petDTO.pictureURL)
+        textPetName.setText(petDTO.name)
+        textPetBreed.setText(petDTO.breed)
+        textPetGender.setText(GenderEnum.getDescription(petDTO.gender)!!)
+        textPetBehaviour.setText(getBehaviours())
+        textPetBirthDate.setText(petDTO.birthDate)
+        textPetSize.setText(PetSizeEnum.getDescription(petDTO.size)!!)
+        textPetObservations.setText(petDTO.observations)
+    }
+
+    private fun getBehaviours(): String {
+        var behaviourList = ""
+        petDTO.behaviours.forEach { behaviour ->
+            val sizeDescription = getString(PetBehaviourEnum.getDescription(behaviour)!!)
+            behaviourList += "$sizeDescription, "
+        }
+        return behaviourList.removeSuffix(", ")
+    }
+
+    private fun setPetImage(image: String?) {
+        petImage.setPadding(0, 0, 0, 0)
+        Glide.with(this)
+            .load(image)
+            .error(R.drawable.ic_dog)
+            .transition(DrawableTransitionOptions.withCrossFade(Time.IMAGE_FADE))
+            .circleCrop()
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .into(petImage)
+    }
+
     override fun onPause() {
         super.onPause()
         textPetBirthDate.removeTextChangedListener(inputDateMask)
@@ -183,7 +226,6 @@ class PetRegisterActivity : BaseActivity() {
         textPetBirthDate.removeTextChangedListener(inputDateMask)
         textPetBirthDate.addTextChangedListener(inputDateMask)
     }
-
 
     /**
      *  Ação do botão de voltar da actionBar
@@ -196,4 +238,5 @@ class PetRegisterActivity : BaseActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 }

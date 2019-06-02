@@ -8,7 +8,7 @@ enum class PetSizeEnum(val description: Int) {
     LARGE(R.string.large);
 
     companion object {
-        fun getPetSizeDescription(enumName: String): Int? {
+        fun getDescription(enumName: String): Int? {
             values().forEach { value ->
                 if (value.name == enumName) return value.description
             }

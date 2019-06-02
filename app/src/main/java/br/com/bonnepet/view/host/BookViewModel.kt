@@ -11,6 +11,7 @@ import br.com.bonnepet.data.model.NewBookingDTO
 import br.com.bonnepet.data.model.PetDTO
 import br.com.bonnepet.data.repository.BookingRepository
 import br.com.bonnepet.data.repository.PetRepository
+import br.com.bonnepet.data.util.SessionManager
 import br.com.bonnepet.util.extension.error
 import br.com.bonnepet.util.extension.parseToDate
 import br.com.bonnepet.view.base.BaseViewModel

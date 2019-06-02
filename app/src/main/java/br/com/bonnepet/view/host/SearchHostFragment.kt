@@ -38,21 +38,21 @@ class SearchHostFragment : BaseFragment(), SearchHostAdapter.ItemClickListener {
 
         swipeRefresh.setColorSchemeColors((ContextCompat.getColor(activity!!, R.color.color_primary)))
         swipeRefresh.setOnRefreshListener {
-            loadData(true)
+            loadData()
         }
 
         hostAdapter = SearchHostAdapter(activity!!, ArrayList(), this)
         recyclerView.adapter = hostAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        loadData(true)
+        loadData()
 
         viewModel.isLoading().observe(this, Observer { isLoading ->
             progressBar.isVisible = isLoading && !swipeRefresh.isRefreshing
         })
     }
 
-    private fun loadData(resetData: Boolean) {
+    private fun loadData(resetData: Boolean = true) {
         viewModel.getAllHost()
         viewModel.hostList.observe(this, Observer { hostList ->
             hostAdapter.update(hostList, resetData)
@@ -60,9 +60,9 @@ class SearchHostFragment : BaseFragment(), SearchHostAdapter.ItemClickListener {
         })
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.search_fragment, menu)
-    }
+//    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+//        inflater?.inflate(R.menu.search_fragment, menu)
+//    }
 
     override fun onItemClick(host: HostDTO) {
         val intent = Intent(activity, HostDetailsActivity::class.java).apply {
@@ -76,8 +76,16 @@ class SearchHostFragment : BaseFragment(), SearchHostAdapter.ItemClickListener {
 
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                RequestCode.REFRESH_SEARCH_HOST -> loadData(true)
+                RequestCode.REFRESH_SEARCH_HOST -> loadData()
             }
+        }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden && SharedPreferencesUtil.getBoolean(Prefs.FETCH_SEARCH_FRAGMENT)) {
+            loadData()
+            SharedPreferencesUtil.putBoolean(Prefs.FETCH_SEARCH_FRAGMENT, false)
         }
     }
 }

@@ -1,5 +1,6 @@
 package br.com.bonnepet.view.menu.beHost
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.EditText
@@ -50,7 +51,10 @@ class BeHostActivity : BaseActivity() {
         btnRegister.setOnClickListener { doRegister() }
 
         viewModel.onHostRegister.observe(this, Observer { isSuccess ->
-            if (isSuccess) finish()
+            if (isSuccess) {
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
         })
 
         viewModel.errorMessage().observe(this, Observer { errorMessage ->

@@ -1,6 +1,7 @@
 package br.com.bonnepet.view.menu.beHost
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.EditText
@@ -8,6 +9,7 @@ import android.widget.SeekBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
+import br.com.bonnepet.data.enums.PetSizeEnum
 import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.component.CheckBoxDialog
@@ -51,7 +53,7 @@ class EditHostActivity : BaseActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
-        textPreferenceSize.setText(viewModel.getPreferenceSize(this))
+        textPreferenceSize.setText(getPreferenceSize())
 
         val items = (resources.getStringArray(R.array.size_list))
         textPreferenceSize.setOnClickListener { CheckBoxDialog(this, items, it as EditText) }
@@ -75,6 +77,15 @@ class EditHostActivity : BaseActivity() {
         viewModel.isLoading().observe(this, Observer { isLoading ->
             progressBar.isVisible = isLoading
         })
+    }
+
+    private fun getPreferenceSize(): String {
+        var sizeList = ""
+        viewModel.getPetPreferenceSize().forEach { size ->
+            val sizeDescription = getString(PetSizeEnum.getDescription(size)!!)
+            sizeList += "$sizeDescription, "
+        }
+        return sizeList.removeSuffix(", ")
     }
 
     private fun editHost() {

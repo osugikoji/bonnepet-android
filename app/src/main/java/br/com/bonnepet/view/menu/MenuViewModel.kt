@@ -29,7 +29,11 @@ class MenuViewModel(override val app: Application) : BaseViewModel(app) {
     val onProfilePictureUpload: LiveData<PictureDTO> = _onProfilePictureUpload
 
     fun initViewModel(arguments: Bundle?) {
-        _userProfileRetriever.value = arguments?.getSerializable(Data.PROFILE_DTO) as ProfileDTO
+        try {
+            _userProfileRetriever.value = arguments?.getSerializable(Data.PROFILE_DTO) as ProfileDTO
+        } catch (e: Exception) {
+            userProfile()
+        }
     }
 
     fun clearUserSession() {

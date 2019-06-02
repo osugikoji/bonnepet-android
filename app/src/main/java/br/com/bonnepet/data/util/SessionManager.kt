@@ -3,6 +3,7 @@ package br.com.bonnepet.data.util
 import Prefs
 import SharedPreferencesUtil
 import br.com.bonnepet.util.extension.getTokenData
+import org.joda.time.DateTime
 
 object SessionManager {
 
@@ -12,6 +13,17 @@ object SessionManager {
             SharedPreferencesUtil.putBoolean(Prefs.IS_LOGGED_IN, true)
             SharedPreferencesUtil.putString(Prefs.TOKEN, token)
         }
+    }
+
+    fun isUserAuthenticated(): Boolean {
+        val token = SharedPreferencesUtil.getString(Prefs.TOKEN, null) ?: return false
+        val tokenData = token.getTokenData()
+        val isTokenExpired = tokenData.getLong("exp") * 1000 <= DateTime.now().millis
+        if (isTokenExpired) {
+            clearUserSession()
+            return false
+        }
+        return true
     }
 
     fun isLoggedIn(): Boolean =

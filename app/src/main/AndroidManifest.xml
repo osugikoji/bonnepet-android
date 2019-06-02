@@ -18,6 +18,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".view.pet.PetEditActivity">
+        </activity>
         <activity android:name=".view.menu.beHost.EditHostActivity">
         </activity>
         <activity android:name=".view.booking.BookRequestActivity">

@@ -3,6 +3,10 @@ object Prefs {
     const val IS_LOGGED_IN = "br.com.bonnepet.IS_LOGGED_IN"
     const val TOKEN = "br.com.bonnepet.TOKEN"
     const val SELECTED_LANGUAGE = "br.com.bonnepet.SELECTED_LANGUAGE"
+    const val FETCH_PET_FRAGMENT = "br.com.bonnepet.FETCH_PET_FRAGMENT"
+    const val FETCH_HOST_BOOKING_FRAGMENT = "br.com.bonnepet.FETCH_HOST_BOOKING_FRAGMENT"
+    const val FETCH_REQUEST_BOOKING_FRAGMENT = "br.com.bonnepet.FETCH_REQUEST_BOOKING_FRAGMENT"
+    const val FETCH_SEARCH_FRAGMENT = "br.com.bonnepet.FETCH_SEARCH_FRAGMENT"
 }
 
 // Links da web
@@ -22,6 +26,8 @@ object RequestCode {
     const val REFRESH_SEARCH_HOST = 7
     const val REFRESH_REQUEST_BOOKING = 8
     const val REFRESH_DATA = 9
+    const val BE_HOST_SUCCESS = 10
+    const val PET_EDITED = 11
 }
 
 // Mascaras
@@ -43,10 +49,12 @@ object Header {
 object Data {
     const val PROFILE_DTO = "PROFILE_DTO"
     const val PET_DTO = "PET_DTO"
+    const val PET_EDIT_DTO = "PET_EDIT_DTO"
     const val HOST_DTO = "HOST_DTO"
     const val BOOK_DETAILS_DTO = "BOOK_DETAILS_DTO"
     const val HOST_BOOKING_DTO = "HOST_BOOKING_DTO"
     const val EDIT_HOST_DTO = "EDIT_HOST_DTO"
+    const val CAN_EDIT_PET = "CAN_EDIT_PET"
 }
 
 object Time {

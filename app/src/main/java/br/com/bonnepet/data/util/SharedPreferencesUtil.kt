@@ -7,7 +7,8 @@ object SharedPreferencesUtil {
 
     private const val MODE = Context.MODE_PRIVATE
 
-    private lateinit var preferences: SharedPreferences
+    lateinit var preferences: SharedPreferences
+        private set
 
     fun init(context: Context) {
         preferences = context.getSharedPreferences(FILE_NAME, MODE)

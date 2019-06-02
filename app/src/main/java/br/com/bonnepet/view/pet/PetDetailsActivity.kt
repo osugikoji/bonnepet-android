@@ -1,7 +1,10 @@
 package br.com.bonnepet.view.pet
 
 import Data
+import RequestCode
 import Time
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
@@ -12,65 +15,72 @@ import br.com.bonnepet.data.enums.PetSizeEnum
 import br.com.bonnepet.data.model.PetDTO
 import br.com.bonnepet.util.extension.formatToPetAge
 import br.com.bonnepet.util.extension.isVisible
+import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.component.CircularProgressBar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.activity_pet_details.*
 
 
 class PetDetailsActivity : BaseActivity() {
     override val layoutResource = R.layout.activity_pet_details
 
-    override val activityTitle = R.string.pet_details_title
+    override val activityTitle: Nothing? = null
 
     private val collapsingToolbarLayout by lazy { collapse_toolbar }
 
-    private val appBarLayout by lazy { app_bar_layout }
-
     private val petImageView by lazy { image_view_pet }
+
+    private val btnEditPet by lazy { register_pet_btn }
+
+    private lateinit var petDTO: PetDTO
 
     override fun onPrepareActivity(state: Bundle?) {
         collapsingToolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.gray_600))
         collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(this, R.color.gray_100))
 
-        val petDTO = intent.getSerializableExtra(Data.PET_DTO) as PetDTO
+        petDTO = intent.getSerializableExtra(Data.PET_DTO) as PetDTO
+
+        val canEditPet = intent.getBooleanExtra(Data.CAN_EDIT_PET, true)
+        btnEditPet.isVisible = canEditPet
+
         setPetImage(petDTO.pictureURL)
         setFields(petDTO)
 
-        appBarLayout.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
-            var isShow = true
-            var scrollRange = -1
+        btnEditPet.setSafeOnClickListener {
+            startPetEditActivity()
+        }
+        showSupportActionBarTitle()
+    }
 
-            override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.totalScrollRange
-                }
-                if (scrollRange + verticalOffset == 0) {
-                    supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_gray_24dp)
-                    collapsingToolbarLayout.title = getString(activityTitle)
-                    isShow = true
-                } else if (isShow) {
-                    if (petDTO.pictureURL.isNullOrEmpty()) {
-                        collapsingToolbarLayout.setExpandedTitleColor(
-                            ContextCompat
-                                .getColor(this@PetDetailsActivity, R.color.gray_600)
-                        )
-                        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_gray_24dp)
-                    } else {
-                        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
-                    }
-                    collapsingToolbarLayout.title = petDTO.name
-                    isShow = false
+    private fun startPetEditActivity() {
+        val intent = Intent(this, PetEditActivity::class.java).apply {
+            putExtra(Data.PET_DTO, petDTO)
+        }
+        startActivityForResult(intent, RequestCode.REFRESH_DATA)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                RequestCode.REFRESH_DATA -> {
+                    val bundle = data?.extras
+                    val petDTO = bundle?.getSerializable(Data.PET_EDIT_DTO) as PetDTO
+                    this.petDTO = petDTO
+                    if (!petDTO.pictureURL.isNullOrEmpty()) setPetImage(petDTO.pictureURL)
+                    setFields(petDTO)
+                    SharedPreferencesUtil.putBoolean(Prefs.FETCH_PET_FRAGMENT, true)
+                    setResult(Activity.RESULT_OK)
                 }
             }
-        })
+        }
     }
 
     private fun setPetImage(imageURL: String?) {
-        if (imageURL == null) return
         val progressBar = CircularProgressBar(this)
         progressBar.start()
 
@@ -85,6 +95,7 @@ class PetDetailsActivity : BaseActivity() {
     }
 
     private fun setFields(pet: PetDTO) {
+        supportActionBar?.title = pet.name
         text_breed.text = pet.breed
         text_age.text = pet.birthDate?.formatToPetAge(this)
 
@@ -115,8 +126,8 @@ class PetDetailsActivity : BaseActivity() {
             PetSizeEnum.LARGE.name -> text_size.text = getString(R.string.large)
         }
 
-        if (pet.observations.isEmpty()) layout_observations.isVisible = false
-        else text_observations.text = pet.observations
+        layout_observations.isVisible = pet.observations.isNotEmpty()
+        text_observations.text = pet.observations
     }
 
     /**
