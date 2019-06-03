@@ -1,20 +1,28 @@
 package br.com.bonnepet.view.menu.editUser
 
 import Data
+import Link
 import Mask
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextWatcher
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
+import br.com.bonnepet.data.enums.TextTypeEnum
 import br.com.bonnepet.data.model.AddressDTO
+import br.com.bonnepet.data.model.CepDTO
 import br.com.bonnepet.data.model.EditProfileDTO
 import br.com.bonnepet.data.model.ProfileDTO
-import br.com.bonnepet.view.component.MaskEditText
+import br.com.bonnepet.util.extension.afterTextChanged
 import br.com.bonnepet.util.extension.isVisible
+import br.com.bonnepet.util.extension.validate
 import br.com.bonnepet.view.base.BaseActivity
+import br.com.bonnepet.view.component.MaskEditText
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 
 class EditProfileActivity : BaseActivity() {
@@ -34,6 +42,13 @@ class EditProfileActivity : BaseActivity() {
     private val inputState by lazy { input_state }
     private val inputCity by lazy { input_city }
 
+    private val inputLayoutDistrict by lazy { input_layout_district }
+    private val inputLayoutStreet by lazy { input_layout_street }
+    private val inputLayoutState by lazy { input_layout_state }
+    private val inputLayoutCity by lazy { input_layout_city }
+
+    private val cepLink by lazy { forgot_cep_link }
+
     private val btnSave by lazy { btn_save }
 
     private val progressBar by lazy { progress_bar }
@@ -48,17 +63,50 @@ class EditProfileActivity : BaseActivity() {
         inputPhoneMask = MaskEditText(inputCellphone, Mask.CELLPHONE_MASK)
         inputTelephoneMask = MaskEditText(inputTelephone, Mask.TELEPHONE_MASK)
 
+        val profileDTO = intent.getSerializableExtra(Data.PROFILE_DTO) as ProfileDTO
+        setFields(profileDTO)
+
+        buildInputState()
+
         inputBirthDate.addTextChangedListener(inputDateMask)
         inputCellphone.addTextChangedListener(inputPhoneMask)
         inputTelephone.addTextChangedListener(inputTelephoneMask)
 
         btnSave.setOnClickListener { updateProfile() }
+        cepLink.setOnClickListener { redirectToSearchCep() }
 
-        val profileDTO = intent.getSerializableExtra(Data.PROFILE_DTO) as ProfileDTO
-        setFields(profileDTO)
+        viewModel.onAddressRequest.observe(this, Observer {
+            addressTextVisibility(it)
+        })
+
+        viewModel.address.observe(this, Observer { address ->
+            setEditTextAddress(address)
+        })
+
+        inputCep.afterTextChanged { cep ->
+            viewModel.getAddress(cep)
+        }
+    }
+
+    private fun buildInputState() {
+        val items = (resources.getStringArray(R.array.states)).toList()
+        val stateAdapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, items)
+        inputState.setAdapter(stateAdapter)
+    }
+
+    /**
+     *  Preenche os campos de endereco
+     */
+    private fun setEditTextAddress(address: CepDTO) {
+        inputDistrict.setText(address.district)
+        inputStreet.setText(address.street)
+        inputState.setText(address.state)
+        inputCity.setText(address.city)
     }
 
     private fun updateProfile() {
+        if (!validateInputs()) return
+
         val addressDTO = AddressDTO(
             inputCep.text.toString(),
             inputStreet.text.toString(),
@@ -88,6 +136,40 @@ class EditProfileActivity : BaseActivity() {
         })
     }
 
+    private fun validateInputs(): Boolean {
+
+        val name = inputName.validate(this, TextTypeEnum.NAME)
+        val birthDate = inputBirthDate.validate(this, TextTypeEnum.DATE)
+        val cellphone = inputCellphone.validate(this, TextTypeEnum.PHONE)
+
+        val cep = inputCep.validate(this)
+        val district = inputDistrict.validate(this)
+        val street = inputStreet.validate(this)
+        val number = inputNumber.validate(this)
+        val state = inputState.validate(this)
+        buildInputState()
+        val city = inputCity.validate(this)
+
+        return name && birthDate && cellphone && cep && district && street && number && state && city
+    }
+
+    private fun addressTextVisibility(visibility: Boolean) {
+        val backgroundColor = if (visibility) R.color.gray_300 else R.color.transparent
+        inputLayoutDistrict.setBoxBackgroundColorResource(backgroundColor)
+        inputDistrict.isEnabled = !visibility
+
+        inputLayoutStreet.setBoxBackgroundColorResource(backgroundColor)
+        inputStreet.isEnabled = !visibility
+
+        inputLayoutState.setBoxBackgroundColorResource(backgroundColor)
+        inputState.isEnabled = !visibility
+
+        inputLayoutCity.setBoxBackgroundColorResource(backgroundColor)
+        inputCity.isEnabled = !visibility
+
+        btnSave.isEnabled = !visibility
+    }
+
     private fun setFields(profileDTO: ProfileDTO) {
         profileDTO.run {
             inputName.setText(userName)
@@ -101,6 +183,13 @@ class EditProfileActivity : BaseActivity() {
             inputState.setText(addressDTO.state)
             inputCity.setText(addressDTO.city)
         }
+    }
+
+    /**
+     *  Redireciona para o site dos correios
+     */
+    private fun redirectToSearchCep() {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Link.SEARCH_CEP)))
     }
 
     /** Acao do botao de voltar da actionBar */

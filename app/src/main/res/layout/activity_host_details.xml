@@ -199,9 +199,19 @@
                             android:layout_marginBottom="10dp"/>
 
                         <TextView
-                            android:id="@+id/text_phone"
+                            android:id="@+id/text_telephone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:autoLink="phone"
+                            android:linksClickable="true"
+                            android:layout_marginStart="20dp"/>
+
+                        <TextView
+                            android:id="@+id/text_cellphone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoLink="phone"
+                            android:linksClickable="true"
                             android:layout_marginStart="20dp"/>
                     </LinearLayout>
                 </LinearLayout>

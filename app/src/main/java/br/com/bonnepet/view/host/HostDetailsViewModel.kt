@@ -39,8 +39,11 @@ class HostDetailsViewModel(override val app: Application) : BaseViewModel(app) {
     fun getHostAbout(): String =
         hostDTO.about
 
-    fun getHostPhone(): String =
-        hostDTO.profileDTO.telephone + "\n" + hostDTO.profileDTO.cellphone
+    fun getHostTelephone(): String =
+        hostDTO.profileDTO.cellphone
+
+    fun getHostCellPhone(): String =
+        hostDTO.profileDTO.cellphone
 
     fun getHostSizePreference(): String {
         var petSize = ""

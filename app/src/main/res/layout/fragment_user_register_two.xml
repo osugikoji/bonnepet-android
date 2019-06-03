@@ -111,6 +111,7 @@
             <AutoCompleteTextView
                 android:id="@+id/input_state"
                 android:layout_width="match_parent"
+                android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ"
                 android:layout_height="wrap_content"/>
 
         </com.google.android.material.textfield.TextInputLayout>

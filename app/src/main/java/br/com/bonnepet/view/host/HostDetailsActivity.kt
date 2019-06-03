@@ -43,7 +43,9 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
 
     private val textAddress by lazy { text_address }
 
-    private val textPhone by lazy { text_phone }
+    private val textTelephone by lazy { text_telephone }
+
+    private val textCellphone by lazy { text_cellphone }
 
     private val textPreferencePetSize by lazy { text_size }
 
@@ -155,7 +157,8 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
     private fun setFields() {
         textAboutMe.text = viewModel.getHostAbout()
         textAddress.text = viewModel.getHostAddress()
-        textPhone.text = viewModel.getHostPhone()
+        textTelephone.text = viewModel.getHostTelephone()
+        textCellphone.text = viewModel.getHostCellPhone()
         textPreferencePetSize.text = viewModel.getHostSizePreference()
         price.text = viewModel.getHostPrice()
 

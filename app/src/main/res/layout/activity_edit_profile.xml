@@ -40,6 +40,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/name"
                     android:inputType="textPersonName"
+                    android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ"
                     android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -137,6 +138,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/district"
                     android:inputType="text"
+                    android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ"
                     android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -157,6 +159,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/street"
                         android:inputType="text"
+                        android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ"
                         android:textColor="@color/black"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -181,21 +184,18 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_state"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/input_layout_state"
-                style="@style/TextInputLayoutAppearance.OutlineBox"
+                android:hint="@string/state"
                 android:layout_marginBottom="16dp">
 
-                <br.com.bonnepet.view.component.AutoCompleteDropDown
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                <AutoCompleteTextView
                     android:id="@+id/input_state"
-                    android:hint="@string/state"
-                    android:longClickable="false"
-                    android:focusableInTouchMode="false"
-                    android:inputType="textNoSuggestions"/>
+                    android:layout_width="match_parent"
+                    android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ"
+                    android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -212,6 +212,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/city"
                     android:inputType="text"
+                    android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ"
                     android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
 
