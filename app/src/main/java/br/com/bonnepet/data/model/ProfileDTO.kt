@@ -3,7 +3,7 @@ package br.com.bonnepet.data.model
 import java.io.Serializable
 
 class ProfileDTO(
-    val profileImageURL: String,
+    val profileImageURL: String?,
     val email: String,
     val userName: String,
     val birthDate: String,

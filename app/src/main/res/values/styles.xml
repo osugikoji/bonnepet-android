@@ -11,7 +11,8 @@
     </style>
 
     <style name="Material.TextView" parent="">
-        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/gray_600</item>
     </style>
 
     <style name="MaterialButton" parent="Widget.MaterialComponents.Button">

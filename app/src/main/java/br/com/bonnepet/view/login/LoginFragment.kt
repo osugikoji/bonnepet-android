@@ -1,15 +1,13 @@
 package br.com.bonnepet.view.login
 
-import RequestCode
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.Credential
+import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseFragment
 import br.com.bonnepet.view.login.userRegister.UserRegisterActivity
@@ -31,8 +29,6 @@ class LoginFragment : BaseFragment() {
 
     private val registerLink by lazy { register_link }
 
-    private val progressBar by lazy { progress_bar }
-
     private lateinit var viewModel: LoginViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -48,7 +44,6 @@ class LoginFragment : BaseFragment() {
         })
 
         viewModel.onLoginSuccess.observe(this, Observer { authenticationResult ->
-            hideProgressBar()
             if (authenticationResult) mainActivity.userAuthenticated()
         })
     }
@@ -60,38 +55,27 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun goToRegister() {
-        startActivityForResult(Intent(context, UserRegisterActivity::class.java), RequestCode.SIGN_UP)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                RequestCode.SIGN_UP -> mainActivity.userAuthenticated()
-            }
-        }
+        startActivity(Intent(context, UserRegisterActivity::class.java))
     }
 
     private fun showProgressBar() {
-        progressBar.visibility = View.VISIBLE
         inputEmail.isEnabled = false
         inputPassword.isEnabled = false
-        btnLogin.visibility = View.INVISIBLE
-        registerLink.visibility = View.INVISIBLE
+        btnLogin.text = null
+        progress_bar_login.isVisible = true
+        registerLink.isVisible = false
     }
 
     private fun hideProgressBar() {
-        progressBar.visibility = View.GONE
         inputEmail.isEnabled = true
         inputPassword.isEnabled = true
-        btnLogin.visibility = View.VISIBLE
-        registerLink.visibility = View.VISIBLE
+        btnLogin.setText(R.string.get_in)
+        progress_bar_login.isVisible = false
+        registerLink.isVisible = true
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainActivity = context as MainActivity
-
     }
 }

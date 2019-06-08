@@ -19,7 +19,7 @@ import br.com.bonnepet.data.model.CepDTO
 import br.com.bonnepet.data.model.EditProfileDTO
 import br.com.bonnepet.data.model.ProfileDTO
 import br.com.bonnepet.util.extension.afterTextChanged
-import br.com.bonnepet.util.extension.isVisible
+import br.com.bonnepet.util.extension.progressDialog
 import br.com.bonnepet.util.extension.validate
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.component.MaskEditText
@@ -51,8 +51,6 @@ class EditProfileActivity : BaseActivity() {
 
     private val btnSave by lazy { btn_save }
 
-    private val progressBar by lazy { progress_bar }
-
     private lateinit var inputDateMask: TextWatcher
     private lateinit var inputPhoneMask: TextWatcher
     private lateinit var inputTelephoneMask: TextWatcher
@@ -75,6 +73,10 @@ class EditProfileActivity : BaseActivity() {
         btnSave.setOnClickListener { updateProfile() }
         cepLink.setOnClickListener { redirectToSearchCep() }
 
+        inputCep.afterTextChanged { cep ->
+            viewModel.getAddress(cep)
+        }
+
         viewModel.onAddressRequest.observe(this, Observer {
             addressTextVisibility(it)
         })
@@ -83,9 +85,13 @@ class EditProfileActivity : BaseActivity() {
             setEditTextAddress(address)
         })
 
-        inputCep.afterTextChanged { cep ->
-            viewModel.getAddress(cep)
-        }
+        viewModel.errorMessage().observe(this, Observer { message ->
+            showToast(message)
+        })
+
+        viewModel.isLoading().observe(this, Observer {
+            progressDialogVisibility(it)
+        })
     }
 
     private fun buildInputState() {
@@ -122,16 +128,9 @@ class EditProfileActivity : BaseActivity() {
             inputTelephone.text.toString(),
             addressDTO
         )
-        progressBar.isVisible = true
         viewModel.updateUserProfile(editProfileDTO)
-        viewModel.errorMessage().observe(this, Observer { message ->
-            progressBar.isVisible = false
-            showToast(message)
-        })
         viewModel.onUpdateUserProfile.observe(this, Observer {
-            showToast(getString(R.string.edit_profile_successfully))
             setResult(Activity.RESULT_OK)
-            progressBar.isVisible = false
             finish()
         })
     }

@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
@@ -28,8 +29,6 @@ class LoginActivity : BaseActivity() {
 
     private val registerLink by lazy { register_link }
 
-    private val progressBar by lazy { progress_bar }
-
     override fun onPrepareActivity(state: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
@@ -42,7 +41,6 @@ class LoginActivity : BaseActivity() {
         })
 
         viewModel.onLoginSuccess.observe(this, Observer { authenticationResult ->
-            progressBarVisibility(false)
             if (authenticationResult) {
                 setResult(Activity.RESULT_OK)
                 finish()
@@ -61,10 +59,10 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun progressBarVisibility(visibility: Boolean) {
-        progressBar.isVisible = visibility
         editTextEmail.isEnabled = !visibility
         editTextPassword.isEnabled = !visibility
-        btnLogin.isVisible = !visibility
+        btnLogin.text = if (visibility) null else getString(R.string.get_in)
+        progress_bar_login.isVisible = visibility
         registerLink.isVisible = !visibility
     }
 

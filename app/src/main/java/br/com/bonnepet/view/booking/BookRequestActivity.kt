@@ -110,7 +110,7 @@ class BookRequestActivity : BaseActivity(), PetAdapter.ItemClickListener {
             else "$days ${getString(R.string.nights)}"
     }
 
-    private fun setUserImage(image: String) {
+    private fun setUserImage(image: String?) {
         Glide.with(this)
             .load(image)
             .error(R.drawable.ic_account_circle)

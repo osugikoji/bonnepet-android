@@ -15,17 +15,8 @@ import br.com.bonnepet.util.extension.afterTextChanged
 import br.com.bonnepet.util.extension.popBackStack
 import br.com.bonnepet.util.extension.validate
 import br.com.bonnepet.view.base.BaseFragment
+import br.com.bonnepet.view.splash.SplashActivity
 import kotlinx.android.synthetic.main.fragment_user_register_two.*
-import kotlinx.android.synthetic.main.fragment_user_register_two.forgot_cep_link
-import kotlinx.android.synthetic.main.fragment_user_register_two.input_cep
-import kotlinx.android.synthetic.main.fragment_user_register_two.input_city
-import kotlinx.android.synthetic.main.fragment_user_register_two.input_district
-import kotlinx.android.synthetic.main.fragment_user_register_two.input_layout_city
-import kotlinx.android.synthetic.main.fragment_user_register_two.input_layout_district
-import kotlinx.android.synthetic.main.fragment_user_register_two.input_layout_street
-import kotlinx.android.synthetic.main.fragment_user_register_two.input_number
-import kotlinx.android.synthetic.main.fragment_user_register_two.input_state
-import kotlinx.android.synthetic.main.fragment_user_register_two.input_street
 
 /** Formulário de registro de endereço */
 class UserRegisterTwoFragment : BaseFragment() {
@@ -76,14 +67,23 @@ class UserRegisterTwoFragment : BaseFragment() {
         })
 
         registerViewModel.userRegisterRequestResult.observe(this, Observer { result ->
-            registerActivity.hideLoading()
-            if (result) registerActivity.authenticateUser()
+            if (result) startSplashActivity()
+        })
+
+        registerViewModel.isLoading().observe(this, Observer {
+            progressDialogVisibility(it)
         })
 
         registerViewModel.errorMessage().observe(this, Observer { errorMessage ->
             showToast(errorMessage)
         })
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun startSplashActivity() {
+        val intent = Intent(activity, SplashActivity::class.java)
+        startActivity(intent)
+        activity?.finishAffinity()
     }
 
     private fun buildInputState() {
@@ -103,7 +103,6 @@ class UserRegisterTwoFragment : BaseFragment() {
                 inputState.text.toString()
             )
             registerActivity.userDTO.addressDTO = addressDTO
-            registerActivity.showLoading()
             registerViewModel.doRegister(registerActivity.userDTO, registerActivity.selectedImage)
         }
     }

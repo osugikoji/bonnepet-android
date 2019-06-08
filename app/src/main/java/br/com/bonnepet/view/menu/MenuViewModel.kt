@@ -28,6 +28,9 @@ class MenuViewModel(override val app: Application) : BaseViewModel(app) {
     private val _onProfilePictureUpload = MutableLiveData<PictureDTO>()
     val onProfilePictureUpload: LiveData<PictureDTO> = _onProfilePictureUpload
 
+    private val _progressImageLoading = MutableLiveData<Boolean>()
+    val progressImageLoading: LiveData<Boolean> = _progressImageLoading
+
     fun initViewModel(arguments: Bundle?) {
         try {
             _userProfileRetriever.value = arguments?.getSerializable(Data.PROFILE_DTO) as ProfileDTO
@@ -44,11 +47,14 @@ class MenuViewModel(override val app: Application) : BaseViewModel(app) {
         val bodyImage = buildMultipartBodyImage(selectedUriImage)
         val id: String = SessionManager.getUserId()!!.toString()
 
+        _progressImageLoading.value = true
         compositeDisposable.add(
             userRepository.uploadProfilePicture(id, bodyImage!!)
                 .subscribeBy(onSuccess = {
+                    _progressImageLoading.value = false
                     _onProfilePictureUpload.value = it
                 }, onError = {
+                    _progressImageLoading.value = false
                     errorMessage.value = it.error(app)
                 })
         )
@@ -67,11 +73,14 @@ class MenuViewModel(override val app: Application) : BaseViewModel(app) {
     }
 
     fun userProfile() {
+        isLoading.value = true
         compositeDisposable.add(
             userRepository.getUserProfile()
                 .subscribeBy(onSuccess = {
                     _userProfileRetriever.value = it
+                    isLoading.value = false
                 }, onError = {
+                    isLoading.value = false
                     try {
                         if (StatusCodeEnum.Forbidden.code == (it as HttpException).code()) sessionExpired.value = true
                         else errorMessage.value = it.error(app)

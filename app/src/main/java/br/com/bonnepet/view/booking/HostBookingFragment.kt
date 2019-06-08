@@ -52,6 +52,7 @@ class HostBookingFragment : BaseFragment(), HostBookingAdapter.ItemClickListener
 
         viewModel.isLoading().observe(this, Observer {
             progressBar.isVisible = it && !swipeRefresh.isRefreshing
+            recyclerView.isVisible = !progressBar.isVisible
         })
 
         viewModel.errorMessage().observe(this, Observer {

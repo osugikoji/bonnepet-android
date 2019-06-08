@@ -71,7 +71,7 @@ class SearchHostAdapter(
             itemClickListener.onItemClick(hostList[adapterPosition])
         }
 
-        private fun setUserImage(imageURL: String) {
+        private fun setUserImage(imageURL: String?) {
             Glide.with(itemView.context)
                 .load(imageURL)
                 .error(R.drawable.ic_account_circle)

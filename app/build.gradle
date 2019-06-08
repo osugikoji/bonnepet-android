@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "br.com.lardopet"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -19,7 +19,6 @@ android {
 
         debug {
             resValue "string", "server_name", "http://" + InetAddress.getLocalHost().getHostAddress() + ":8080/"
-//            resValue "string", "server_name", "https://bonnepet.herokuapp.com/"
             debuggable true
         }
 

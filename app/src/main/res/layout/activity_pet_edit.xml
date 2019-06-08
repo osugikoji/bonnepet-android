@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/pet_name"
                     android:inputType="textPersonName"
-                    android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ"
+                    android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ "
                     android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/pet_breed"
                     android:inputType="textPersonName"
-                    android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ"
+                    android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ "
                     android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -172,7 +172,7 @@
                     android:hint="@string/observations"
                     android:gravity="top"
                     android:lines="5"
-                    android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ"
+                    android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ "
                     android:inputType="textMultiLine"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -187,10 +187,4 @@
         </LinearLayout>
     </ScrollView>
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
 </RelativeLayout>

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import br.com.bonnepet.R
+import br.com.bonnepet.util.extension.progressDialog
 import kotlinx.android.synthetic.main.tool_bar.*
 
 abstract class BaseFragment : Fragment() {
@@ -28,6 +29,8 @@ abstract class BaseFragment : Fragment() {
 
     private var v: View? = null
 
+    private val progressDialog by lazy { progressDialog() }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         if (v == null) {
@@ -39,6 +42,11 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         onPrepareSupportActionBar()
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    protected fun progressDialogVisibility(visibility: Boolean) {
+        if (visibility) progressDialog.show()
+        else progressDialog.dismiss()
     }
 
     /**

@@ -53,9 +53,11 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
 
     private val btnBook by lazy { btn_book }
 
+    private val  noPetLayout by lazy { layout_empty }
+
     private lateinit var petBookAdapter: PetBookAdapter
 
-    private val progressBar by lazy { progress_bar }
+    private val petProgressBar by lazy { progress_bar_pet }
 
     override fun onPrepareActivity(state: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(BookViewModel::class.java)
@@ -89,7 +91,11 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
         })
 
         viewModel.isLoading().observe(this, Observer {
-            progressBar.isVisible = it
+            progressDialogVisibility(it)
+        })
+
+        viewModel.onGetAllPets.observe(this, Observer {
+            petProgressBar.isVisible = it
         })
 
         viewModel.bookingSuccess.observe(this, Observer {
@@ -127,6 +133,8 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
     private fun loadPetData(resetData: Boolean = true) {
         viewModel.getAllPets()
         viewModel.petList.observe(this, Observer { petList ->
+            noPetLayout.isVisible = petList.isEmpty()
+            recyclerView.isVisible = petList.isNotEmpty()
             petBookAdapter.update(petList, resetData)
         })
     }
@@ -170,7 +178,6 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
-                setResult(Activity.RESULT_OK)
                 finish()
             }
         }

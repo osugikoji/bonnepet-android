@@ -27,7 +27,7 @@ class HostDetailsViewModel(override val app: Application) : BaseViewModel(app) {
         hostDTO = intent.getSerializableExtra(Data.HOST_DTO) as HostDTO
     }
 
-    fun getHostImage(): String =
+    fun getHostImage(): String? =
         hostDTO.profileDTO.profileImageURL
 
     fun getHostAddress(): String {
@@ -57,7 +57,7 @@ class HostDetailsViewModel(override val app: Application) : BaseViewModel(app) {
         hostDTO.price
 
     fun isHostImageEmpty(): Boolean =
-        hostDTO.profileDTO.profileImageURL.isEmpty()
+        hostDTO.profileDTO.profileImageURL.isNullOrEmpty()
 
     fun getHostName(): String =
         hostDTO.profileDTO.userName

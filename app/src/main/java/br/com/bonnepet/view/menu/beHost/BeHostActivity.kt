@@ -8,7 +8,6 @@ import android.widget.SeekBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
-import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.component.CheckBoxDialog
 import kotlinx.android.synthetic.main.activity_be_host.*
@@ -28,8 +27,6 @@ class BeHostActivity : BaseActivity() {
     private val seekBar by lazy { seek_bar }
 
     private val btnRegister by lazy { btn_register }
-
-    private val progressBar by lazy { progress_bar }
 
     override fun onPrepareActivity(state: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(BeHostViewModel::class.java)
@@ -62,7 +59,7 @@ class BeHostActivity : BaseActivity() {
         })
 
         viewModel.isLoading().observe(this, Observer { isLoading ->
-            progressBar.isVisible = isLoading
+            progressDialogVisibility(isLoading)
         })
     }
 

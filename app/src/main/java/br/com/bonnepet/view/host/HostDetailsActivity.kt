@@ -105,6 +105,10 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
 
         btnBook.setSafeOnClickListener { startBookActivity() }
         btnBookDetails.setSafeOnClickListener { startBookDetailsActivity() }
+
+        viewModel.isLoading().observe(this, Observer {
+            progressDialogVisibility(it)
+        })
     }
 
     private fun setHostPetCard() {
@@ -170,7 +174,7 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
         cardBook.isVisible = viewModel.hostDTO.profileDTO.id != SessionManager.getUserId().toString() && !visibility
     }
 
-    private fun setHostImage(imageURL: String) {
+    private fun setHostImage(imageURL: String?) {
         val progressBar = CircularProgressBar(this)
         progressBar.start()
 

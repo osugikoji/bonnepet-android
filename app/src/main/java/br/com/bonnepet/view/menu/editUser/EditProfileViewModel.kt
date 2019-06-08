@@ -3,6 +3,7 @@ package br.com.bonnepet.view.menu.editUser
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import br.com.bonnepet.R
 import br.com.bonnepet.data.model.CepDTO
 import br.com.bonnepet.data.model.EditProfileDTO
 import br.com.bonnepet.data.model.ProfileDTO
@@ -34,11 +35,14 @@ class EditProfileViewModel(override val app: Application) : BaseViewModel(app) {
     val onUpdateUserProfile: LiveData<ProfileDTO> = _onUpdateUserProfile
 
     fun updateUserProfile(editProfileDTO: EditProfileDTO) {
+        isLoading.value = true
         compositeDisposable.add(
             userRepository.updateUserProfile(editProfileDTO)
                 .subscribeBy(onSuccess = {
+                    isLoading.value = true
                     _onUpdateUserProfile.value = it
                 }, onError = {
+                    isLoading.value = true
                     errorMessage.value = it.error(app)
                 })
         )
@@ -53,6 +57,7 @@ class EditProfileViewModel(override val app: Application) : BaseViewModel(app) {
             compositeDisposable.add(
                 externalRepository.getAddress(cep)
                     .subscribeBy(onSuccess = {
+                        if (it.error.toBoolean()) errorMessage.value = app.getString(R.string.invalid_cep)
                         _onAddressRequest.value = false
                         if (!it.error.toBoolean()) _address.value = it
                     }, onError = {

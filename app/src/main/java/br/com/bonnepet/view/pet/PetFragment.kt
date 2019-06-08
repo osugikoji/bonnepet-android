@@ -53,6 +53,7 @@ class PetFragment : BaseFragment(), PetAdapter.ItemClickListener {
 
         viewModel.isLoading().observe(this, Observer { isLoading ->
             progressBar.isVisible = isLoading && !swipeRefresh.isRefreshing
+            recyclerView.isVisible = !progressBar.isVisible
         })
     }
 

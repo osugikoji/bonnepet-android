@@ -1,17 +1,21 @@
 package br.com.bonnepet.view.menu
 
 import Data
+import Prefs
 import RequestCode
+import SharedPreferencesUtil
 import Time
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.EditHostDTO
 import br.com.bonnepet.util.extension.checkWriteExternalPermission
 import br.com.bonnepet.util.extension.imageUrl
+import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.view.base.BaseFragment
 import br.com.bonnepet.view.component.CircularProgressBar
 import br.com.bonnepet.view.component.ImageRotationHelper
@@ -52,7 +56,7 @@ class MenuFragment : BaseFragment() {
         exit.setOnClickListener { logout() }
 
         viewModel.userProfileRetriever.observe(this, Observer { profileDTO ->
-            userNameTextView.text = profileDTO.userName
+            userNameTextView.text = profileDTO.userName.split(" ")[0]
             setProfileImage(profileDTO.profileImageURL)
             setHostMenu(profileDTO.editHostDTO)
         })
@@ -60,17 +64,21 @@ class MenuFragment : BaseFragment() {
         viewModel.errorMessage().observe(this, Observer { message ->
             showToast(message)
         })
-    }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.userProfile()
+        viewModel.isLoading().observe(this, Observer {
+            progressDialogVisibility(it)
+        })
     }
 
     private fun setHostMenu(editHostDTO: EditHostDTO?) {
         if (editHostDTO == null) {
             beHostTextMenu.text = getString(R.string.be_host)
-            beHostMenu.setOnClickListener { startActivityForResult(Intent(context, BeHostActivity::class.java), RequestCode.BE_HOST_SUCCESS) }
+            beHostMenu.setOnClickListener {
+                startActivityForResult(
+                    Intent(context, BeHostActivity::class.java),
+                    RequestCode.BE_HOST_SUCCESS
+                )
+            }
         } else {
             beHostTextMenu.text = getString(R.string.host_edit_title)
             val intent = Intent(context, EditHostActivity::class.java).apply {
@@ -128,6 +136,15 @@ class MenuFragment : BaseFragment() {
                 .skipMemoryCache(true)
                 .into(profileImage)
         })
+
+        viewModel.progressImageLoading.observe(this, Observer {
+            progressBarImage(it)
+        })
+    }
+
+    private fun progressBarImage(visibility: Boolean) {
+        progress_bar_image.isVisible = visibility
+        profileImage.visibility = if (visibility) View.INVISIBLE else View.VISIBLE
     }
 
     private fun startEditProfileActivity() {
@@ -143,10 +160,13 @@ class MenuFragment : BaseFragment() {
     }
 
     private fun setProfileImage(profileURL: String?) {
+        val circularProgressDrawable = CircularProgressBar(activity!!)
+        circularProgressDrawable.start()
+
         Glide.with(this)
             .load(profileURL)
             .error(R.drawable.ic_account_circle)
-            .placeholder(R.drawable.ic_account_circle)
+            .placeholder(circularProgressDrawable)
             .transition(DrawableTransitionOptions.withCrossFade(Time.IMAGE_FADE))
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)

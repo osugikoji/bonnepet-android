@@ -13,6 +13,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import br.com.bonnepet.R
+import br.com.bonnepet.util.extension.progressDialog
 import java.util.*
 
 
@@ -28,13 +29,14 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private var toolbar: Toolbar? = null
 
+    private val progressDialog by lazy { progressDialog() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutResource)
         onPrepareSupportActionBar()
         onPrepareActivity(savedInstanceState)
     }
-
 
     /**
      * Método invocado durante o OnCreate da Activity
@@ -58,6 +60,11 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    protected fun progressDialogVisibility(visibility: Boolean) {
+        if (visibility) progressDialog.show()
+        else progressDialog.dismiss()
+    }
+
     /**
      * Remove o botão de voltar da [ActionBar]
      */
@@ -65,7 +72,7 @@ abstract class BaseActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
-    protected  fun showSupportActionBarTitle() =
+    protected fun showSupportActionBarTitle() =
         supportActionBar?.setDisplayShowTitleEnabled(true)
 
     protected fun showToast(message: String) {

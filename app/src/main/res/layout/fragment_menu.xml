@@ -8,23 +8,37 @@
     <include
         layout="@layout/tool_bar_transparent"/>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/profile_image"
-        android:layout_centerHorizontal="true"
-        android:layout_width="192dp"
-        android:layout_height="192dp"
-        android:layout_marginTop="40dp"
+    <RelativeLayout
+        android:id="@+id/layout_profile_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tool_bar"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        app:srcCompat="@drawable/ic_account_circle"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/profile_image"
+            android:layout_width="192dp"
+            android:layout_height="192dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:srcCompat="@drawable/ic_account_circle"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar_image"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/divider_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/profile_image"
+        android:layout_below="@id/layout_profile_image"
         android:layout_marginTop="10dp">
 
         <View
@@ -223,10 +237,6 @@
 
         </LinearLayout>
     </RelativeLayout>
-
-
-
-
 
 
 </RelativeLayout>

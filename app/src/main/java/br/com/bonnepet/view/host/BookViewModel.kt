@@ -11,7 +11,6 @@ import br.com.bonnepet.data.model.NewBookingDTO
 import br.com.bonnepet.data.model.PetDTO
 import br.com.bonnepet.data.repository.BookingRepository
 import br.com.bonnepet.data.repository.PetRepository
-import br.com.bonnepet.data.util.SessionManager
 import br.com.bonnepet.util.extension.error
 import br.com.bonnepet.util.extension.parseToDate
 import br.com.bonnepet.view.base.BaseViewModel
@@ -41,6 +40,9 @@ class BookViewModel(override val app: Application) : BaseViewModel(app) {
 
     private val _bookingSuccess = MutableLiveData<Boolean>()
     val bookingSuccess: LiveData<Boolean> = _bookingSuccess
+
+    private val _onGetAllPets = MutableLiveData<Boolean>()
+    val onGetAllPets: LiveData<Boolean> = _onGetAllPets
 
     fun initViewModel(intent: Intent) {
         hostDTO = intent.getSerializableExtra(Data.HOST_DTO) as HostDTO
@@ -73,7 +75,6 @@ class BookViewModel(override val app: Application) : BaseViewModel(app) {
             bookRepository.insertBooking(newBookingDTO)
                 .subscribeBy(onComplete = {
                     _bookingSuccess.value = true
-                    errorMessage.value = "Reserva feito com sucesso"
                     isLoading.value = false
                 }, onError = {
                     errorMessage.value = it.error(app)
@@ -88,15 +89,15 @@ class BookViewModel(override val app: Application) : BaseViewModel(app) {
     }
 
     fun getAllPets() {
-        isLoading.value = true
+        _onGetAllPets.value = true
 
         compositeDisposable.add(
             petRepository.getAllPets()
                 .subscribeBy(onSuccess = { petList ->
                     _petList.value = petList.toMutableList()
-                    isLoading.value = false
+                    _onGetAllPets.value = false
                 }, onError = {
-                    isLoading.value = false
+                    _onGetAllPets.value = false
                 })
         )
     }

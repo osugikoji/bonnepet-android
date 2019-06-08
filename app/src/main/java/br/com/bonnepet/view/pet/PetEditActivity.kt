@@ -53,8 +53,6 @@ class PetEditActivity : BaseActivity() {
 
     private lateinit var inputDateMask: TextWatcher
 
-    private val progressBar by lazy { progress_bar }
-
     override fun onPrepareActivity(state: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(PetEditViewModel::class.java)
         petDTO = intent.getSerializableExtra(Data.PET_DTO) as PetDTO
@@ -78,7 +76,6 @@ class PetEditActivity : BaseActivity() {
                 putExtra(Data.PET_EDIT_DTO, petDTO)
             }
             setResult(Activity.RESULT_OK, intent)
-            showToast(getString(R.string.pet_edit_success))
             finish()
         })
 
@@ -87,7 +84,7 @@ class PetEditActivity : BaseActivity() {
         })
 
         viewModel.isLoading().observe(this, Observer { isLoading ->
-            progressBar.isVisible = isLoading
+            progressDialogVisibility(isLoading)
         })
     }
 

@@ -53,6 +53,7 @@ class RegisterViewModel(override val app: Application) : BaseViewModel(app) {
             compositeDisposable.add(
                 externalRepository.getAddress(cep)
                     .subscribeBy(onSuccess = {
+                        if (it.error.toBoolean()) errorMessage.value = app.getString(R.string.invalid_cep)
                         _onAddressRequest.value = false
                         if (!it.error.toBoolean()) _address.value = it
                     }, onError = {
@@ -69,6 +70,7 @@ class RegisterViewModel(override val app: Application) : BaseViewModel(app) {
     fun doRegister(userDTO: UserDTO, selectedUriImage: File?) {
         val bodyImage = buildMultipartBodyImage(selectedUriImage)
 
+        isLoading.value = true
         compositeDisposable.add(
             userRepository.registerUser(userDTO)
                 .subscribeBy(onSuccess = {
@@ -87,6 +89,7 @@ class RegisterViewModel(override val app: Application) : BaseViewModel(app) {
                         authenticateUser(credential)
                     }
                 }, onError = {
+                    isLoading.value = false
                     errorMessage.value = it.error(getApplication())
                     _userRegisterRequestResult.value = false
                 })
@@ -97,6 +100,7 @@ class RegisterViewModel(override val app: Application) : BaseViewModel(app) {
         compositeDisposable.add(
             userRepository.authenticateUser(credential)
                 .subscribeBy(onNext = { response ->
+                    isLoading.value = false
                     when (response.code()) {
                         StatusCodeEnum.OK.code -> {
                             SessionManager.createUserSession(response.headers().get(Header.AUTHORIZATION))
@@ -107,6 +111,7 @@ class RegisterViewModel(override val app: Application) : BaseViewModel(app) {
                         }
                     }
                 }, onError = {
+                    isLoading.value = false
                     errorMessage.value = it.error(getApplication())
                 })
         )

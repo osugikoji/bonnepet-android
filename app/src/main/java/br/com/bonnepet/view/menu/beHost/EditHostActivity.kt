@@ -1,7 +1,6 @@
 package br.com.bonnepet.view.menu.beHost
 
 import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.EditText
@@ -10,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import br.com.bonnepet.R
 import br.com.bonnepet.data.enums.PetSizeEnum
-import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.component.CheckBoxDialog
 import kotlinx.android.synthetic.main.activity_edit_host.*
@@ -32,8 +30,6 @@ class EditHostActivity : BaseActivity() {
     private val seekBar by lazy { seek_bar }
 
     private val btnEdit by lazy { btn_edit }
-
-    private val progressBar by lazy { progress_bar }
 
     override fun onPrepareActivity(state: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(EditHostViewModel::class.java)
@@ -64,7 +60,6 @@ class EditHostActivity : BaseActivity() {
 
         viewModel.onEditHost.observe(this, Observer { isSuccess ->
             if (isSuccess) {
-                showToast(getString(R.string.edit_profile_successfully))
                 setResult(Activity.RESULT_OK)
                 finish()
             }
@@ -75,7 +70,7 @@ class EditHostActivity : BaseActivity() {
         })
 
         viewModel.isLoading().observe(this, Observer { isLoading ->
-            progressBar.isVisible = isLoading
+            progressDialogVisibility(isLoading)
         })
     }
 

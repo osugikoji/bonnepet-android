@@ -1,11 +1,12 @@
 package br.com.bonnepet.view.host
 
 import Data
+import Prefs
+import RequestCode
+import SharedPreferencesUtil
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -49,6 +50,7 @@ class SearchHostFragment : BaseFragment(), SearchHostAdapter.ItemClickListener {
 
         viewModel.isLoading().observe(this, Observer { isLoading ->
             progressBar.isVisible = isLoading && !swipeRefresh.isRefreshing
+            recyclerView.isVisible = !progressBar.isVisible
         })
     }
 

@@ -41,8 +41,6 @@ class PetRegisterActivity : BaseActivity() {
     private val textPetSize by lazy { input_pet_size }
     private val textPetObservations by lazy { input_observations }
 
-    private val progressBar by lazy { progress_bar }
-
     private val btnAddImage by lazy { btn_add_image }
     private val btnSave by lazy { btn_save }
 
@@ -67,7 +65,7 @@ class PetRegisterActivity : BaseActivity() {
         textPetBirthDate.addTextChangedListener(inputDateMask)
 
         viewModel.isLoading().observe(this, Observer { isLoading ->
-            progressBar.isVisible = isLoading
+            progressDialogVisibility(isLoading)
         })
 
         viewModel.onPetRegisterSuccess.observe(this, Observer { message ->
