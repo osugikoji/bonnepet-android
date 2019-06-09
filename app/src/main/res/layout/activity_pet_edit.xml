@@ -172,7 +172,6 @@
                     android:hint="@string/observations"
                     android:gravity="top"
                     android:lines="5"
-                    android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ "
                     android:inputType="textMultiLine|textCapSentences"/>
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -138,7 +138,6 @@
                     android:lines="6"
                     android:ems="10"
                     android:background="@drawable/round_corner"
-                    android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ "
                     android:inputType="textMultiLine|textCapSentences"/>
 
                 <Button
