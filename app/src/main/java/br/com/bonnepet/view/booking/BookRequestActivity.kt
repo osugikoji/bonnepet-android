@@ -18,13 +18,13 @@ import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.pet.PetDetailsActivity
-import br.com.bonnepet.view.pet.adapter.PetAdapter
+import br.com.bonnepet.view.pet.adapter.PetAlternativeAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.android.synthetic.main.activity_book_request.*
 
-class BookRequestActivity : BaseActivity(), PetAdapter.ItemClickListener {
+class BookRequestActivity : BaseActivity(), PetAlternativeAdapter.ItemClickListener {
     override val layoutResource = R.layout.activity_book_request
     private lateinit var viewModel: BookRequestViewModel
 
@@ -46,13 +46,11 @@ class BookRequestActivity : BaseActivity(), PetAdapter.ItemClickListener {
 
     private val phoneText by lazy { text_telephone_number }
 
-    private lateinit var petAdapter: PetAdapter
+    private lateinit var petAdapter: PetAlternativeAdapter
 
     private val recyclerView by lazy { recycler_view }
 
     private lateinit var hostBookingDTO: HostBookingDTO
-
-    private val progressBar by lazy { progress_bar }
 
     private val cardBottom by lazy { card_view_bottom }
 
@@ -67,7 +65,7 @@ class BookRequestActivity : BaseActivity(), PetAdapter.ItemClickListener {
         btn_accept.setSafeOnClickListener { viewModel.acceptBooking(hostBookingDTO.bookingDetailsDTO.id) }
 
         viewModel.isLoading().observe(this, Observer {
-            progressBar.isVisible = it
+            progressDialogVisibility(it)
         })
 
         viewModel.errorMessage().observe(this, Observer {
@@ -90,8 +88,8 @@ class BookRequestActivity : BaseActivity(), PetAdapter.ItemClickListener {
         checkInText.text = hostBookingDTO.bookingDetailsDTO.stayInitialDate
         checkOutText.text = hostBookingDTO.bookingDetailsDTO.stayFinalDate
         setStayDaysText(hostBookingDTO.bookingDetailsDTO.stayDays)
-        phoneText.text = hostBookingDTO.profileDTO.telephone
-        petAdapter = PetAdapter(this, hostBookingDTO.bookingDetailsDTO.petDTO.toMutableList(), this)
+        phoneText.text = hostBookingDTO.profileDTO.cellphone
+        petAdapter = PetAlternativeAdapter(this, hostBookingDTO.bookingDetailsDTO.petDTO.toMutableList(), this)
         recyclerView.adapter = petAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
@@ -140,6 +138,7 @@ class BookRequestActivity : BaseActivity(), PetAdapter.ItemClickListener {
     override fun onItemClick(pet: PetDTO) {
         val intent = Intent(this, PetDetailsActivity::class.java).apply {
             putExtra(Data.PET_DTO, pet)
+            putExtra(Data.CAN_EDIT_PET, false)
         }
         startActivity(intent)
     }

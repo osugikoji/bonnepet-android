@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.bonnepet.R
 import br.com.bonnepet.data.model.HostDTO
-import br.com.bonnepet.util.extension.setSafeOnClickListener
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import kotlinx.android.synthetic.main.host_item.view.*
+import kotlinx.android.synthetic.main.host_card_item.view.*
 
 class SearchHostAdapter(
     private val context: Context,
@@ -22,7 +21,7 @@ class SearchHostAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HostViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.host_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.host_card_item, parent, false)
         return HostViewHolder(view)
     }
 

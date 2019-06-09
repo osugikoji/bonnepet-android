@@ -53,7 +53,7 @@ class BookActivity : BaseActivity(), PetBookAdapter.ItemClickListener {
 
     private val btnBook by lazy { btn_book }
 
-    private val  noPetLayout by lazy { layout_empty }
+    private val noPetLayout by lazy { layout_empty }
 
     private lateinit var petBookAdapter: PetBookAdapter
 

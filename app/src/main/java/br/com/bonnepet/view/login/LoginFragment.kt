@@ -62,6 +62,7 @@ class LoginFragment : BaseFragment() {
         inputEmail.isEnabled = false
         inputPassword.isEnabled = false
         btnLogin.text = null
+        btnLogin.isEnabled = false
         progress_bar_login.isVisible = true
         registerLink.isVisible = false
     }
@@ -70,6 +71,7 @@ class LoginFragment : BaseFragment() {
         inputEmail.isEnabled = true
         inputPassword.isEnabled = true
         btnLogin.setText(R.string.get_in)
+        btnLogin.isEnabled = true
         progress_bar_login.isVisible = false
         registerLink.isVisible = true
     }

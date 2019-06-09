@@ -62,6 +62,7 @@ class LoginActivity : BaseActivity() {
         editTextEmail.isEnabled = !visibility
         editTextPassword.isEnabled = !visibility
         btnLogin.text = if (visibility) null else getString(R.string.get_in)
+        btnLogin.isEnabled = !visibility
         progress_bar_login.isVisible = visibility
         registerLink.isVisible = !visibility
     }

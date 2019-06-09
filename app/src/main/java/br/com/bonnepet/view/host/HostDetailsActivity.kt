@@ -21,14 +21,14 @@ import br.com.bonnepet.view.booking.BookDetailsActivity
 import br.com.bonnepet.view.component.CircularProgressBar
 import br.com.bonnepet.view.login.LoginActivity
 import br.com.bonnepet.view.pet.PetDetailsActivity
-import br.com.bonnepet.view.pet.adapter.PetAdapter
+import br.com.bonnepet.view.pet.adapter.PetAlternativeAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.activity_host_details.*
 
-class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
+class HostDetailsActivity : BaseActivity(), PetAlternativeAdapter.ItemClickListener {
     override val layoutResource = R.layout.activity_host_details
     override val activityTitle = R.string.host_details_title
     private lateinit var viewModel: HostDetailsViewModel
@@ -55,7 +55,7 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
 
     private val recyclerView by lazy { recycler_view }
 
-    private lateinit var petAdapter: PetAdapter
+    private lateinit var petAdapter: PetAlternativeAdapter
 
     private val cardBook by lazy { card_book }
 
@@ -114,7 +114,7 @@ class HostDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
     private fun setHostPetCard() {
         if (!viewModel.hostHasPet()) return
         card_my_pets.isVisible = true
-        petAdapter = PetAdapter(this, viewModel.getAllPetHost().toMutableList(), this)
+        petAdapter = PetAlternativeAdapter(this, viewModel.getAllPetHost().toMutableList(), this)
         recyclerView.adapter = petAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
     }

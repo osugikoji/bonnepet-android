@@ -18,10 +18,10 @@ import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.pet.PetDetailsActivity
-import br.com.bonnepet.view.pet.adapter.PetAdapter
+import br.com.bonnepet.view.pet.adapter.PetAlternativeAdapter
 import kotlinx.android.synthetic.main.activity_book_details.*
 
-class BookDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
+class BookDetailsActivity : BaseActivity(), PetAlternativeAdapter.ItemClickListener {
     override val layoutResource = R.layout.activity_book_details
     override val activityTitle = R.string.book_details_title
     private lateinit var viewModel: BookDetailsViewModel
@@ -38,7 +38,7 @@ class BookDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
 
     private val chipStatus by lazy { statusColor }
 
-    private lateinit var petAdapter: PetAdapter
+    private lateinit var petAdapter: PetAlternativeAdapter
 
     override fun onPrepareActivity(state: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(BookDetailsViewModel::class.java)
@@ -49,7 +49,7 @@ class BookDetailsActivity : BaseActivity(), PetAdapter.ItemClickListener {
         textTotalMoney.text = bookingDetailsDTO.totalPrice
         setBookStatus()
 
-        petAdapter = PetAdapter(this, bookingDetailsDTO.petDTO.toMutableList(), this)
+        petAdapter = PetAlternativeAdapter(this, bookingDetailsDTO.petDTO.toMutableList(), this)
         recyclerView.adapter = petAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 

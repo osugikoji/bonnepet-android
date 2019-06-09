@@ -1,95 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    android:id="@+id/layout_host"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="5dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
-    app:cardCornerRadius="6dp"
-    app:cardElevation="2dp">
+    style="@style/Item.Clickable"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/user_image"
+        android:layout_gravity="start"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="20dp"
+        app:srcCompat="@drawable/ic_account_circle"/>
 
     <RelativeLayout
-        android:id="@+id/layout_host"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Item.Clickable">
+        android:layout_toEndOf="@+id/user_image"
+        android:layout_marginStart="20dp"
+        android:layout_centerInParent="true">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/user_image"
-            android:layout_gravity="start"
-            android:layout_width="62dp"
-            android:layout_height="62dp"
-            android:layout_marginStart="20dp"
-            app:srcCompat="@drawable/ic_account_circle"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/text_user_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/user_image"
-            android:layout_marginStart="20dp"
-            android:layout_centerInParent="true">
+            android:textColor="@color/black"
+            android:fontFamily="@font/montserrat_medium"
+            android:textSize="15sp"/>
 
-            <TextView
-                android:id="@+id/text_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:fontFamily="@font/montserrat_medium"
-                android:textSize="15sp"/>
+        <TextView
+            android:id="@+id/text_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_user_name"
+            android:textSize="12sp"/>
 
-            <TextView
-                android:id="@+id/text_city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_user_name"
-                android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/text_district"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_city"
+            android:textSize="12sp"/>
 
-            <TextView
-                android:id="@+id/text_district"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_city"
-                android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/br_currency"
+            android:layout_toStartOf="@id/text_money_value"
+            android:layout_alignBottom="@id/text_money_value"
+            android:textSize="14sp"
+            android:paddingBottom="3dp"
+            android:textColor="@color/color_primary"/>
 
-            <TextView
-                android:id="@+id/currency"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/br_currency"
-                android:layout_toStartOf="@id/text_money_value"
-                android:layout_alignBottom="@id/text_money_value"
-                android:textSize="14sp"
-                android:paddingBottom="3dp"
-                android:textColor="@color/color_primary"/>
+        <TextView
+            android:id="@+id/text_money_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:singleLine="true"
+            android:maxLength="5"
+            android:layout_marginStart="4dp"
+            android:textSize="26sp"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/color_primary"/>
 
-            <TextView
-                android:id="@+id/text_money_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:singleLine="true"
-                android:maxLength="5"
-                android:layout_marginStart="4dp"
-                android:textSize="26sp"
-                android:layout_marginEnd="20dp"
-                android:textColor="@color/color_primary"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@id/text_money_value"
-                android:singleLine="true"
-                android:textSize="12sp"
-                android:layout_marginEnd="20dp"
-                android:text="@string/per_night"
-                android:textColor="@color/gray_400"/>
-        </RelativeLayout>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/text_money_value"
+            android:singleLine="true"
+            android:textSize="12sp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/per_night"
+            android:textColor="@color/gray_400"/>
     </RelativeLayout>
 
-</com.google.android.material.card.MaterialCardView>
+</RelativeLayout>
+
