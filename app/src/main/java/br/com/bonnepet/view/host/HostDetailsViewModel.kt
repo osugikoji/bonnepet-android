@@ -9,6 +9,7 @@ import br.com.bonnepet.data.enums.PetSizeEnum
 import br.com.bonnepet.data.model.BookingDetailsDTO
 import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.data.model.PetDTO
+import br.com.bonnepet.data.model.RateDetailsDTO
 import br.com.bonnepet.data.repository.HostRepository
 import br.com.bonnepet.util.extension.error
 import br.com.bonnepet.view.base.BaseViewModel
@@ -65,8 +66,15 @@ class HostDetailsViewModel(override val app: Application) : BaseViewModel(app) {
     fun hostHasPet(): Boolean =
         hostDTO.petDTO.isNotEmpty()
 
+    fun hostHasRatings(): Boolean =
+        !hostDTO.rateDTOList.isNullOrEmpty()
+
     fun getAllPetHost(): List<PetDTO> =
         hostDTO.petDTO
+
+    fun getRatings(): List<RateDetailsDTO> =
+            hostDTO.rateDTOList
+
 
     fun getHost() {
         isLoading.value = true

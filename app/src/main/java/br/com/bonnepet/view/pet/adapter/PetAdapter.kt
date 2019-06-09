@@ -10,7 +10,6 @@ import br.com.bonnepet.R
 import br.com.bonnepet.data.enums.GenderEnum
 import br.com.bonnepet.data.model.PetDTO
 import br.com.bonnepet.util.extension.formatToPetAge
-import br.com.bonnepet.util.extension.isVisible
 import br.com.bonnepet.view.component.CircularProgressBar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy

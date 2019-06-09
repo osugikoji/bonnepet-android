@@ -53,6 +53,7 @@ class SearchHostAdapter(
         private val city = itemView.text_city
         private val district = itemView.text_district
         private val price = itemView.text_money_value
+        private val rateAvg = itemView.text_rate_avg
 
         init {
             hostLayout.setOnClickListener(this)
@@ -64,6 +65,7 @@ class SearchHostAdapter(
             city.text = host.profileDTO.addressDTO.city
             district.text = host.profileDTO.addressDTO.district
             price.text = host.price
+            rateAvg.text = if (host.rateAvg.isNullOrEmpty()) context.getString(R.string.new_host) else host.rateAvg
         }
 
         override fun onClick(v: View?) {
@@ -78,7 +80,6 @@ class SearchHostAdapter(
                 .transition(DrawableTransitionOptions.withCrossFade(Time.IMAGE_FADE))
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
-                .circleCrop()
                 .into(userImage)
         }
     }

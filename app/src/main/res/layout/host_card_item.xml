@@ -2,7 +2,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="wrap_content"
+    android:layout_height="110dp"
     android:layout_width="wrap_content"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="5dp"
@@ -14,22 +14,25 @@
     <RelativeLayout
         android:id="@+id/layout_host"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Item.Clickable">
+        android:layout_height="match_parent"
+        android:foreground="?android:selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/user_image"
             android:layout_gravity="start"
-            android:layout_width="62dp"
-            android:layout_height="62dp"
-            android:layout_marginStart="20dp"
-            app:srcCompat="@drawable/ic_account_circle"/>
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/splash"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_toEndOf="@+id/user_image"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_centerInParent="true">
 
             <TextView
@@ -37,13 +40,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:fontFamily="@font/montserrat_medium"
-                android:textSize="15sp"/>
+                android:layout_alignParentTop="true"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/text_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_below="@id/text_user_name"
                 android:textSize="12sp"/>
 
@@ -70,7 +75,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
                 android:singleLine="true"
                 android:maxLength="5"
                 android:layout_marginStart="4dp"
@@ -88,6 +92,25 @@
                 android:layout_marginEnd="20dp"
                 android:text="@string/per_night"
                 android:textColor="@color/gray_400"/>
+
+            <ImageView
+                android:id="@+id/ic_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_star"
+                android:layout_alignParentBottom="true"/>
+
+            <TextView
+                android:id="@+id/text_rate_avg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="20dp"
+                android:textSize="12sp"
+                android:layout_toEndOf="@id/ic_star"
+                android:textColor="@color/yellow"
+                android:layout_marginStart="2dp"/>
+
         </RelativeLayout>
 
     </RelativeLayout>

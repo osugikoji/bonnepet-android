@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        card_view:cardBackgroundColor="@color/white"
+        card_view:cardCornerRadius="20dp"
+        card_view:cardElevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:id="@+id/text_host_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textColor="@color/gray_800"
+                android:layout_marginBottom="6dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp">
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/text_rate_host"
+                    android:background="@color/gray_300"/>
+
+                <TextView
+                    android:id="@+id/text_rate_host"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/roboto_condensed_bold"
+                    android:textSize="14sp"
+                    android:text="@string/rate_host"
+                    android:textAllCaps="true"
+                    android:textColor="@color/gray_400"/>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/text_rate_host"
+                    android:background="@color/gray_300"/>
+            </RelativeLayout>
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:progressTint="@color/yellow"
+                android:secondaryProgressTint="@color/yellow"
+                android:stepSize="1"/>
+
+            <LinearLayout
+                android:id="@+id/layout_rate_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_view_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textSize="26sp"
+                    android:text="@string/excellent"
+                    android:textAllCaps="true"
+                    android:textColor="@color/gray_900"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="24dp">
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/text_feedback"
+                        android:background="@color/gray_300"/>
+
+                    <TextView
+                        android:id="@+id/text_feedback"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/roboto_condensed_bold"
+                        android:textSize="14sp"
+                        android:text="@string/feedback"
+                        android:textAllCaps="true"
+                        android:textColor="@color/gray_400"/>
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/text_feedback"
+                        android:background="@color/gray_300"/>
+                </RelativeLayout>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_feedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                    android:hint="@string/optional"
+                    android:gravity="top"
+                    android:lines="6"
+                    android:ems="10"
+                    android:background="@drawable/round_corner"
+                    android:digits="aãâábcdeêéfghiíjklmnoóõôpqrstuúvwxyzAÃÁÂBCDEÉÊFGHIÍJKLMNOÕÓPQRSTUÚVWXYZ "
+                    android:inputType="textMultiLine|textCapSentences"/>
+
+                <Button
+                    android:id="@+id/btn_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/send"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/image_host_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/splash"
+        app:civ_border_width="6dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        app:civ_border_color="@color/white"/>
+
+</RelativeLayout>

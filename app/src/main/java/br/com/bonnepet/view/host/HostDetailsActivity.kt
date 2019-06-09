@@ -19,6 +19,7 @@ import br.com.bonnepet.util.extension.setSafeOnClickListener
 import br.com.bonnepet.view.base.BaseActivity
 import br.com.bonnepet.view.booking.BookDetailsActivity
 import br.com.bonnepet.view.component.CircularProgressBar
+import br.com.bonnepet.view.host.adapter.RatingAdapter
 import br.com.bonnepet.view.login.LoginActivity
 import br.com.bonnepet.view.pet.PetDetailsActivity
 import br.com.bonnepet.view.pet.adapter.PetAlternativeAdapter
@@ -52,6 +53,10 @@ class HostDetailsActivity : BaseActivity(), PetAlternativeAdapter.ItemClickListe
     private val price by lazy { text_money_value }
 
     private val btnBook by lazy { btn_book }
+
+    private val ratingRecyclerView by lazy { recycler_view_ratings }
+
+    private lateinit var ratingAdapter: RatingAdapter
 
     private val recyclerView by lazy { recycler_view }
 
@@ -100,6 +105,7 @@ class HostDetailsActivity : BaseActivity(), PetAlternativeAdapter.ItemClickListe
         })
 
         setHostImage(viewModel.getHostImage())
+        setRatingCard()
         setFields()
         setHostPetCard()
 
@@ -109,6 +115,29 @@ class HostDetailsActivity : BaseActivity(), PetAlternativeAdapter.ItemClickListe
         viewModel.isLoading().observe(this, Observer {
             progressDialogVisibility(it)
         })
+    }
+
+    private fun setRatingCard() {
+        if (!viewModel.hostHasRatings()) return
+        card_ratings.isVisible = true
+
+        val ratingNumber = viewModel.getRatings().size
+        rating_title.text =
+            if (ratingNumber == 1) "$ratingNumber ${getString(R.string.rating)}"
+            else "$ratingNumber ${getString(R.string.ratings)}"
+
+        link_see_all_ratings.isVisible = ratingNumber > 2
+
+        ratingAdapter = RatingAdapter(this, viewModel.getRatings().take(2).toMutableList())
+        ratingRecyclerView.adapter = ratingAdapter
+        ratingRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        link_see_all_ratings.setSafeOnClickListener {
+            val intent = Intent(this, RatingsActivity::class.java).apply {
+                putExtra(Data.RATING_DETAIL_DTO, ArrayList(viewModel.getRatings()))
+            }
+            startActivity(intent)
+        }
     }
 
     private fun setHostPetCard() {
@@ -133,6 +162,7 @@ class HostDetailsActivity : BaseActivity(), PetAlternativeAdapter.ItemClickListe
     private fun startBookDetailsActivity() {
         val intent = Intent(this, BookDetailsActivity::class.java).apply {
             putExtra(Data.BOOK_DETAILS_DTO, viewModel.getBookDetails())
+            putExtra(Data.HOST_DTO, viewModel.hostDTO)
         }
         startActivityForResult(intent, RequestCode.REFRESH_DATA)
     }
@@ -152,6 +182,7 @@ class HostDetailsActivity : BaseActivity(), PetAlternativeAdapter.ItemClickListe
         viewModel.getHost()
         viewModel.host.observe(this, Observer {
             if (it) {
+                setHostPetCard()
                 setFields()
                 isDataUpdated = true
             }

@@ -55,6 +55,7 @@ object Data {
     const val HOST_BOOKING_DTO = "HOST_BOOKING_DTO"
     const val EDIT_HOST_DTO = "EDIT_HOST_DTO"
     const val CAN_EDIT_PET = "CAN_EDIT_PET"
+    const val RATING_DETAIL_DTO = "RATING_DETAIL_DTO"
 }
 
 object Time {

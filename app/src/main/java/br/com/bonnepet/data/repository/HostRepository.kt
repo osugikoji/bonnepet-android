@@ -5,6 +5,7 @@ import br.com.bonnepet.data.api.HostApi
 import br.com.bonnepet.data.model.EditHostDTO
 import br.com.bonnepet.data.model.HostDTO
 import br.com.bonnepet.data.model.NewHostDTO
+import br.com.bonnepet.data.model.RateDTO
 import br.com.bonnepet.data.util.SchedulerProvider
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -34,5 +35,9 @@ class HostRepository {
 
     fun getAllHost(): Single<List<HostDTO>> {
         return hostApi.getAllHosts().compose(schedulerProvider.getSchedulersForSingle())
+    }
+
+    fun rateHost(rateDTO: RateDTO): Completable {
+        return hostApi.rateHost(rateDTO).compose(schedulerProvider.getSchedulersForCompletable())
     }
 }

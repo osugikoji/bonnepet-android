@@ -166,4 +166,18 @@
     <string name="invalid_date">Invalid date</string>
     <string name="invalid_phone">Invalid phone number</string>
 
+    <!-- Rate -->
+    <string name="excellent">Excellent</string>
+    <string name="good">Good</string>
+    <string name="regular">Regular</string>
+    <string name="bad">Bad</string>
+    <string name="very_bad">Very_bad</string>
+    <string name="send">Send</string>
+    <string name="feedback">Feedback</string>
+    <string name="rate_host">Rate the host</string>
+    <string name="new_host">New!</string>
+    <string name="rating">Rating</string>
+    <string name="ratings">Ratings</string>
+    <string name="see_all_ratings">See all ratings</string>
+
 </resources>
